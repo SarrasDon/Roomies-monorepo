@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32">
+  <defs>
+    <style>.a{fill:none;}.b{fill:#FFF;fill-rule:evenodd;}</style>
+  </defs>
+  <title>wizard_complete</title>
+  <rect class="a" width="32" height="32"/>
+  <path class="b" 
+    d="M30,16A14,14,0,1,1,16,2,14,14,0,0,1,30,16ZM13.148,25,26,12.146,22.974,9.121l-9.826,9.824L9.027,14.826,6,17.852Z"/>
+</svg>
