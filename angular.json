@@ -25,7 +25,7 @@
             "assets": [
               "apps/roomies/src/favicon.ico",
               "apps/roomies/src/assets",
-              "app/roomies/src/_redirects"
+              "apps/roomies/src/_redirects"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
