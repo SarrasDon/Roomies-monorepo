@@ -1,0 +1,61 @@
+<mat-card>
+  <mat-progress-bar
+    mode="indeterminate"
+    class="progress-bar"
+    [mode]="pending ? 'indeterminate' : 'determinate'"
+    [value]="100"
+  ></mat-progress-bar>
+  <mat-card-title>
+    Add new expense
+  </mat-card-title>
+  <mat-card-content>
+    <section class="create-expense-form">
+      <form [formGroup]="form">
+        <div class="flex-row">
+          <mat-radio-group
+            aria-labelledby="reasons-radio-group-label"
+            [formControl]="reason"
+          >
+            <mat-radio-button *ngFor="let reason of reasons" [value]="reason">{{
+              reason.reason
+            }}</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div class="flex-row">
+          <mat-form-field class="amount" appearance="outline">
+            <input
+              matInput
+              placeholder="Amount"
+              type="number"
+              min="0"
+              [formControl]="amount"
+            />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <input
+              matInput
+              [matDatepicker]="picker1"
+              placeholder="Date"
+              [formControl]="date"
+              [max]="maxDate"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker1"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </form>
+    </section>
+  </mat-card-content>
+  <mat-card-actions>
+    <div class="flex-row">
+      <button mat-flat-button (click)="onReset()">Reset</button>
+      <button mat-raised-button color="primary" (click)="onSubmit()">
+        Add
+      </button>
+    </div>
+  </mat-card-actions>
+</mat-card>

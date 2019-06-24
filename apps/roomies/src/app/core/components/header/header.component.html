@@ -1,0 +1,19 @@
+<mat-toolbar color="primary" style="justify-content: center">
+  <div style="margin-right:auto">Roomies</div>
+  <div *ngIf="isLoggedIn" style="font-size: 20pt !important">
+    Cozy Place
+  </div>
+  <div
+    style="margin-left:auto;cursor: pointer;"
+    [style.visibility]="isLoggedIn ? 'visible' : 'hidden'"
+  >
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="user menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="onLogout()">
+        <span>Log out</span>
+      </button>
+    </mat-menu>
+  </div>
+</mat-toolbar>

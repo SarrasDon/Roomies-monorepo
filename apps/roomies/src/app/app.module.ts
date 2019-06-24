@@ -1,12 +1,36 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule} from '@angular/common/http'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+import { environment } from '../environments/environment';
 
+import { NgxsModule } from '@ngxs/store';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+
+import { SharedModule } from './shared/shared.module';
+import { AppRoutingModule } from './app-routing.module';
+import { AuthModule } from './auth/auth.module';
+
+import { CoreModule } from './core/core.module';
 import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    SharedModule,
+    AuthModule,
+    CoreModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    NgxsModule.forRoot([], {
+      developmentMode: !environment.production
+    }),
+    NgxsReduxDevtoolsPluginModule.forRoot({
+      disabled: environment.production
+    })
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,10 @@
+<mat-card>
+  <mat-card-title>
+    {{ myBalance }}
+  </mat-card-title>
+  <mat-list>
+    <mat-list-item *ngFor="let total of totals">
+      {{ total.user.name }}: {{ total.total }}
+    </mat-list-item>
+  </mat-list>
+</mat-card>

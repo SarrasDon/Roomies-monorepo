@@ -1,0 +1,47 @@
+<section class="auth-container">
+  <mat-card class="auth-card">
+    <form [formGroup]="form" class="flex-column auth-form">
+      <mat-card-title>Roomies</mat-card-title>
+      <section class="email-input-container">
+        <mat-form-field>
+          <input matInput placeholder="Email" formControlName="email" />
+          <mat-error
+            *ngIf="email.hasError('email') && !email.hasError('required')"
+          >
+            *Please enter a valid email address!
+          </mat-error>
+          <mat-error *ngIf="email.hasError('required')">
+            Email is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </section>
+      <section>
+        <mat-form-field>
+          <input
+            matInput
+            placeholder="Password"
+            formControlName="password"
+            type="password"
+          />
+          <mat-error *ngIf="password.hasError('required')">
+            Password is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </section>
+      <mat-error style="font-size:13px; margin-top:15px" *ngIf="errorMsg">{{
+        errorMsg
+      }}</mat-error>
+      <div class="auth-actions">
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          (click)="onSignIn()"
+        >
+          Sign In
+        </button>
+        <button mat-button color="primary" (click)="onSignUp()">Sign Up</button>
+      </div>
+    </form>
+  </mat-card>
+</section>

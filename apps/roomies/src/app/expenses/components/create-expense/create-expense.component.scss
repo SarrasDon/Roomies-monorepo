@@ -1,0 +1,37 @@
+$space: 20px;
+.progress-bar {
+  width: unset;
+  top: -16px;
+  margin-left: -16px;
+  margin-right: -16px;
+  border-radius: 3px 3px 0 0;
+}
+.mat-radio-button {
+  padding-right: $space;
+}
+mat-card-header {
+  justify-content: stretch;
+}
+.create-expense-form {
+  form {
+    div {
+      width: 100%;
+      padding-top: 30px;
+      justify-content: stretch;
+
+      mat-form-field {
+        padding-right: $space;
+
+        &.amount {
+          width: 20%;
+        }
+      }
+    }
+  }
+}
+
+mat-card-actions {
+  div {
+    justify-content: flex-end;
+  }
+}

@@ -1,0 +1,16 @@
+<section class="expenses-list-content">
+  <ul class="expenses-list">
+    <cdk-virtual-scroll-viewport
+      [style.height]="VIRTUAL_SCROLL_HEIGHT"
+      [itemSize]="itemSize"
+      (scrolledIndexChange)="onScrolledIndexChange($event)"
+    >
+      <ng-container
+        *cdkVirtualFor="let expense of expenses"
+        (cdkVirtualForTrackBy)="(trackByFn)"
+      >
+        <roomies-expense-item [expense]="expense"></roomies-expense-item>
+      </ng-container>
+    </cdk-virtual-scroll-viewport>
+  </ul>
+</section>

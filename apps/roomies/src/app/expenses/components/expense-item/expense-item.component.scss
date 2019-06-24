@@ -1,0 +1,39 @@
+.expense-card {
+  padding: 10px 15px;
+  margin: 3px 3px;
+}
+.expense-card-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .expense-img {
+    width: 30px;
+    height: 30px;
+    outline-color: #fff;
+    outline-width: 0px;
+    margin-left: 0;
+  }
+
+  .expense-details-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-left: 15px;
+    font-size: 15px;
+
+    .expense-details-title {
+    }
+
+    .expense-details-subtitle {
+      margin-bottom: 0;
+      color: rgba(10, 7, 7, 0.5);
+    }
+  }
+
+  .expense-amount {
+    align-self: center;
+    margin-left: auto;
+    font-size: 20px;
+  }
+}

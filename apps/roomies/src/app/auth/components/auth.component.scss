@@ -1,0 +1,36 @@
+.auth-container {
+  height: calc(100% - 65px);
+  width: 100%;
+}
+
+.auth-card {
+  width: 25vw;
+  height: 50vh;
+  margin: auto;
+  top: 50%;
+  position: relative;
+  transform: translateY(-50%);
+}
+
+.auth-form {
+  width: 100%;
+  align-items: center;
+  height: 100%;
+
+  mat-card-title {
+    text-align: center;
+  }
+
+  section {
+    padding: 15px;
+
+    mat-form-field {
+      display: block;
+      width: 250px;
+    }
+  }
+}
+
+.auth-actions {
+  margin-top: auto;
+}
