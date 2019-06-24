@@ -14,7 +14,7 @@ async function bootstrap() {
   app.enableCors();
   const port = process.env.port || 3333;
   await app.listen(port, () => {
-    console.log('Listening at http://localhost:' + port + '/' + globalPrefix);
+    console.log('Listening at ' + port + '/' + globalPrefix);
   });
 }
 
