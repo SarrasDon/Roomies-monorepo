@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AppService } from './app.service';
 
 @Component({
   selector: 'roomies-root',
@@ -6,5 +7,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  data$ = this.service.getData();
+ 
   title = 'roomies';
+
+  /**
+   *
+   */
+  constructor(private service: AppService) {
+    
+  }
 }
