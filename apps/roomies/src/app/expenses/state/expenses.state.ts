@@ -71,7 +71,7 @@ export class ExpensesState {
 
   @Selector()
   static totals(state: ExpensesStateModel) {
-    return state.totals;
+    return state.totals.map(t => ({ name: t.user.name, value: t.total }));
   }
 
   @Selector()
@@ -80,8 +80,18 @@ export class ExpensesState {
   }
 
   @Selector()
-  static balance(state: ExpensesStateModel) {
-    return state.balance;
+  static balance(
+    state: ExpensesStateModel
+  ): { amount: number; sign: 'positive' | 'negative' | 'balanced' } {
+    return {
+      amount: Math.abs(state.balance),
+      sign:
+        state.balance > 0
+          ? 'positive'
+          : state.balance < 0
+          ? 'negative'
+          : 'balanced'
+    };
   }
 
   @Selector()
@@ -172,13 +182,12 @@ export class ExpensesState {
     if (!user) {
       return;
     }
-    return this.expensesService
-      .getTotals()
-      .pipe(
-        tap(totals =>
-          ctx.patchState({ totals, balance: calcBalance(totals, user) })
-        )
-      );
+    return this.expensesService.getTotals().pipe(
+      map(totals => totals.sort((a, b) => (a.user._id === user._id ? -1 : 1))),
+      tap(totals =>
+        ctx.patchState({ totals, balance: calcBalance(totals, user) })
+      )
+    );
   }
 }
 
@@ -193,7 +202,7 @@ const calcBalance = (totals: Total[], user: User) => {
   const sum = calcTotal(totals);
   const userTotal = (totals.find(t => t.user._id === user._id) || { total: 0 })
     .total;
-  return +(sum / count - userTotal).toFixed(2);
+  return sum / count - userTotal;
 };
 
 const incrementUserTotal = (

@@ -43,27 +43,13 @@ export class AuthComponent implements OnInit, OnDestroy {
     });
   }
 
-  onSignIn() {
+  onSubmit() {
     if (!this.form.dirty || !this.form.valid) {
       return;
     }
     const { email, password } = this.form.value;
     this.store
       .dispatch(new Login(email, password))
-      .pipe(takeUntil(this.unSubscribe))
-      .subscribe(
-        () => this.handleLoginSuccess(),
-        error => this.handleLoginFail(error)
-      );
-  }
-
-  onSignUp() {
-    if (!this.form.dirty || !this.form.valid) {
-      return;
-    }
-    const { email, password } = this.form.value;
-    this.store
-      .dispatch(new SignUp(email, password))
       .pipe(takeUntil(this.unSubscribe))
       .subscribe(
         () => this.handleLoginSuccess(),

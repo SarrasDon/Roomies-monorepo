@@ -9,6 +9,7 @@ import * as pipes from './pipes';
 import { ExpensesService } from './services';
 import { States } from './state/module.state';
 import { ExpensesViewComponent } from './views/expenses.view';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ExpensesViewComponent } from './views/expenses.view';
         component: ExpensesViewComponent
       }
     ]),
-    NgxsModule.forFeature(States)
+    NgxsModule.forFeature(States),
+    NgxChartsModule
   ],
   providers: [ExpensesService]
 })

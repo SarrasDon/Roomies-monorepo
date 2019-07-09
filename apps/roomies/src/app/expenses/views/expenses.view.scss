@@ -1,64 +1,33 @@
 .view-container {
+  width: 100%;
   display: flex;
   flex-direction: column;
-
-  .view-child {
-    padding: 5px;
-  }
+  align-items: center;
   .totals-wrapper {
+    width: 100%;
+
     div {
       padding: 2.5px 0;
     }
   }
   .expenses-list {
+    width: 100%;
   }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
   .view-container {
-    width: 100%;
-
     .totals-wrapper {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
+      width: 80%;
 
       div {
-        padding: 5px;
-        width: 45%;
-      }
-    }
-
-    .expenses-list {
-      width: 50%;
-      max-width: 400px;
-      align-self: center;
-    }
-  }
-}
-
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
-  .view-container {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-
-    .totals-wrapper {
-      width: 50%;
-      flex-direction: column;
-      align-items: flex-end;
-
-      div {
-        padding: 2.5px 0;
-        width: 80%;
+        padding: 10px 0;
       }
     }
 
     .expenses-list {
       width: 80%;
-      align-self: flex-start;
     }
   }
 }
@@ -67,39 +36,34 @@
 @media only screen and (min-width: 992px) {
   .view-container {
     .totals-wrapper {
-      width: 50%;
-      flex-direction: column;
-      align-items: flex-end;
-
-      div {
-        padding: 2.5px 0;
-        width: 65%;
-      }
+      width: 65%;
     }
+
     .expenses-list {
       width: 65%;
-      align-self: flex-start;
     }
   }
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: 1150px) {
   .view-container {
     .totals-wrapper {
       width: 50%;
-      flex-direction: column;
-      align-items: flex-end;
-
-      div {
-        padding: 2.5px 0;
-        width: 40%;
-      }
     }
     .expenses-list {
       width: 50%;
-      align-self: flex-start;
-      max-width: 500px;
+    }
+  }
+}
+
+@media only screen and (min-width: 1300px) {
+  .view-container {
+    .totals-wrapper {
+      width: 40%;
+    }
+    .expenses-list {
+      width: 40%;
     }
   }
 }

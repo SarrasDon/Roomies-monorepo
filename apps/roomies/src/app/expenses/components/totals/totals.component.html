@@ -1,4 +1,4 @@
-<mat-card>
+<!-- <mat-card>
   <mat-card-title>
     {{ myBalance }}
   </mat-card-title>
@@ -7,4 +7,28 @@
       {{ total.user.name }}: {{ total.total }}
     </mat-list-item>
   </mat-list>
+</mat-card> -->
+<mat-card>
+  <div style="display: flex; flex-direction: row; height: 100px;">
+    <div style="min-height: 100px; width:80%">
+      <ngx-charts-bar-horizontal
+        [scheme]="colorScheme"
+        [results]="totals"
+        [gradient]="true"
+        [xAxis]="false"
+        [yAxis]="true"
+        [legend]="false"
+        [showGridLines]="false"
+        [showDataLabel]="true"
+        (select)="onSelect($event)"
+      >
+      </ngx-charts-bar-horizontal>
+    </div>
+    <div
+      style="line-height: 100px; width: 20%; height:100px; text-align: center; font-size: 35px; font-weight: bold"
+      [style.color]="balanceColor"
+    >
+      {{ myBalance?.amount | number: '1.0-2' }}
+    </div>
+  </div>
 </mat-card>

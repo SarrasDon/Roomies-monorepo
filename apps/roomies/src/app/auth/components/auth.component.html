@@ -1,6 +1,10 @@
-<section class="auth-container">
+<div class="auth-container">
   <mat-card class="auth-card">
-    <form [formGroup]="form" class="flex-column auth-form">
+    <form
+      [formGroup]="form"
+      (ngSubmit)="onSubmit()"
+      class="flex-column auth-form"
+    >
       <mat-card-title>Roomies</mat-card-title>
       <section class="email-input-container">
         <mat-form-field>
@@ -31,17 +35,12 @@
       <mat-error style="font-size:13px; margin-top:15px" *ngIf="errorMsg">{{
         errorMsg
       }}</mat-error>
-      <div class="auth-actions">
-        <button
-          mat-raised-button
-          color="primary"
-          type="submit"
-          (click)="onSignIn()"
-        >
+      <mat-card-actions>
+        <button mat-raised-button color="primary" type="submit">
+          <!-- (click)="onSignIn()" -->
           Sign In
         </button>
-        <button mat-button color="primary" (click)="onSignUp()">Sign Up</button>
-      </div>
+      </mat-card-actions>
     </form>
   </mat-card>
-</section>
+</div>

@@ -16,6 +16,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [],
@@ -36,7 +37,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatNativeDateModule,
     MatDividerModule,
     MatSnackBarModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatTooltipModule
   ],
   exports: [
     MatTabsModule,
@@ -55,7 +57,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatNativeDateModule,
     MatDividerModule,
     MatSnackBarModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatTooltipModule
   ],
   providers: [MatDatepickerModule]
 })
