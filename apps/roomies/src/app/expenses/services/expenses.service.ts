@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { API_URL } from '../../../app/constants';
 import { ExpenseReason, Expense, Total } from '../../shared/models';
+import { environment } from 'apps/roomies/src/environments/environment';
 
 @Injectable()
 export class ExpensesService {
@@ -12,7 +12,7 @@ export class ExpensesService {
   };
 
   private readonly feature_url = 'expenses';
-  private readonly base_url = `${API_URL}${this.feature_url}`;
+  private readonly base_url = `${environment.API_URL}${this.feature_url}`;
 
   constructor(private http: HttpClient) {}
 

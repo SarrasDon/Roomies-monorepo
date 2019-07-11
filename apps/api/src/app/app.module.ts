@@ -1,13 +1,15 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
-import { MONGODB_CON_STRING_DEV, MONGODB_CON_STRING_PROD } from '../constants';
 import { UsersModule } from './users/users.module';
 import { ExpensesModule } from './expenses/expenses.module';
+import { environment } from '../environments/environment';
+
+const connectionString = environment.mongoDBstring;
 
 @Module({
   imports: [
-    MongooseModule.forRoot(MONGODB_CON_STRING_DEV, { useNewUrlParser: true }),
+    MongooseModule.forRoot(connectionString, { useNewUrlParser: true }),
     UsersModule,
     ExpensesModule
   ],
