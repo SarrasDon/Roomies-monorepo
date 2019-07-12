@@ -1,21 +1,16 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import {
+  ChangeDetectionStrategy,
   Component,
   OnDestroy,
-  OnInit,
-  ChangeDetectionStrategy
+  OnInit
 } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Login, SignUp } from '../state/auth.actions';
+import { Login } from '../state/auth.actions';
 
 @Component({
   selector: 'roomies-auth',
