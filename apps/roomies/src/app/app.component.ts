@@ -1,7 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Select, Store, Actions, ofActionDispatched } from '@ngxs/store';
-import { Observable } from 'rxjs';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Actions, ofActionDispatched, Select, Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
 import { Logout } from './auth/state/auth.actions';
 import { AuthState } from './auth/state/auth.state';
 
@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
     });
   }
 
-  onUserLoggetOut($event) {
+  onUserLoggedOut($event) {
     this.store.dispatch(new Logout());
   }
 }
