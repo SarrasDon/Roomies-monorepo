@@ -12,9 +12,9 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
+import { SnackbarService } from '../../../core/services';
 import '../../../shared/extensions/date.extensions';
 import { ExpenseReason } from '../../../shared/models/expenseReason.model';
-import { SnackbarService } from '../../../core/services';
 
 @Component({
   selector: 'roomies-create-expense',
@@ -45,8 +45,6 @@ export class CreateExpenseComponent implements OnInit {
       amount: this.amount,
       date: this.date
     });
-
-    // this.form.valueChanges.subscribe(res => console.log(res));
   }
 
   /** Helper to get type safety/intellisense. */
