@@ -39,6 +39,6 @@ export class ExpensesActionsComponent {
       .open(CreateExpenseDialogComponent, config)
       .afterClosed()
       .pipe(filter(res => res !== undefined && res !== null))
-      .subscribe(this.formSubmitted);
+      .subscribe(res => this.formSubmitted.emit(res));
   }
 }
