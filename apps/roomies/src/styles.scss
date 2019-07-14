@@ -33,6 +33,14 @@ body {
   padding: 0 !important;
 }
 
+.mat-dialog-title {
+  font-weight: bold;
+}
+
 .mat-tooltip {
   font-size: 14px;
+}
+
+.create-expense-dialog {
+  max-width: 95vw !important;
 }
