@@ -17,6 +17,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [],
@@ -38,7 +39,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatDividerModule,
     MatSnackBarModule,
     MatProgressBarModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatDialogModule
   ],
   exports: [
     MatTabsModule,
@@ -58,7 +60,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatDividerModule,
     MatSnackBarModule,
     MatProgressBarModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatDialogModule
   ],
   providers: [MatDatepickerModule]
 })

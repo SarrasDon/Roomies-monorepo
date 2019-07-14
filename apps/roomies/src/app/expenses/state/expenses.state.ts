@@ -27,7 +27,6 @@ export interface ExpensesStateModel {
   sorted: boolean;
   totals: Total[];
   balance: number;
-  pendingSave: boolean;
 }
 
 @State<ExpensesStateModel>({
@@ -38,8 +37,7 @@ export interface ExpensesStateModel {
     sorted: true,
     reasons: [],
     totals: [],
-    balance: 0,
-    pendingSave: false
+    balance: 0
   }
 })
 export class ExpensesState {
@@ -94,11 +92,6 @@ export class ExpensesState {
     };
   }
 
-  @Selector()
-  static pendingSave(state: ExpensesStateModel) {
-    return state.pendingSave;
-  }
-
   constructor(
     private store: Store,
     private expensesService: ExpensesService,
@@ -144,7 +137,6 @@ export class ExpensesState {
     if (!user) {
       return;
     }
-    ctx.patchState({ pendingSave: true });
     return this.expensesService
       .createExpense(reason._id, amount, date, user._id)
       .pipe(
@@ -158,19 +150,16 @@ export class ExpensesState {
           () => this.snackbarService.success('Record added!'),
           () => this.snackbarService.fail('Something went wrong.')
         ),
-        tap(
-          ({ exp, totals }) =>
-            ctx.patchState({
-              pendingSave: false,
-              sorted: false,
-              expenseDictionary: {
-                ...ctx.getState().expenseDictionary,
-                ...exp
-              },
-              totals,
-              balance: calcBalance(totals, user)
-            }),
-          () => ctx.patchState({ pendingSave: false })
+        tap(({ exp, totals }) =>
+          ctx.patchState({
+            sorted: false,
+            expenseDictionary: {
+              ...ctx.getState().expenseDictionary,
+              ...exp
+            },
+            totals,
+            balance: calcBalance(totals, user)
+          })
         )
       );
   }

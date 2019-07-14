@@ -1,0 +1,36 @@
+$space: 20px;
+.progress-bar {
+  width: unset;
+  top: -24px;
+  margin-left: -24px;
+  margin-right: -24px;
+  border-radius: 3px 3px 0 0;
+}
+.mat-radio-button {
+  padding-right: $space;
+}
+
+.create-expense-form {
+  form {
+    margin-top: 15px;
+    div {
+      width: 100%;
+    }
+  }
+}
+
+.reason {
+  padding: 5px 0;
+}
+
+.label {
+  margin-top: 10px;
+  padding-bottom: 10px;
+  font-style: italic;
+  color: #94a3b0;
+}
+
+.form-actions-wrapper {
+  justify-content: flex-end;
+  width: 100%;
+}

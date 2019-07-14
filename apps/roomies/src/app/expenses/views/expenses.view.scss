@@ -5,6 +5,7 @@
   align-items: center;
   .totals-wrapper {
     width: 100%;
+    position: relative;
 
     div {
       padding: 2.5px 0;
@@ -15,13 +16,20 @@
   }
 }
 
+.create-expense {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  z-index: 1;
+}
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
   .view-container {
     .totals-wrapper {
       width: 80%;
 
-      div {
+      div :not(.create-expense) {
         padding: 10px 0;
       }
     }
