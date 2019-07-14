@@ -43,4 +43,7 @@ body {
 
 .create-expense-dialog {
   max-width: 95vw !important;
+  .mat-dialog-container {
+    border-top: 4px solid #3f51b5;
+  }
 }
