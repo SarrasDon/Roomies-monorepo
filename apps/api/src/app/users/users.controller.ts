@@ -1,7 +1,7 @@
 import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
-import { UsersService } from './services';
 import { CreateUserValidPipe } from './pipes';
 import { CreateUserResource } from './resources';
+import { UsersService } from './services';
 
 @Controller('users')
 export class UsersController {
@@ -9,7 +9,7 @@ export class UsersController {
 
   @Post()
   public async create(
-    @Body(new CreateUserValidPipe()) createUserResource: CreateUserResource,
+    @Body(new CreateUserValidPipe()) createUserResource: CreateUserResource
   ) {
     const user = await this.usersService.create(createUserResource);
     if (!user) throw new BadRequestException('User not created');
