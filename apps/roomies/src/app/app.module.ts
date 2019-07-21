@@ -1,21 +1,18 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-import { environment } from '../environments/environment';
-
-import { NgxsModule } from '@ngxs/store';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CloudinaryModule } from '@cloudinary/angular-5.x';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
-
-import { SharedModule } from './shared/shared.module';
+import { NgxsModule } from '@ngxs/store';
+import * as Cloudinary from 'cloudinary-core';
+import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
-import { AuthModule } from './auth/auth.module';
-
-import { CoreModule } from './core/core.module';
 import { AppComponent } from './app.component';
-import {CloudinaryModule} from '@cloudinary/angular-5.x'
-import * as Cloudinary from 'cloudinary-core'
- 
+import { AuthModule } from './auth/auth.module';
+import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -32,7 +29,7 @@ import * as Cloudinary from 'cloudinary-core'
     NgxsReduxDevtoolsPluginModule.forRoot({
       disabled: environment.production
     }),
-  CloudinaryModule.forRoot(Cloudinary, {cloud_name: 'donatos'})
+    CloudinaryModule.forRoot(Cloudinary, { cloud_name: 'donatos' })
   ],
   providers: [],
   bootstrap: [AppComponent]

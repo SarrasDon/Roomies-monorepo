@@ -1,22 +1,29 @@
 import {
+  ChangeDetectionStrategy,
   Component,
-  OnInit,
-  Input,
-  Output,
   EventEmitter,
-  ChangeDetectionStrategy
+  Input,
+  OnInit,
+  Output
 } from '@angular/core';
 
 @Component({
   selector: 'roomies-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css'],
+  styleUrls: ['./header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent implements OnInit {
-  @Input() isLoggedIn = false;
-  @Output() userLoggedOut = new EventEmitter();
   constructor() {}
+  @Input() isLoggedIn = false;
+  @Input() avatar = null;
+  @Input() userName = null;
+  @Output() userLoggedOut = new EventEmitter();
+  @Output() uploadImgStarted = new EventEmitter();
+
+  onUploadImg() {
+    this.uploadImgStarted.next();
+  }
 
   ngOnInit() {}
 

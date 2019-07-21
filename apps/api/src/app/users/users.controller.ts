@@ -22,4 +22,12 @@ export class UsersController {
     if (!user) throw new BadRequestException('User not found');
     return user;
   }
+
+  @Post('updateAvatar')
+  public async updateAvatar(@Body() { _id, avatarUrl }) {
+    const update = await this.usersService.updateAvatar(_id, avatarUrl);
+
+    if (!update) throw new BadRequestException('Avatar not updated');
+    return update;
+  }
 }

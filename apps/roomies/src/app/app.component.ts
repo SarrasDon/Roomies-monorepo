@@ -25,8 +25,4 @@ export class AppComponent implements OnInit {
       this.router.navigate(['/auth']);
     });
   }
-
-  onUserLoggedOut($event) {
-    this.store.dispatch(new Logout());
-  }
 }

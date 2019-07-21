@@ -1,0 +1,27 @@
+.avatar-wrapper {
+  display: inline-block;
+  vertical-align: middle;
+  background: white;
+  border-radius: 50%;
+  outline: none;
+  cursor: pointer;
+
+  .avatar-img {
+    width: 40px;
+    height: 40px;
+    vertical-align: bottom;
+    line-height: 40px;
+  }
+}
+.avatar-text {
+  display: inline-block;
+  padding: 0 20px;
+  font-size: 14px;
+  display: none;
+}
+
+@media only screen and (min-width: 600px) {
+  .avatar-text {
+    display: inline-block;
+  }
+}
