@@ -15,7 +15,7 @@ import { CloudinaryService } from '../../services/cloudinary.service';
       [avatar]="avatar$ | async"
       [userName]="userName$ | async"
       (userLoggedOut)="onUserLoggedOut($event)"
-      (uploadImgStarted)="onUploadImgStarted($event)"
+      (uploadImgStarted)="onUploadImgStarted()"
     ></roomies-header>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
