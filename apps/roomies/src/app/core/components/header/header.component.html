@@ -1,12 +1,32 @@
-<mat-toolbar color="primary" style="justify-content: center">
+<mat-toolbar color="primary" style="justify-content: space-between">
   <div style="margin-right:auto">Roomies</div>
   <div *ngIf="isLoggedIn" style="font-size: 20pt !important">
     Cozy Place
   </div>
   <div
-    style="margin-left:auto;cursor: pointer;"
+    style="margin-left:auto;"
     [style.visibility]="isLoggedIn ? 'visible' : 'hidden'"
   >
+    <div style="display: inline-block">
+      <div
+        style="display: inline-block"
+        (click)="onUploadImg()"
+        *ngIf="avatar"
+        class="avatar-wrapper"
+        matTooltip="Update photo"
+      >
+        <div
+          *ngIf="!avatar.default; else default"
+          [innerHtml]="avatar.content"
+          class="avatar-img"
+        ></div>
+        <ng-template #default>
+          <img class="avatar-img" [src]="avatar.content" />
+        </ng-template>
+      </div>
+
+      <div class="avatar-text">Welcome {{ userName }}</div>
+    </div>
     <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="user menu">
       <mat-icon>menu</mat-icon>
     </button>

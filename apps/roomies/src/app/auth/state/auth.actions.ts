@@ -19,3 +19,8 @@ export class Logout {
   static readonly type = '[Auth] Logout';
   constructor() {}
 }
+
+export class UpdateUserAvatar {
+  static readonly type = '[Header] Update Avatar';
+  constructor(public avatarUrl: string) {}
+}
