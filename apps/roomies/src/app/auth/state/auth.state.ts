@@ -1,8 +1,8 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
+import { AuthService } from '../../auth/auth.service';
 import { User } from '../../shared/models/user.model';
 import * as AuthActions from './auth.actions';
-import { AuthService } from '../../auth/auth.service';
 
 export interface AuthStateMode {
   currentUser: User | null;
@@ -60,6 +60,20 @@ export class AuthState {
     return this.authService.signUp(email, password).pipe(
       tap(user => {
         ctx.patchState({ currentUser: user });
+        localStorage.setItem('user', JSON.stringify(user));
+      })
+    );
+  }
+
+  @Action(AuthActions.UpdateUserAvatar)
+  updateAvatar(
+    ctx: StateContext<AuthStateMode>,
+    { avatarUrl }: AuthActions.UpdateUserAvatar
+  ) {
+    const user = ctx.getState().currentUser;
+    return this.authService.updateAvatar(user._id, avatarUrl).pipe(
+      tap(() => {
+        ctx.patchState({ currentUser: { ...user, avatarUrl } });
         localStorage.setItem('user', JSON.stringify(user));
       })
     );

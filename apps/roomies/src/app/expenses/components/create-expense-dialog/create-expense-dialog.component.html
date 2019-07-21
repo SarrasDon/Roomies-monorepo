@@ -1,0 +1,76 @@
+<div mat-dialog-title>
+  Did you pay anything?
+</div>
+<div mat-dialog-content>
+  <section class="create-expense-form">
+    <form [formGroup]="form" autocomplete="off">
+      <div class="flex-row label">Pick expense reason</div>
+      <div style="margin-bottom:20px">
+        <mat-radio-group
+          aria-labelledby="reasons-radio-group-label"
+          [formControl]="reason"
+        >
+          <div *ngFor="let reason of data.reasons" class="reason">
+            <mat-radio-button [value]="reason">
+              {{ reason.reason }}
+            </mat-radio-button>
+          </div>
+          <mat-error style="font-size: 12px" *ngIf="showError('reason')">{{
+            controlErrors('reason')
+          }}</mat-error>
+        </mat-radio-group>
+      </div>
+      <div class="flex-row label">How much did you spent?</div>
+      <div class="flex-row">
+        <mat-form-field class="amount" appearance="outline">
+          <input
+            matInput
+            placeholder="Amount"
+            type="number"
+            min="0"
+            [formControl]="amount"
+          />
+          <mat-error *ngIf="showError('amount')">{{
+            controlErrors('amount')
+          }}</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="flex-row label">When was that?</div>
+      <div class="flex-row">
+        <mat-form-field appearance="outline">
+          <input
+            matInput
+            [matDatepicker]="picker1"
+            placeholder="Date"
+            [formControl]="date"
+            [max]="maxDate"
+          />
+
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker1"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+          <mat-error *ngIf="showError('date')">{{
+            controlErrors('date')
+          }}</mat-error>
+        </mat-form-field>
+      </div>
+    </form>
+  </section>
+</div>
+<div mat-dialog-actions>
+  <div class="flex-row form-actions-wrapper">
+    <button mat-flat-button (click)="form.reset()">
+      Reset
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="onSubmit()"
+      [disabled]="form.invalid"
+    >
+      Add
+    </button>
+  </div>
+</div>

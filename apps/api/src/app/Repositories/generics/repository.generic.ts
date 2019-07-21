@@ -29,4 +29,8 @@ export class Repository<K extends Document> implements IRepository<K> {
   deleteAll(): Query<any> {
     return this.model.deleteMany({});
   }
+
+  updateOne(_id: string, update: Partial<K>): Query<any> {
+    return this.model.updateOne({ _id }, { $set: update });
+  }
 }
