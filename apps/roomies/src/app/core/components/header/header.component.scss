@@ -20,6 +20,21 @@
   display: none;
 }
 
+.header-middle {
+  font-size: 20pt !important;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.header-right {
+  margin-left: auto;
+
+  div {
+    display: inline-block;
+  }
+}
+
 @media only screen and (min-width: 600px) {
   .avatar-text {
     display: inline-block;

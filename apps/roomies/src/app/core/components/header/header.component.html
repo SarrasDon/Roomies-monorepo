@@ -1,15 +1,14 @@
-<mat-toolbar color="primary" style="justify-content: space-between">
-  <div style="margin-right:auto">Roomies</div>
-  <div *ngIf="isLoggedIn" style="font-size: 20pt !important">
+<mat-toolbar color="primary">
+  <div>Roomies</div>
+  <div *ngIf="isLoggedIn" class="header-middle">
     Cozy Place
   </div>
   <div
-    style="margin-left:auto;"
+    class="header-right"
     [style.visibility]="isLoggedIn ? 'visible' : 'hidden'"
   >
-    <div style="display: inline-block">
+    <div>
       <div
-        style="display: inline-block"
         (click)="onUploadImg()"
         *ngIf="avatar"
         class="avatar-wrapper"

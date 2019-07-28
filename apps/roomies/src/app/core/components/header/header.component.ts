@@ -14,18 +14,19 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent implements OnInit {
-  constructor() {}
   @Input() isLoggedIn = false;
   @Input() avatar = null;
   @Input() userName = null;
   @Output() userLoggedOut = new EventEmitter();
   @Output() uploadImgStarted = new EventEmitter();
 
+  constructor() {}
+
+  ngOnInit() {}
+
   onUploadImg() {
     this.uploadImgStarted.next();
   }
-
-  ngOnInit() {}
 
   onLogout() {
     this.userLoggedOut.next();
