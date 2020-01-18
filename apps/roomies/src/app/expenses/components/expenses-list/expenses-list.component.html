@@ -1,9 +1,8 @@
 <section class="expenses-list-content">
   <ul class="expenses-list">
     <cdk-virtual-scroll-viewport
-      [style.height]="VIRTUAL_SCROLL_HEIGHT"
+      [style.height.px]="listHeight"
       [itemSize]="itemSize"
-      (scrolledIndexChange)="onScrolledIndexChange($event)"
     >
       <ng-container
         *cdkVirtualFor="let expense of expenses"
