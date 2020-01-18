@@ -8,7 +8,7 @@ import {
 @Component({
   selector: 'roomies-totals',
   templateUrl: './totals.component.html',
-  styleUrls: ['./totals.component.css'],
+  styleUrls: ['./totals.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TotalsComponent implements OnInit {

@@ -20,7 +20,10 @@ export class TotalsContainerComponent implements OnInit {
   @Select(ExpensesState.totals) totals$: Observable<
     { name: string; value: number }[]
   >;
-  @Select(ExpensesState.balance) balance$: Observable<number>;
+  @Select(ExpensesState.balance) balance$: Observable<{
+    amount: number;
+    sign: 'positive' | 'negative' | 'balanced';
+  }>;
 
   constructor(private store: Store) {}
 
