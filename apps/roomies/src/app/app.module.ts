@@ -13,6 +13,7 @@ import { AuthModule } from './auth/auth.module';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { Cloudinary } from '@cloudinary/angular-5.x/src/cloudinary.service';
+import { LayoutModule } from '@angular/cdk/layout';
 
 export const cloudinaryLib = {
   Cloudinary: CloudinaryCore
@@ -34,7 +35,8 @@ export const cloudinaryLib = {
     NgxsReduxDevtoolsPluginModule.forRoot({
       disabled: environment.production
     }),
-    CloudinaryModule.forRoot(cloudinaryLib, { cloud_name: 'donatos' })
+    CloudinaryModule.forRoot(cloudinaryLib, { cloud_name: 'donatos' }),
+    LayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]
