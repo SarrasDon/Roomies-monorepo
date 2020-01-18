@@ -14,18 +14,15 @@
   }
 }
 .avatar-text {
-  display: inline-block;
   padding: 0 20px;
   font-size: 14px;
-  display: none;
 }
 
-.header-middle {
+header-middle {
   font-size: 20pt !important;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
 }
+
+
 
 .header-right {
   margin-left: auto;
@@ -33,10 +30,22 @@
   div {
     display: inline-block;
   }
+div.avatar-text {
+    display: none;
+  }
+ 
 }
 
 @media only screen and (min-width: 600px) {
-  .avatar-text {
+ .header-middle {
+  font-size: 20pt !important;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.header-right {
+   div.avatar-text {
     display: inline-block;
   }
+}
 }
