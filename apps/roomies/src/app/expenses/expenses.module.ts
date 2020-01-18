@@ -36,7 +36,7 @@ import { ExpensesViewComponent } from './views/expenses.view';
     NgxsModule.forFeature(States),
     NgxChartsModule
   ],
-  providers: [ExpensesService],
+
   entryComponents: [Components.CreateExpenseDialogComponent]
 })
 export class ExpensesModule {}

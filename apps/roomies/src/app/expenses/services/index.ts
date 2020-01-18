@@ -1,1 +1,1 @@
-export { ExpensesService } from './expenses.service';
+export * from './expenses.service';

@@ -20,9 +20,12 @@ export class TotalsContainerComponent implements OnInit {
   @Select(ExpensesState.totals) totals$: Observable<
     { name: string; value: number }[]
   >;
-  @Select(ExpensesState.balance) balance$: Observable<any>;
+  @Select(ExpensesState.balance) balance$: Observable<{
+    amount: number;
+    sign: 'positive' | 'negative' | 'balanced';
+  }>;
 
-  constructor(private store: Store) { }
+  constructor(private store: Store) {}
 
   ngOnInit() {
     this.store.dispatch(new GetTotals());

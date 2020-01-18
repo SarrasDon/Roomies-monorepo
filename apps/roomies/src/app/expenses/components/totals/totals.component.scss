@@ -1,0 +1,23 @@
+mat-card {
+  padding-left: 0;
+  z-index: 1;
+}
+
+.totals-wrapper {
+  justify-content: flex-end;
+}
+
+.totals-chart {
+  display: block;
+  width: 75%;
+  max-height: 6.25rem;
+}
+
+.amount-wrapper {
+  line-height: 6.25rem;
+  width: 25%;
+  height: 6.25rem;
+  text-align: right;
+  font-size: 1.8em;
+  font-weight: bold;
+}
