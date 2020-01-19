@@ -10,21 +10,35 @@ export class ExpensesRepo extends Repository<Expense> {
   constructor(
     @InjectModel('Expense')
     private readonly expenseModel: Model<Expense>,
-    private queryBuilder: ExpensesQueryBuilder,
+    private queryBuilder: ExpensesQueryBuilder
   ) {
     super(expenseModel);
   }
 
-  pagedFind(queryOptions: { id?: string; index: number; limit: number }) {
+  async pagedFind(queryOptions: { id?: string; index: number; limit: number }) {
     const { id, index, limit } = queryOptions;
+    const count = this.queryBuilder
+      .forUser(id)
+      .count()
+      .exec();
 
-    return this.queryBuilder
+    const paged = this.queryBuilder
       .forUser(id)
       .sortByDescDate()
       .paging(index, limit)
       .includeUserAndReason()
       .pluck()
-      .build();
+      .build()
+      .exec();
+    return await Promise.all([paged, count])
+      .then(res => {
+        const [expenses, count] = res;
+
+        return { expenses, count };
+      })
+      .catch(err => {
+        return { expenses: [], count: null };
+      });
   }
 
   getTotals() {
@@ -32,9 +46,9 @@ export class ExpensesRepo extends Repository<Expense> {
       {
         $group: {
           _id: '$person',
-          total: { $sum: '$amount' },
-        },
-      },
+          total: { $sum: '$amount' }
+        }
+      }
     ]);
   }
 }

@@ -1,27 +1,21 @@
-import {
-  Action,
-  Selector,
-  State,
-  StateContext,
-  Store,
-  UpdateState
-} from '@ngxs/store';
+import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
 import { map, tap } from 'rxjs/operators';
+import { AuthState } from '../../auth/state/auth.state';
+import { SnackbarService } from '../../core/services';
 import '../../shared/extensions/array.extensions';
 import { Dictionary } from '../../shared/interfaces/dictionary.interface';
+import { Expense, ExpenseReason, Total, User } from '../../shared/models';
 import { ExpensesService } from '../services';
 import {
-  GetExpenses,
-  GetExpenseReasons,
   CreateExpense,
+  GetExpenseReasons,
+  GetExpenses,
   GetTotals
 } from './expenses.actions';
-import { AuthState } from '../../auth/state/auth.state';
-import { Total, Expense, ExpenseReason, User } from '../../shared/models';
-import { SnackbarService } from '../../core/services';
 
 export interface ExpensesStateModel {
   expenseDictionary: Dictionary<Expense> | null;
+  count: number;
   selectedItem: Expense | null;
   reasons: ExpenseReason[];
   sorted: boolean;
@@ -33,6 +27,7 @@ export interface ExpensesStateModel {
   name: 'expenses',
   defaults: {
     expenseDictionary: null,
+    count: null,
     selectedItem: null,
     sorted: true,
     reasons: [],
@@ -60,6 +55,11 @@ export class ExpensesState {
     return state.sorted
       ? Object.values(state.expenseDictionary)
       : Object.values(state.expenseDictionary).sortBySpendDate();
+  }
+
+  @Selector()
+  public static currentCount({ expenseDictionary }: ExpensesStateModel) {
+    return Object.keys(expenseDictionary).length;
   }
 
   @Selector()
@@ -104,17 +104,24 @@ export class ExpensesState {
     { index, limit }: GetExpenses
   ) {
     const user = this.store.selectSnapshot(AuthState.currentUser);
-
     if (!user) {
       return;
     }
-    const { expenseDictionary } = ctx.getState();
+    const { expenseDictionary, count } = ctx.getState();
+    const currentCount = this.store.selectSnapshot(ExpensesState.currentCount);
+
+    if (count !== null && currentCount >= count) {
+      return;
+    }
 
     return this.expensesService.getExpenses(index, limit).pipe(
-      map(expenses => expenses.toDictionary()),
-      tap(dict =>
+      tap(({ expenses, count }) =>
         ctx.patchState({
-          expenseDictionary: { ...expenseDictionary, ...dict }
+          expenseDictionary: {
+            ...expenseDictionary,
+            ...expenses.toDictionary()
+          },
+          count
         })
       )
     );

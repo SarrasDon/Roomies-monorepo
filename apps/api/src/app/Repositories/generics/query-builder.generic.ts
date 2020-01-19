@@ -5,7 +5,7 @@ import {
   SelectBuilder,
   PopulateBuilder,
   ConditionalBuilder,
-  BaseBuilder,
+  BaseBuilder
 } from '../query-builders';
 
 export class QueryBuilder<T extends Document>
@@ -53,5 +53,9 @@ export class QueryBuilder<T extends Document>
       ? this._model.find()
       : this._model.where(key.toString(), value).find();
     return this;
+  }
+
+  count() {
+    return this.query.countDocuments();
   }
 }
