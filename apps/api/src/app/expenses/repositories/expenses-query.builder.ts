@@ -8,7 +8,7 @@ import { Expense, ExpenseReason, User } from '../../Models';
 export class ExpensesQueryBuilder extends QueryBuilder<Expense> {
   constructor(
     @InjectModel('Expense')
-    private readonly model: Model<Expense>,
+    private readonly model: Model<Expense>
   ) {
     super(model);
   }
@@ -24,7 +24,7 @@ export class ExpensesQueryBuilder extends QueryBuilder<Expense> {
   includeUserAndReason() {
     return this.populate<User>('person', 'name').populate<ExpenseReason>(
       'reason',
-      'reason',
+      'reason'
     );
   }
 

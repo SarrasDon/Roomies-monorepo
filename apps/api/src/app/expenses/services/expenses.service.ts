@@ -10,14 +10,14 @@ export class ExpensesService {
   constructor(
     private expensesRepo: ExpensesRepo,
     private reasonsRepo: ExpenseReasonsRepo,
-    private usersRepo: UsersRepo,
+    private usersRepo: UsersRepo
   ) {}
 
   async createExpense(resource: CreateExpenseResource): Promise<Expense> {
     return this.expensesRepo
       .create({
         ...resource,
-        amount: +resource.amount,
+        amount: +resource.amount
       })
       .save();
   }
@@ -26,8 +26,8 @@ export class ExpensesService {
     id?: string;
     index: number;
     limit: number;
-  }): Promise<Expense[]> {
-    return this.expensesRepo.pagedFind(queryOptions).exec();
+  }): Promise<{ expenses: Expense[]; count: number }> {
+    return await this.expensesRepo.pagedFind(queryOptions);
   }
 
   async deleteAll() {
@@ -45,14 +45,14 @@ export class ExpensesService {
     return totals.map(({ total, _id }) => ({
       total,
       user: users.find(u => u._id.toString() === _id.toString()),
-      count: users.length,
+      count: users.length
     }));
   }
 
   async createReason(reason: { category: ExpenseCategory; reason: string }) {
     return this.reasonsRepo
       .create({
-        ...reason,
+        ...reason
       })
       .save();
   }
