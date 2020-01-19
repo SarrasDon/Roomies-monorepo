@@ -7,7 +7,6 @@ import { SharedModule } from '../shared/shared.module';
 import * as Components from './components';
 import * as Containers from './containers';
 import * as pipes from './pipes';
-import { ExpensesService } from './services';
 import { States } from './state/module.state';
 import { ExpensesViewComponent } from './views/expenses.view';
 

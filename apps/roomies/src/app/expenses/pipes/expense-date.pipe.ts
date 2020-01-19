@@ -9,9 +9,11 @@ export class ExpenseDatePipe implements PipeTransform {
     if (today - valueDate.getTime() < 60 * 1000) {
       return 'Just now';
     }
-    const day = new Date().getDay();
-    const valueDay = valueDate.getDay();
-    const format = day === valueDay ? 'shortTime' : 'longDate';
+
+    const format =
+      today - valueDate.getTime() < 24 * 60 * 60 * 1000
+        ? 'shortTime'
+        : 'longDate';
     return new DatePipe('en-us').transform(value, format);
   }
 }

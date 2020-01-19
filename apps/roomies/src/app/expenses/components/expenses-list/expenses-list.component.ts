@@ -6,13 +6,13 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  OnDestroy,
   OnInit,
   Output,
-  ViewChild,
-  OnDestroy
+  ViewChild
 } from '@angular/core';
 import { Subject } from 'rxjs';
-import { throttleTime, filter, map, takeUntil } from 'rxjs/operators';
+import { map, takeUntil, throttleTime } from 'rxjs/operators';
 import { Expense } from '../../../shared/models/expense.model';
 
 @Component({
@@ -39,18 +39,14 @@ export class ExpensesListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.listHeight = this.calcListHeight();
+    const step = Math.floor(this.listHeight / this.itemSize);
     this.virtualScroll.scrolledIndexChange
       .pipe(
-        filter(() => {
-          const end = this.virtualScroll.getRenderedRange().end;
-          const total = this.virtualScroll.getDataLength();
-          return end === total;
-        }),
         map((e: number) => ({
-          first: e > 0 ? e + Math.ceil(this.listHeight / this.itemSize) : 0,
-          rows: 10
+          first: e > 0 ? e + 2 * step : 0,
+          rows: 30
         })),
-        throttleTime(300),
+        throttleTime(100),
         takeUntil(this.destroy$)
       )
       .subscribe(this.paging);

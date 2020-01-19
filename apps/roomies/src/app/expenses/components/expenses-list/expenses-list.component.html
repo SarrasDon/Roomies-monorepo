@@ -4,12 +4,11 @@
       [style.height.px]="listHeight"
       [itemSize]="itemSize"
     >
-      <ng-container
+      <roomies-expense-item
         *cdkVirtualFor="let expense of expenses"
         (cdkVirtualForTrackBy)="(trackByFn)"
-      >
-        <roomies-expense-item [expense]="expense"></roomies-expense-item>
-      </ng-container>
+        [expense]="expense"
+      ></roomies-expense-item>
     </cdk-virtual-scroll-viewport>
   </ul>
 </section>
