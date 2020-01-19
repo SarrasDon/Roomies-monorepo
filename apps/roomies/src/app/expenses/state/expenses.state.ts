@@ -132,19 +132,18 @@ export class ExpensesState {
     ctx: StateContext<ExpensesStateModel>,
     { reason, amount, date }: CreateExpense
   ) {
-    const user = this.store.selectSnapshot(AuthState.currentUser);
+    const person = this.store.selectSnapshot(AuthState.currentUser);
 
-    if (!user) {
+    if (!person) {
       return;
     }
+    const { _id } = person;
     return this.expensesService
-      .createExpense(reason._id, amount, date, user._id)
+      .createExpense(reason._id, amount, date, _id)
       .pipe(
         map((exp: Expense) => ({
-          exp: { [exp._id]: { ...exp, person: user, reason } } as Dictionary<
-            Expense
-          >,
-          totals: incrementUserTotal(ctx.getState().totals, exp, user._id)
+          exp: { [exp._id]: { ...exp, person, reason } } as Dictionary<Expense>,
+          totals: incrementUserTotal(ctx.getState().totals, exp, _id)
         })),
         tap(
           () => this.snackbarService.success('Record added!'),
@@ -158,7 +157,7 @@ export class ExpensesState {
               ...exp
             },
             totals,
-            balance: calcBalance(totals, user)
+            balance: calcBalance(totals, person)
           })
         )
       );

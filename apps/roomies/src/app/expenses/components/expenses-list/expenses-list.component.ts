@@ -1,15 +1,18 @@
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
+  ElementRef,
   EventEmitter,
   Input,
   OnInit,
   Output,
   ViewChild,
-  ChangeDetectionStrategy
+  OnDestroy
 } from '@angular/core';
 import { Subject } from 'rxjs';
-import { throttleTime } from 'rxjs/operators';
+import { throttleTime, filter, map, takeUntil } from 'rxjs/operators';
 import { Expense } from '../../../shared/models/expense.model';
 
 @Component({
@@ -18,38 +21,54 @@ import { Expense } from '../../../shared/models/expense.model';
   styleUrls: ['./expenses-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExpensesListComponent implements OnInit {
-  @ViewChild(CdkVirtualScrollViewport, { read: null, static: true })
+export class ExpensesListComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild(CdkVirtualScrollViewport, { static: true })
   virtualScroll: CdkVirtualScrollViewport;
+
   @Input() expenses: Expense[] = [];
+
   @Output() paging = new EventEmitter<{ first: number; rows: number }>();
-  readonly VIRTUAL_SCROLL_HEIGHT = '300px';
-  itemSize = '50';
-  private debouncer = new Subject<{ first: number; rows: number }>();
 
-  constructor() {}
+  listHeight = 500;
+  itemSize = 50;
+  destroy$ = new Subject<{ first: number; rows: number }>();
 
-  loadExpenses(e: { first: number; rows: number }) {
-    this.debouncer.next(e);
-  }
+  constructor(private host: ElementRef) {}
 
-  ngOnInit() {
-    this.debouncer.pipe(throttleTime(300)).subscribe(this.paging);
+  ngOnInit() {}
+
+  ngAfterViewInit(): void {
+    this.listHeight = this.calcListHeight();
+    this.virtualScroll.scrolledIndexChange
+      .pipe(
+        filter(() => {
+          const end = this.virtualScroll.getRenderedRange().end;
+          const total = this.virtualScroll.getDataLength();
+          return end === total;
+        }),
+        map((e: number) => ({
+          first: e > 0 ? e + Math.ceil(this.listHeight / this.itemSize) : 0,
+          rows: 10
+        })),
+        throttleTime(300),
+        takeUntil(this.destroy$)
+      )
+      .subscribe(this.paging);
   }
 
   trackByFn(index: number, item: Expense) {
-    return item._id; // or item.id
+    return item._id;
   }
 
-  onScrolledIndexChange(e: number) {
-    const end = this.virtualScroll.getRenderedRange().end;
+  calcListHeight() {
+    const el = this.host.nativeElement;
+    const topOfDiv = el.offsetTop;
+    const bottomOfVisibleWindow = window.innerHeight;
+    return bottomOfVisibleWindow - topOfDiv;
+  }
 
-    const total = this.virtualScroll.getDataLength();
-    if (end === total) {
-      this.debouncer.next({
-        first: e > 0 ? e + Math.floor(300 / +this.itemSize) : 0,
-        rows: 10
-      });
-    }
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

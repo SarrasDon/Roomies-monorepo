@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ExpenseReason, Expense, Total } from '../../shared/models';
 import { environment } from 'apps/roomies/src/environments/environment';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ExpensesService {
   httpOptions = {
     headers: new HttpHeaders({
