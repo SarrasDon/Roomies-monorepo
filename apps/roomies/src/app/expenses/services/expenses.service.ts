@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ExpenseReason, Expense, Total } from '../../shared/models';
+import { Injectable } from '@angular/core';
 import { environment } from 'apps/roomies/src/environments/environment';
+import { Expense, ExpenseReason, Total } from '../../shared/models';
 
 @Injectable({ providedIn: 'root' })
 export class ExpensesService {
@@ -17,7 +17,7 @@ export class ExpensesService {
   constructor(private http: HttpClient) {}
 
   getExpenses(index: number, limit: number) {
-    return this.http.get<Expense[]>(
+    return this.http.get<{ expenses: Expense[]; count: number }>(
       // `${this.base_url}?userId=${id}&index=${index}&limit=${limit}`
       `${this.base_url}?index=${index}&limit=${limit}`
     );
