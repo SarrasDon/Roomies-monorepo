@@ -1,4 +1,4 @@
-import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
+import { Action, State, StateContext, Store } from '@ngxs/store';
 import { map, tap } from 'rxjs/operators';
 import { AuthState } from '../../auth/state/auth.state';
 import { SnackbarService } from '../../core/services';
@@ -10,7 +10,8 @@ import {
   CreateExpense,
   GetExpenseReasons,
   GetExpenses,
-  GetTotals
+  GetTotals,
+  GetExpensesCount
 } from './expenses.actions';
 
 export interface ExpensesStateModel {
@@ -21,6 +22,7 @@ export interface ExpensesStateModel {
   sorted: boolean;
   totals: Total[];
   balance: number;
+  lastCall: boolean;
 }
 
 @State<ExpensesStateModel>({
@@ -32,66 +34,11 @@ export interface ExpensesStateModel {
     sorted: true,
     reasons: [],
     totals: [],
-    balance: 0
+    balance: 0,
+    lastCall: false
   }
 })
 export class ExpensesState {
-  @Selector()
-  public static selectedExpense(state: ExpensesStateModel): Expense | null {
-    return state.selectedItem;
-  }
-
-  @Selector()
-  public static expenseDictionary(state: ExpensesStateModel) {
-    return state.expenseDictionary;
-  }
-
-  @Selector()
-  public static expenses(state: ExpensesStateModel): Expense[] {
-    if (!state.expenseDictionary) {
-      return [];
-    }
-
-    return state.sorted
-      ? Object.values(state.expenseDictionary)
-      : Object.values(state.expenseDictionary).sortBySpendDate();
-  }
-
-  @Selector()
-  public static currentCount({ expenseDictionary }: ExpensesStateModel) {
-    return Object.keys(expenseDictionary).length;
-  }
-
-  @Selector()
-  public static reasons(state: ExpensesStateModel) {
-    return state.reasons;
-  }
-
-  @Selector()
-  static totals(state: ExpensesStateModel) {
-    return state.totals.map(t => ({ name: t.user.name, value: t.total }));
-  }
-
-  @Selector()
-  static sum(state: ExpensesStateModel) {
-    return calcTotal(state.totals);
-  }
-
-  @Selector()
-  static balance(
-    state: ExpensesStateModel
-  ): { amount: number; sign: 'positive' | 'negative' | 'balanced' } {
-    return {
-      amount: Math.abs(state.balance),
-      sign:
-        state.balance > 0
-          ? 'positive'
-          : state.balance < 0
-          ? 'negative'
-          : 'balanced'
-    };
-  }
-
   constructor(
     private store: Store,
     private expensesService: ExpensesService,
@@ -107,31 +54,38 @@ export class ExpensesState {
     if (!user) {
       return;
     }
-    const { expenseDictionary, count } = ctx.getState();
-    const currentCount = this.store.selectSnapshot(ExpensesState.currentCount);
+    const { expenseDictionary, count, lastCall } = ctx.getState();
 
-    if (count !== null && currentCount >= count) {
+    if (lastCall) {
       return;
     }
+    ctx.patchState({ lastCall: count !== null && index + limit >= count });
 
     return this.expensesService.getExpenses(index, limit).pipe(
-      tap(({ expenses, count }) =>
+      tap(expenses =>
         ctx.patchState({
           expenseDictionary: {
             ...expenseDictionary,
             ...expenses.toDictionary()
           },
-          count
+          sorted: true
         })
       )
     );
+  }
+
+  @Action(GetExpensesCount)
+  getExpensesCount(ctx: StateContext<ExpensesStateModel>) {
+    return this.expensesService
+      .getExpenseCount()
+      .pipe(tap(count => ctx.patchState({ count })));
   }
 
   @Action(GetExpenseReasons)
   GetExpenseReasons(ctx: StateContext<ExpensesStateModel>) {
     return this.expensesService
       .getExpenseReasons()
-      .pipe(tap(reasons => ctx.patchState({ sorted: true, reasons })));
+      .pipe(tap(reasons => ctx.patchState({ reasons })));
   }
 
   @Action(CreateExpense)
@@ -186,7 +140,7 @@ export class ExpensesState {
   }
 }
 
-const calcTotal = (totals: Total[]) =>
+export const calcTotal = (totals: Total[]) =>
   totals.reduce((acc, cur) => acc + cur.total, 0);
 
 const calcBalance = (totals: Total[], user: User) => {
