@@ -17,10 +17,14 @@ export class ExpensesService {
   constructor(private http: HttpClient) {}
 
   getExpenses(index: number, limit: number) {
-    return this.http.get<{ expenses: Expense[]; count: number }>(
+    return this.http.get<Expense[]>(
       // `${this.base_url}?userId=${id}&index=${index}&limit=${limit}`
       `${this.base_url}?index=${index}&limit=${limit}`
     );
+  }
+
+  getExpenseCount() {
+    return this.http.get<number>(`${this.base_url}/count`);
   }
 
   getExpenseReasons() {

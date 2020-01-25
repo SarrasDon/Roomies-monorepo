@@ -7,7 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 import * as Components from './components';
 import * as Containers from './containers';
 import * as pipes from './pipes';
-import { States } from './state/module.state';
+import { States } from './state';
 import { ExpensesViewComponent } from './views/expenses.view';
 
 @NgModule({
@@ -20,6 +20,7 @@ import { ExpensesViewComponent } from './views/expenses.view';
     Components.TotalsComponent,
     ExpensesViewComponent,
     pipes.ExpenseDatePipe,
+    pipes.ExpenseImgSourcePipe,
     Components.CreateExpenseDialogComponent,
     Components.ExpensesActionsComponent
   ],
