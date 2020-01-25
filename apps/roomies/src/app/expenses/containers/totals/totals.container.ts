@@ -1,8 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { GetTotals } from '../../state/expenses.actions';
-import { ExpensesState } from '../../state/expenses.state';
+import { ExpenseSelectors, GetTotals } from '../../state';
 
 @Component({
   selector: 'roomies-totals-container',
@@ -17,10 +16,10 @@ import { ExpensesState } from '../../state/expenses.state';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TotalsContainerComponent implements OnInit {
-  @Select(ExpensesState.totals) totals$: Observable<
+  @Select(ExpenseSelectors.totals) totals$: Observable<
     { name: string; value: number }[]
   >;
-  @Select(ExpensesState.balance) balance$: Observable<{
+  @Select(ExpenseSelectors.balance) balance$: Observable<{
     amount: number;
     sign: 'positive' | 'negative' | 'balanced';
   }>;

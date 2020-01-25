@@ -1,19 +1,19 @@
-.view-container {
+:host {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  .totals-wrapper {
-    width: 100%;
-    position: relative;
+}
+.totals-wrapper {
+  width: 100%;
+  position: relative;
 
-    div {
-      padding: 2.5px 0;
-    }
+  div {
+    padding: 2.5px 0;
   }
-  .expenses-list {
-    width: 100%;
-  }
+}
+.expenses-list {
+  width: 100%;
 }
 
 .create-expense {
@@ -25,53 +25,45 @@
 }
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
-  .view-container {
-    .totals-wrapper {
-      width: 80%;
+  .totals-wrapper {
+    width: 80%;
 
-      div :not(.create-expense) {
-        padding: 10px 0;
-      }
+    div :not(.create-expense) {
+      padding: 10px 0;
     }
+  }
 
-    .expenses-list {
-      width: 80%;
-    }
+  .expenses-list {
+    width: 80%;
   }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
-  .view-container {
-    .totals-wrapper {
-      width: 65%;
-    }
+  .totals-wrapper {
+    width: 65%;
+  }
 
-    .expenses-list {
-      width: 65%;
-    }
+  .expenses-list {
+    width: 65%;
   }
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1150px) {
-  .view-container {
-    .totals-wrapper {
-      width: 50%;
-    }
-    .expenses-list {
-      width: 50%;
-    }
+  .totals-wrapper {
+    width: 50%;
+  }
+  .expenses-list {
+    width: 50%;
   }
 }
 
 @media only screen and (min-width: 1300px) {
-  .view-container {
-    .totals-wrapper {
-      width: 40%;
-    }
-    .expenses-list {
-      width: 40%;
-    }
+  .totals-wrapper {
+    width: 40%;
+  }
+  .expenses-list {
+    width: 40%;
   }
 }

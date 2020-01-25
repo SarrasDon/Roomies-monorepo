@@ -30,7 +30,7 @@ export class ExpensesListComponent implements OnInit, AfterViewInit, OnDestroy {
   @Output() paging = new EventEmitter<{ first: number; rows: number }>();
 
   listHeight = 500;
-  itemSize = 50;
+  itemSize = 76;
   destroy$ = new Subject<{ first: number; rows: number }>();
 
   constructor(private host: ElementRef) {}
@@ -42,11 +42,11 @@ export class ExpensesListComponent implements OnInit, AfterViewInit, OnDestroy {
     const step = Math.floor(this.listHeight / this.itemSize);
     this.virtualScroll.scrolledIndexChange
       .pipe(
+        throttleTime(100),
         map((e: number) => ({
           first: e > 0 ? e + 2 * step : 0,
           rows: 30
         })),
-        throttleTime(100),
         takeUntil(this.destroy$)
       )
       .subscribe(this.paging);

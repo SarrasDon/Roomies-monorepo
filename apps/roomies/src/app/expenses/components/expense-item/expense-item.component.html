@@ -2,7 +2,8 @@
   <section class="expense-card-content">
     <img
       class="expense-img"
-      [src]="expImgSource"
+      src="{{ expense | expenseImgSource }}"
+      [alt]="expense.reason.reason"
       [matTooltip]="expense.reason.reason"
     />
     <div class="expense-details-wrapper">
