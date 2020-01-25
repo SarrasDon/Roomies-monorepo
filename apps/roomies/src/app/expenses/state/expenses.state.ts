@@ -23,6 +23,7 @@ export interface ExpensesStateModel {
   totals: Total[];
   balance: number;
   lastCall: boolean;
+  isLoading: boolean;
 }
 
 @State<ExpensesStateModel>({
@@ -35,7 +36,8 @@ export interface ExpensesStateModel {
     reasons: [],
     totals: [],
     balance: 0,
-    lastCall: false
+    lastCall: false,
+    isLoading: true
   }
 })
 export class ExpensesState {
@@ -68,7 +70,8 @@ export class ExpensesState {
             ...expenseDictionary,
             ...expenses.toDictionary()
           },
-          sorted: true
+          sorted: true,
+          isLoading: false
         })
       )
     );

@@ -9,12 +9,14 @@ import { CreateExpense, ExpenseSelectors, GetExpenseReasons } from '../state';
   template: `
     <roomies-expenses-actions
       [reasons]="reasons | async"
+      [isLoading]="isLoading | async"
       (formSubmitted)="onFormSubmitted($event)"
     ></roomies-expenses-actions>
   `
 })
 export class ExpensesActionsContainer implements OnInit {
   @Select(ExpenseSelectors.reasons) reasons: Observable<ExpenseReason[]>;
+  @Select(ExpenseSelectors.isLoading) isLoading: Observable<boolean>;
 
   constructor(private store: Store) {}
 
