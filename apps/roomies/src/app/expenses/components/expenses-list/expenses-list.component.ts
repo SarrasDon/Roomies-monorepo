@@ -30,7 +30,7 @@ export class ExpensesListComponent implements OnInit, AfterViewInit, OnDestroy {
   @Output() paging = new EventEmitter<{ first: number; rows: number }>();
 
   listHeight = 500;
-  itemSize = 50;
+  itemSize = 76;
   destroy$ = new Subject<{ first: number; rows: number }>();
 
   constructor(private host: ElementRef) {}

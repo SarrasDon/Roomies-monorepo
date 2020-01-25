@@ -1,5 +1,5 @@
 .expense-card {
-  padding: 10px 15px;
+  padding: 15px;
   margin: 3px 3px;
 }
 .expense-card-content {
@@ -8,8 +8,8 @@
   align-items: center;
 
   .expense-img {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     outline-color: #fff;
     outline-width: 0px;
     margin-left: 0;
@@ -21,9 +21,6 @@
     justify-content: space-around;
     margin-left: 15px;
     font-size: 15px;
-
-    .expense-details-title {
-    }
 
     .expense-details-subtitle {
       margin-bottom: 0;

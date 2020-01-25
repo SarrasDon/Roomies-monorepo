@@ -21,6 +21,6 @@ export class ExpenseItemComponent implements OnInit {
 
   get expImgSource() {
     const reason = this.expense.reason.reason.toLowerCase();
-    return `assets/icons/${reason.toLowerCase()}_icon.ico`;
+    return `assets/icons/${reason.toLowerCase()}.svg`;
   }
 }
