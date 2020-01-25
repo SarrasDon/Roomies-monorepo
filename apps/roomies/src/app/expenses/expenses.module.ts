@@ -21,6 +21,7 @@ import { ExpensesViewComponent } from './views/expenses.view';
     ExpensesViewComponent,
     pipes.ExpenseDatePipe,
     pipes.ExpenseImgSourcePipe,
+    pipes.BalancePipe,
     Components.CreateExpenseDialogComponent,
     Components.ExpensesActionsComponent
   ],

@@ -14,7 +14,7 @@
       </ngx-charts-bar-horizontal>
     </div>
     <div class="amount-wrapper" [style.color]="balanceColor">
-      {{ myBalance?.amount | number: '1.0-2' }}
+      {{ myBalance?.amount | balance }}
     </div>
   </div>
 </mat-card>
