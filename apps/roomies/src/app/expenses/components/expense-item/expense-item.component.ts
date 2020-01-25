@@ -18,9 +18,4 @@ export class ExpenseItemComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
-
-  get expImgSource() {
-    const reason = this.expense.reason.reason.toLowerCase();
-    return `assets/icons/${reason.toLowerCase()}.svg`;
-  }
 }
