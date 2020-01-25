@@ -9,18 +9,25 @@ export class ExpensesController {
   constructor(private readonly expensesService: ExpensesService) {}
 
   @Get()
-  public async getAll(@Query()
-  query: {
-    userId?: string;
-    index: number;
-    limit: number;
-  }) {
+  public async getAll(
+    @Query()
+    query: {
+      userId?: string;
+      index: number;
+      limit: number;
+    }
+  ) {
     const queryOptions = {
       id: query.userId || null,
       index: +query.index,
       limit: +query.limit
     };
     return await this.expensesService.pagedFind(queryOptions);
+  }
+
+  @Get('count')
+  public async getCount() {
+    return await this.expensesService.count();
   }
 
   @Get('reasons')
@@ -41,11 +48,13 @@ export class ExpensesController {
   }
 
   @Post('reasons')
-  public async createReason(@Body()
-  reason: {
-    category: ExpenseCategory;
-    reason: string;
-  }) {
+  public async createReason(
+    @Body()
+    reason: {
+      category: ExpenseCategory;
+      reason: string;
+    }
+  ) {
     return this.expensesService.createReason(reason);
   }
 

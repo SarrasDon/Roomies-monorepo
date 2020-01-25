@@ -17,12 +17,8 @@ export class ExpensesRepo extends Repository<Expense> {
 
   async pagedFind(queryOptions: { id?: string; index: number; limit: number }) {
     const { id, index, limit } = queryOptions;
-    const count = this.queryBuilder
-      .forUser(id)
-      .count()
-      .exec();
 
-    const paged = this.queryBuilder
+    return await this.queryBuilder
       .forUser(id)
       .sortByDescDate()
       .paging(index, limit)
@@ -30,15 +26,10 @@ export class ExpensesRepo extends Repository<Expense> {
       .pluck()
       .build()
       .exec();
-    return await Promise.all([paged, count])
-      .then(res => {
-        const [expenses, count] = res;
+  }
 
-        return { expenses, count };
-      })
-      .catch(err => {
-        return { expenses: [], count: null };
-      });
+  async count() {
+    return await this.expenseModel.countDocuments().exec();
   }
 
   getTotals() {

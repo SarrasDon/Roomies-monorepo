@@ -26,8 +26,12 @@ export class ExpensesService {
     id?: string;
     index: number;
     limit: number;
-  }): Promise<{ expenses: Expense[]; count: number }> {
+  }): Promise<Expense[]> {
     return await this.expensesRepo.pagedFind(queryOptions);
+  }
+
+  async count() {
+    return await this.expensesRepo.count();
   }
 
   async deleteAll() {
