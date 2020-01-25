@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
-import { ExpensesState } from '../../state/expenses.state';
 import { Observable } from 'rxjs';
 import { ExpenseReason } from '../../../shared/models';
-import { GetExpenseReasons, CreateExpense } from '../../state/expenses.actions';
+import {
+  ExpenseSelectors,
+  GetExpenseReasons,
+  CreateExpense
+} from '../../state';
 
 @Component({
   selector: 'roomies-expenses-actions-container',
@@ -11,7 +14,7 @@ import { GetExpenseReasons, CreateExpense } from '../../state/expenses.actions';
     '<roomies-expenses-actions [reasons]="reasons | async"  (formSubmitted)="onFormSubmitted($event)"></roomies-expenses-actions>'
 })
 export class ExpensesActionsContainer implements OnInit {
-  @Select(ExpensesState.reasons) reasons: Observable<ExpenseReason[]>;
+  @Select(ExpenseSelectors.reasons) reasons: Observable<ExpenseReason[]>;
 
   constructor(private store: Store) {}
 
