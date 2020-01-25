@@ -20,6 +20,7 @@ import { ExpensesViewComponent } from './views/expenses.view';
     Components.TotalsComponent,
     ExpensesViewComponent,
     pipes.ExpenseDatePipe,
+    pipes.ExpenseImgSourcePipe,
     Components.CreateExpenseDialogComponent,
     Components.ExpensesActionsComponent
   ],
