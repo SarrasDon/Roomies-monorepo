@@ -1,1 +1,1 @@
-export { CreateExpenseValidPipe } from './create-expense-validation.pipe';
+export * from './create-expense-validation.pipe';

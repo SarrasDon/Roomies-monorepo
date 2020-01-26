@@ -1,3 +1,3 @@
-export { ExpensesRepo } from './expenses.repository';
-export { ExpenseReasonsRepo } from './expense-reasons.repository';
-export { ExpensesQueryBuilder } from './expenses-query.builder';
+export * from './expenses.repository';
+export * from './expense-reasons.repository';
+export * from './expenses-query.builder';

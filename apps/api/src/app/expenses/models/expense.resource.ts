@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsNumber, IsPositive } from 'class-validator';
 
-export class CreateExpenseResource {
+export class ExpenseResource {
   @IsNotEmpty({ message: 'Reason was not provided!' })
   reason: string;
 
@@ -11,6 +11,4 @@ export class CreateExpenseResource {
 
   @IsNotEmpty({ message: 'User was not provided!' })
   person: string;
-
-  spendAt: string;
 }

@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ExpenseReasonSchema, ExpenseSchema } from '../Models';
 import { UsersModule } from '../users/users.module';
 import { ExpensesController } from './expenses.controller';
 import * as Repositories from './repositories';
 import * as Services from './services';
+import { ExpenseReasonSchema, ExpenseSchema } from './models';
+import { ExpenseReasonsController } from './expense-reasons.controller';
 
 @Module({
   imports: [
@@ -14,12 +15,13 @@ import * as Services from './services';
     ]),
     UsersModule
   ],
-  controllers: [ExpensesController],
+  controllers: [ExpensesController, ExpenseReasonsController],
   providers: [
     Repositories.ExpensesRepo,
     Repositories.ExpenseReasonsRepo,
     Repositories.ExpensesQueryBuilder,
-    Services.ExpensesService
+    Services.ExpensesService,
+    Services.ExpenseReasonsService
   ]
 })
 export class ExpensesModule {}

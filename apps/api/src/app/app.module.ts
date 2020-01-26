@@ -9,7 +9,10 @@ const connectionString = environment.mongoDBstring;
 
 @Module({
   imports: [
-    MongooseModule.forRoot(connectionString, { useNewUrlParser: true }),
+    MongooseModule.forRoot(connectionString, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    }),
     UsersModule,
     ExpensesModule
   ],

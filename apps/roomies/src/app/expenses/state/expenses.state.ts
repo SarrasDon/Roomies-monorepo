@@ -105,7 +105,7 @@ export class ExpensesState {
     }
     const { _id } = person;
     return this.expensesService
-      .createExpense(reason._id, amount, date, _id)
+      .create({ reason: reason._id, amount, spendAt: date, person: _id })
       .pipe(
         map((exp: Expense) => ({
           exp: { [exp._id]: { ...exp, person, reason } } as Dictionary<Expense>,

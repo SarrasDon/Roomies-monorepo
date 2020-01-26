@@ -6,7 +6,7 @@ import {
   PopulateBuilder,
   ConditionalBuilder,
   BaseBuilder
-} from '../query-builders';
+} from '../interfaces';
 
 export class QueryBuilder<T extends Document>
   implements
