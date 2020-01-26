@@ -1,28 +1,39 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
-import { Observable, forkJoin } from 'rxjs';
-import { ExpensesService } from './services';
-import { tap } from 'rxjs/operators';
 import { Store } from '@ngxs/store';
+import { forkJoin, Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { ExpenseReason, User } from '../shared/models';
+import { ExpensesReasonsService, ExpensesService } from './services';
 import { SetExpensesCount, SetExpensesReasons } from './state';
-import { ExpenseReason } from '../shared/models';
+import { UsersService } from '../core/services/users.service';
+import { UsersLoaded } from '../auth/state/auth.actions';
 
 @Injectable({ providedIn: 'root' })
-export class HnResolver
-  implements Resolve<Observable<[number, ExpenseReason[]]>> {
-  constructor(private expensesService: ExpensesService, private store: Store) {}
+export class ExpensesResolver
+  implements Resolve<Observable<[number, ExpenseReason[], User[]]>> {
+  constructor(
+    private expensesService: ExpensesService,
+    private expenseReasonsService: ExpensesReasonsService,
+    private usersService: UsersService,
+    private store: Store
+  ) {}
 
   resolve() {
     const count$ = this.expensesService
-      .getExpenseCount()
+      .count()
       .pipe(tap(count => this.store.dispatch(new SetExpensesCount(count))));
 
-    const reasons$ = this.expensesService
-      .getExpenseReasons()
+    const reasons$ = this.expenseReasonsService
+      .get()
       .pipe(
         tap(reasons => this.store.dispatch(new SetExpensesReasons(reasons)))
       );
 
-    return forkJoin([count$, reasons$]);
+    const users$ = this.usersService
+      .get()
+      .pipe(tap(users => this.store.dispatch(new UsersLoaded(users))));
+
+    return forkJoin([count$, reasons$, users$]);
   }
 }

@@ -1,17 +1,21 @@
 import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
 import { CreateUserValidPipe } from './pipes';
-import { CreateUserResource } from './resources';
+import { UserResource } from './models';
 import { UsersService } from './services';
+import { GenericController } from '../shared/generics';
+import { User } from '../shared/Models';
 
 @Controller('users')
-export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+export class UsersController extends GenericController<User, UserResource> {
+  constructor(public readonly usersService: UsersService) {
+    super(usersService);
+  }
 
   @Post()
   public async create(
-    @Body(new CreateUserValidPipe()) createUserResource: CreateUserResource
+    @Body(new CreateUserValidPipe()) userResource: UserResource
   ) {
-    const user = await this.usersService.create(createUserResource);
+    const user = await super.create(userResource);
     if (!user) throw new BadRequestException('User not created');
     return user;
   }
@@ -21,13 +25,5 @@ export class UsersController {
     const user = await this.usersService.login({ email, password });
     if (!user) throw new BadRequestException('User not found');
     return user;
-  }
-
-  @Post('updateAvatar')
-  public async updateAvatar(@Body() { _id, avatarUrl }) {
-    const update = await this.usersService.updateAvatar(_id, avatarUrl);
-
-    if (!update) throw new BadRequestException('Avatar not updated');
-    return update;
   }
 }

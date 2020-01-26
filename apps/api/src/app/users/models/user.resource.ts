@@ -1,6 +1,7 @@
 import { IsNotEmpty, IsEmail } from 'class-validator';
+import { User } from '../../shared/Models';
 
-export class CreateUserResource {
+export class UserResource implements Partial<User> {
   @IsNotEmpty({ message: 'Name was not provided.' })
   name: string;
 
@@ -9,4 +10,7 @@ export class CreateUserResource {
 
   @IsNotEmpty({ message: 'Password was not provided.' })
   password: string;
+
+  @IsNotEmpty({ message: 'Avatar url was not provided.' })
+  avatarUrl: string;
 }

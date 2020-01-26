@@ -1,25 +1,24 @@
 import { Injectable } from '@nestjs/common';
-import { ExpensesRepo } from '../repositories';
-import { ExpenseReasonsRepo } from '../repositories';
-import { CreateExpenseResource } from '../resources';
-import { Expense, ExpenseCategory } from '../../Models';
+import { GenericService } from '../../shared/generics';
 import { UsersRepo } from '../../users/repositories';
+import { Expense, ExpenseResource } from '../models';
+import { ExpenseReasonsRepo, ExpensesRepo } from '../repositories';
 
 @Injectable()
-export class ExpensesService {
+export class ExpensesService extends GenericService<Expense, ExpenseResource> {
   constructor(
-    private expensesRepo: ExpensesRepo,
+    public readonly expensesRepo: ExpensesRepo,
     private reasonsRepo: ExpenseReasonsRepo,
     private usersRepo: UsersRepo
-  ) {}
+  ) {
+    super(expensesRepo);
+  }
 
-  async createExpense(resource: CreateExpenseResource): Promise<Expense> {
-    return this.expensesRepo
-      .create({
-        ...resource,
-        amount: +resource.amount
-      })
-      .save();
+  async createExpense(resource: ExpenseResource): Promise<Expense> {
+    return await super.create({
+      ...resource,
+      amount: +resource.amount
+    });
   }
 
   async pagedFind(queryOptions: {
@@ -30,17 +29,9 @@ export class ExpensesService {
     return await this.expensesRepo.pagedFind(queryOptions);
   }
 
-  async count() {
-    return await this.expensesRepo.count();
-  }
-
-  async deleteAll() {
-    return this.expensesRepo.deleteAll().exec();
-  }
-
-  async findAllReasons() {
-    return this.reasonsRepo.findAll().exec();
-  }
+  // async findAllReasons() {
+  //   return this.reasonsRepo.findAll().exec();
+  // }
 
   async getTotals() {
     const totals = await this.expensesRepo.getTotals();
@@ -53,11 +44,11 @@ export class ExpensesService {
     }));
   }
 
-  async createReason(reason: { category: ExpenseCategory; reason: string }) {
-    return this.reasonsRepo
-      .create({
-        ...reason
-      })
-      .save();
-  }
+  // async createReason(reason: { category: ExpenseCategory; reason: string }) {
+  //   return this.reasonsRepo
+  //     .create({
+  //       ...reason
+  //     })
+  //     .save();
+  // }
 }
