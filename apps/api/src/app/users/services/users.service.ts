@@ -16,14 +16,14 @@ export class UsersService extends GenericService<User, UserResource> {
   }
 
   async createUser(createUsersDto: UserResource) {
-    return this.repository
+    return await this.repository
       .create(createUsersDto)
       .save()
       .then(({ email, name, _id }) => ({ email, name, _id }));
   }
 
   async login({ email, password }) {
-    return this.repository
+    return await this.repository
       .findBy({ email, password })
       .select('_id email name avatarUrl')
       .exec();

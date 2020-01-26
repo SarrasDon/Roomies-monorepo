@@ -3,27 +3,30 @@ import { tap } from 'rxjs/operators';
 import { AuthService } from '../../auth/auth.service';
 import { User } from '../../shared/models/user.model';
 import * as AuthActions from './auth.actions';
-import { UsersService } from '../../core/services/users.service';
+import { Dictionary } from '../../shared/interfaces';
+import { UsersService } from '../../core/services';
 
-export interface AuthStateMode {
+export interface AuthStateModel {
   currentUser: User | null;
+  userDictionary: Dictionary<User>;
 }
 
-@State<AuthStateMode>({
+@State<AuthStateModel>({
   name: 'auth',
   defaults: {
+    userDictionary: {},
     currentUser:
       (JSON.parse(localStorage.getItem('user') as string) as User) || null
   }
 })
 export class AuthState {
   @Selector()
-  public static currentUser(state: AuthStateMode): User | null {
+  public static currentUser(state: AuthStateModel): User | null {
     return state.currentUser;
   }
 
   @Selector()
-  public static isLoggedIn(state: AuthStateMode): boolean {
+  public static isLoggedIn(state: AuthStateModel): boolean {
     return state.currentUser !== null;
   }
 
@@ -34,7 +37,7 @@ export class AuthState {
 
   @Action(AuthActions.Login)
   login(
-    ctx: StateContext<AuthStateMode>,
+    ctx: StateContext<AuthStateModel>,
     { email, password }: AuthActions.Login
   ) {
     return this.authService.login(email, password).pipe(
@@ -46,19 +49,19 @@ export class AuthState {
   }
 
   @Action(AuthActions.SetCurrentUser)
-  setCurrentUser(ctx: StateContext<AuthStateMode>, { user }) {
+  setCurrentUser(ctx: StateContext<AuthStateModel>, { user }) {
     return ctx.patchState({ currentUser: user });
   }
 
   @Action(AuthActions.Logout)
-  logout(ctx: StateContext<AuthStateMode>) {
+  logout(ctx: StateContext<AuthStateModel>) {
     localStorage.removeItem('user');
     return ctx.patchState({ currentUser: null });
   }
 
   @Action(AuthActions.SignUp)
   signup(
-    ctx: StateContext<AuthStateMode>,
+    ctx: StateContext<AuthStateModel>,
     { email, password }: AuthActions.SignUp
   ) {
     return this.authService.signUp(email, password).pipe(
@@ -71,7 +74,7 @@ export class AuthState {
 
   @Action(AuthActions.UpdateUserAvatar)
   updateAvatar(
-    ctx: StateContext<AuthStateMode>,
+    ctx: StateContext<AuthStateModel>,
     { avatarUrl }: AuthActions.UpdateUserAvatar
   ) {
     const user = ctx.getState().currentUser;
@@ -82,5 +85,13 @@ export class AuthState {
         localStorage.setItem('user', JSON.stringify(currentUser));
       })
     );
+  }
+
+  @Action(AuthActions.UsersLoaded)
+  usersLoaded(
+    ctx: StateContext<AuthStateModel>,
+    { users }: AuthActions.UsersLoaded
+  ) {
+    ctx.patchState({ userDictionary: users.toDictionary() });
   }
 }

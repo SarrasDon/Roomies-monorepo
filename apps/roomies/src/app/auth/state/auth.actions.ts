@@ -24,3 +24,8 @@ export class UpdateUserAvatar {
   static readonly type = '[Header] Update Avatar';
   constructor(public avatarUrl: string) {}
 }
+
+export class UsersLoaded {
+  static readonly type = '[Expense Resolver] Users Loaded';
+  constructor(public users: User[]) {}
+}
