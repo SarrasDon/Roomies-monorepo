@@ -1,10 +1,10 @@
 <button
+  *ngIf="!isLoading"
   mat-fab
   color="accent"
   (click)="onPopModal()"
   matTooltip="Add Expense"
   class="mat-elevation-z4"
-  [disabled]="isLoading"
 >
   <img src="/assets/icons/add.svg" alt="add_expense" />
 </button>

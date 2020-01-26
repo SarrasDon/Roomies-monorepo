@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { ExpenseReason } from '../../shared/models';
-import { CreateExpense, ExpenseSelectors, GetExpenseReasons } from '../state';
+import { CreateExpense, ExpenseSelectors } from '../state';
 
 @Component({
   selector: 'roomies-expenses-actions-container',
@@ -20,9 +20,7 @@ export class ExpensesActionsContainer implements OnInit {
 
   constructor(private store: Store) {}
 
-  ngOnInit() {
-    this.store.dispatch(new GetExpenseReasons());
-  }
+  ngOnInit() {}
 
   onFormSubmitted($event: {
     reason: ExpenseReason;

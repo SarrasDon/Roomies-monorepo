@@ -8,10 +8,10 @@ import { Expense, ExpenseReason, Total, User } from '../../shared/models';
 import { ExpensesService } from '../services';
 import {
   CreateExpense,
-  GetExpenseReasons,
   GetExpenses,
   GetTotals,
-  GetExpensesCount
+  SetExpensesCount,
+  SetExpensesReasons as SetExpenseReasons
 } from './expenses.actions';
 
 export interface ExpensesStateModel {
@@ -77,18 +77,20 @@ export class ExpensesState {
     );
   }
 
-  @Action(GetExpensesCount)
-  getExpensesCount(ctx: StateContext<ExpensesStateModel>) {
-    return this.expensesService
-      .getExpenseCount()
-      .pipe(tap(count => ctx.patchState({ count })));
+  @Action(SetExpensesCount)
+  setExpensesCount(
+    ctx: StateContext<ExpensesStateModel>,
+    { count }: SetExpensesCount
+  ) {
+    ctx.patchState({ count });
   }
 
-  @Action(GetExpenseReasons)
-  GetExpenseReasons(ctx: StateContext<ExpensesStateModel>) {
-    return this.expensesService
-      .getExpenseReasons()
-      .pipe(tap(reasons => ctx.patchState({ reasons })));
+  @Action(SetExpenseReasons)
+  setExpenseReasons(
+    ctx: StateContext<ExpensesStateModel>,
+    { reasons }: SetExpenseReasons
+  ) {
+    ctx.patchState({ reasons });
   }
 
   @Action(CreateExpense)
@@ -128,7 +130,7 @@ export class ExpensesState {
   }
 
   @Action(GetTotals)
-  GetTotals(ctx: StateContext<ExpensesStateModel>) {
+  getTotals(ctx: StateContext<ExpensesStateModel>) {
     const user = this.store.selectSnapshot(AuthState.currentUser);
 
     if (!user) {
