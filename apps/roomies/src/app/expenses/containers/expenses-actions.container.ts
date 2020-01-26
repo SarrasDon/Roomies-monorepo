@@ -1,26 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { ExpenseReason } from '../../../shared/models';
-import {
-  ExpenseSelectors,
-  GetExpenseReasons,
-  CreateExpense
-} from '../../state';
+import { ExpenseReason } from '../../shared/models';
+import { CreateExpense, ExpenseSelectors } from '../state';
 
 @Component({
   selector: 'roomies-expenses-actions-container',
-  template:
-    '<roomies-expenses-actions [reasons]="reasons | async"  (formSubmitted)="onFormSubmitted($event)"></roomies-expenses-actions>'
+  template: `
+    <roomies-expenses-actions
+      [reasons]="reasons | async"
+      [isLoading]="isLoading | async"
+      (formSubmitted)="onFormSubmitted($event)"
+    ></roomies-expenses-actions>
+  `
 })
 export class ExpensesActionsContainer implements OnInit {
   @Select(ExpenseSelectors.reasons) reasons: Observable<ExpenseReason[]>;
+  @Select(ExpenseSelectors.isLoading) isLoading: Observable<boolean>;
 
   constructor(private store: Store) {}
 
-  ngOnInit() {
-    this.store.dispatch(new GetExpenseReasons());
-  }
+  ngOnInit() {}
 
   onFormSubmitted($event: {
     reason: ExpenseReason;

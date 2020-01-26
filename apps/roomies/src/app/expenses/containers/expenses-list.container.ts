@@ -8,9 +8,9 @@ import {
 import { Select, Store } from '@ngxs/store';
 import { Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
-import { Expense } from '../../../shared/models';
-import { ExpensesListComponent } from '../../components';
-import { ExpenseSelectors, GetExpenses, GetExpensesCount } from '../../state';
+import { Expense } from '../../shared/models';
+import { ExpensesListComponent } from '../components';
+import { ExpenseSelectors, GetExpenses } from '../state';
 
 @Component({
   selector: 'roomies-expenses-list-container',
@@ -32,7 +32,6 @@ export class ExpensesListContainer implements AfterViewInit, OnDestroy {
   constructor(private store: Store) {}
 
   ngAfterViewInit(): void {
-    this.store.dispatch(new GetExpensesCount());
     this.list.paging
       .pipe(
         // debounceTime(100),

@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { EntityRepository } from '../../shared/generics';
+import { Expense } from '../models';
 import { ExpensesQueryBuilder } from './expenses-query.builder';
-import { Repository } from '../../Repositories/generics';
-import { Expense } from '../../Models';
 
 @Injectable()
-export class ExpensesRepo extends Repository<Expense> {
+export class ExpensesRepo extends EntityRepository<Expense> {
   constructor(
     @InjectModel('Expense')
     private readonly expenseModel: Model<Expense>,
@@ -26,10 +26,6 @@ export class ExpensesRepo extends Repository<Expense> {
       .pluck()
       .build()
       .exec();
-  }
-
-  async count() {
-    return await this.expenseModel.countDocuments().exec();
   }
 
   getTotals() {

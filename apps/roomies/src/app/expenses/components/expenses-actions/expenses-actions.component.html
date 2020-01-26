@@ -1,10 +1,10 @@
-<div class="actions-wrapper">
-  <button
-    mat-mini-fab
-    color="primary"
-    (click)="onPopModal()"
-    matTooltip="Add Expense"
-  >
-    <img src="/assets/icons/add.svg" alt="add_expense" />
-  </button>
-</div>
+<button
+  *ngIf="!isLoading"
+  mat-fab
+  color="accent"
+  (click)="onPopModal()"
+  matTooltip="Add Expense"
+  class="mat-elevation-z4"
+>
+  <img src="/assets/icons/add.svg" alt="add_expense" />
+</button>

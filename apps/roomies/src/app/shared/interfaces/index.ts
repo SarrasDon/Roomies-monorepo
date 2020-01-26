@@ -1,3 +1,4 @@
-export { SnackbarConfig } from './snackbar-config.interface';
-export { Dictionary } from './dictionary.interface';
-export { CreateExpenseConfig } from './create-expense-config.interface';
+export * from './snackbar-config.interface';
+export * from './dictionary.interface';
+export * from './create-expense-config.interface';
+export * from './entity.interface';

@@ -1,6 +1,7 @@
 import { Selector } from '@ngxs/store';
 import { Expense } from '../../shared/models';
 import { ExpensesState, ExpensesStateModel, calcTotal } from './expenses.state';
+
 export class ExpenseSelectors extends ExpensesState {
   @Selector()
   public static selectedExpense(state: ExpensesStateModel): Expense | null {
@@ -50,5 +51,10 @@ export class ExpenseSelectors extends ExpensesState {
           ? 'negative'
           : 'balanced'
     };
+  }
+
+  @Selector()
+  static isLoading({ isLoading }: ExpensesStateModel) {
+    return isLoading;
   }
 }

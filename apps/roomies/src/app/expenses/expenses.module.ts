@@ -6,6 +6,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { SharedModule } from '../shared/shared.module';
 import * as Components from './components';
 import * as Containers from './containers';
+import { ExpensesResolver } from './expenses.resolver';
 import * as pipes from './pipes';
 import { States } from './state';
 import { ExpensesViewComponent } from './views/expenses.view';
@@ -21,6 +22,8 @@ import { ExpensesViewComponent } from './views/expenses.view';
     ExpensesViewComponent,
     pipes.ExpenseDatePipe,
     pipes.ExpenseImgSourcePipe,
+    pipes.BalancePipe,
+    pipes.ExpenseAmountPipe,
     Components.CreateExpenseDialogComponent,
     Components.ExpensesActionsComponent
   ],
@@ -30,7 +33,8 @@ import { ExpensesViewComponent } from './views/expenses.view';
     RouterModule.forChild([
       {
         path: '',
-        component: ExpensesViewComponent
+        component: ExpensesViewComponent,
+        resolve: { message: ExpensesResolver }
       }
     ]),
     NgxsModule.forFeature(States),
