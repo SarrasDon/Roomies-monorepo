@@ -6,16 +6,22 @@ export class GetExpenses {
   constructor(public index: number, public limit: number) {}
 }
 
-export class GetExpensesCount {
-  static readonly type = '[Expenses] Get Expenses Count';
+export class SetExpensesCount {
+  static readonly type = '[Expenses Resolver] Set Expenses Count';
+
+  constructor(public count: number) {}
+}
+
+export class GetExpenseReasons {
+  static readonly type = '[Create Expense Form] Get Expense Reasons';
 
   constructor() {}
 }
 
-export class GetExpenseReasons {
-  static readonly type = '[Create Expense Form]] Get Expense Reasons';
+export class SetExpensesReasons {
+  static readonly type = '[Expenses Resolver] Set Expense Reasons';
 
-  constructor() {}
+  constructor(public reasons: ExpenseReason[]) {}
 }
 
 export class CreateExpense {
