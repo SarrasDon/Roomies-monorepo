@@ -23,8 +23,4 @@ export class UsersService {
   async updateAvatar(_id: string, avatarUrl: string) {
     return this.repo.updateOne(_id, { avatarUrl }).exec();
   }
-
-  async deleteAll() {
-    return this.repo.deleteAll().exec();
-  }
 }

@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Repository } from '../../Repositories/generics';
-import { ExpenseReason } from '../../Models';
+import { EntityRepository } from '../../shared/generics';
+import { ExpenseReason } from '../models';
 
 @Injectable()
-export class ExpenseReasonsRepo extends Repository<ExpenseReason> {
+export class ExpenseReasonsRepo extends EntityRepository<ExpenseReason> {
   constructor(
     @InjectModel('ExpenseReason')
-    public readonly expenseReasonModel: Model<ExpenseReason>,
+    public readonly expenseReasonModel: Model<ExpenseReason>
   ) {
     super(expenseReasonModel);
   }

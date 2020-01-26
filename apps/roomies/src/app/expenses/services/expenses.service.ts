@@ -1,45 +1,27 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'apps/roomies/src/environments/environment';
+import { DataService } from '../../core/services';
 import { Expense, ExpenseReason, Total } from '../../shared/models';
 
 @Injectable({ providedIn: 'root' })
-export class ExpensesService {
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  };
-
-  private readonly feature_url = 'expenses';
-  private readonly base_url = `${environment.API_URL}${this.feature_url}`;
-
-  constructor(private http: HttpClient) {}
+export class ExpensesService extends DataService<Expense> {
+  constructor(public http: HttpClient) {
+    super(http);
+    this.featureUrl = 'expenses';
+  }
 
   getExpenses(index: number, limit: number) {
     return this.http.get<Expense[]>(
-      // `${this.base_url}?userId=${id}&index=${index}&limit=${limit}`
-      `${this.base_url}?index=${index}&limit=${limit}`
+      // `${this.featureUrl}?userId=${id}&index=${index}&limit=${limit}`
+      `${this.featureUrl}?index=${index}&limit=${limit}`
     );
-  }
-
-  getExpenseCount() {
-    return this.http.get<number>(`${this.base_url}/count`);
   }
 
   getExpenseReasons() {
-    return this.http.get<ExpenseReason[]>(`${this.base_url}/reasons`);
-  }
-
-  createExpense(reason: string, amount: number, spendAt: Date, person: string) {
-    return this.http.post(
-      `${this.base_url}`,
-      JSON.stringify({ reason, amount, person, spendAt }),
-      this.httpOptions
-    );
+    return this.http.get<ExpenseReason[]>(`${this.featureUrl}/reasons`);
   }
 
   getTotals() {
-    return this.http.get<Total[]>(`${this.base_url}/totals`);
+    return this.http.get<Total[]>(`${this.featureUrl}/totals`);
   }
 }

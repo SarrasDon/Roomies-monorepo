@@ -6,10 +6,10 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { SharedModule } from '../shared/shared.module';
 import * as Components from './components';
 import * as Containers from './containers';
+import { ExpensesResolver } from './expenses.resolver';
 import * as pipes from './pipes';
 import { States } from './state';
 import { ExpensesViewComponent } from './views/expenses.view';
-import { HnResolver } from './expenses.resolver';
 
 @NgModule({
   declarations: [
@@ -34,7 +34,7 @@ import { HnResolver } from './expenses.resolver';
       {
         path: '',
         component: ExpensesViewComponent,
-        resolve: { message: HnResolver }
+        resolve: { message: ExpensesResolver }
       }
     ]),
     NgxsModule.forFeature(States),

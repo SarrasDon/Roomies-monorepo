@@ -1,12 +1,17 @@
-import { Controller, Delete, Get, Query, Post, Body } from '@nestjs/common';
-import { ExpensesService } from './services';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { GenericController } from '../shared/generics';
+import { Expense, ExpenseResource } from './models';
 import { CreateExpenseValidPipe } from './pipes';
-import { CreateExpenseResource } from './resources';
-import { ExpenseCategory } from '../Models';
+import { ExpensesService } from './services';
 
 @Controller('expenses')
-export class ExpensesController {
-  constructor(private readonly expensesService: ExpensesService) {}
+export class ExpensesController extends GenericController<
+  Expense,
+  ExpenseResource
+> {
+  constructor(public expensesService: ExpensesService) {
+    super(expensesService);
+  }
 
   @Get()
   public async getAll(
@@ -25,16 +30,6 @@ export class ExpensesController {
     return await this.expensesService.pagedFind(queryOptions);
   }
 
-  @Get('count')
-  public async getCount() {
-    return await this.expensesService.count();
-  }
-
-  @Get('reasons')
-  public async getReasons() {
-    return await this.expensesService.findAllReasons();
-  }
-
   @Get('totals')
   public async getTotals() {
     return await this.expensesService.getTotals();
@@ -42,24 +37,8 @@ export class ExpensesController {
 
   @Post()
   public async create(
-    @Body(new CreateExpenseValidPipe()) expenseResource: CreateExpenseResource
+    @Body(new CreateExpenseValidPipe()) expenseResource: ExpenseResource
   ) {
-    return this.expensesService.createExpense(expenseResource);
-  }
-
-  @Post('reasons')
-  public async createReason(
-    @Body()
-    reason: {
-      category: ExpenseCategory;
-      reason: string;
-    }
-  ) {
-    return this.expensesService.createReason(reason);
-  }
-
-  @Delete()
-  public async deleteAll() {
-    return this.expensesService.deleteAll();
+    return super.create(expenseResource);
   }
 }
