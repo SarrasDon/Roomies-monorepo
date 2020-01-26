@@ -18,6 +18,7 @@ import { ExpenseReason } from '../../../shared/models';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExpensesActionsComponent {
+  @Input() isLoading = true;
   @Input() reasons: ExpenseReason[] = [];
   @Output() formSubmitted = new EventEmitter<{
     reason: ExpenseReason;

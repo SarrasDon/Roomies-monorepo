@@ -9,6 +9,7 @@ import * as Containers from './containers';
 import * as pipes from './pipes';
 import { States } from './state';
 import { ExpensesViewComponent } from './views/expenses.view';
+import { HnResolver } from './expenses.resolver';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ExpensesViewComponent } from './views/expenses.view';
     RouterModule.forChild([
       {
         path: '',
-        component: ExpensesViewComponent
+        component: ExpensesViewComponent,
+        resolve: { message: HnResolver }
       }
     ]),
     NgxsModule.forFeature(States),
