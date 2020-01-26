@@ -1,26 +1,31 @@
 import { Injectable } from '@nestjs/common';
 import { UsersRepo } from '../repositories';
-import { CreateUserResource } from '../resources';
+import { UserResource } from '../models';
+import { GenericService } from '../../shared/generics';
+import { User } from '../../shared/Models';
 
 @Injectable()
-export class UsersService {
-  constructor(private repo: UsersRepo) {}
+export class UsersService extends GenericService<User, UserResource> {
+  constructor(public repository: UsersRepo) {
+    super(repository);
+  }
 
-  async create(createUsersDto: CreateUserResource) {
-    return this.repo
+  create(createUsersDto: UserResource) {
+    throw new Error('User method createUser');
+    return null;
+  }
+
+  async createUser(createUsersDto: UserResource) {
+    return this.repository
       .create(createUsersDto)
       .save()
       .then(({ email, name, _id }) => ({ email, name, _id }));
   }
 
   async login({ email, password }) {
-    return this.repo
+    return this.repository
       .findBy({ email, password })
       .select('_id email name avatarUrl')
       .exec();
-  }
-
-  async updateAvatar(_id: string, avatarUrl: string) {
-    return this.repo.updateOne(_id, { avatarUrl }).exec();
   }
 }

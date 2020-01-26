@@ -39,6 +39,6 @@ export class ExpensesController extends GenericController<
   public async create(
     @Body(new CreateExpenseValidPipe()) expenseResource: ExpenseResource
   ) {
-    return super.create(expenseResource);
+    return await super.create(expenseResource);
   }
 }

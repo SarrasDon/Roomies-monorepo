@@ -31,6 +31,9 @@ export class EntityRepository<T extends Document> implements Repository<T> {
   }
 
   updateOne(_id: string, update: Partial<T>): DocumentQuery<T, T, {}> {
-    return this.model.findOneAndUpdate({ _id }, update, { new: true });
+    return this.model.findOneAndUpdate({ _id }, update, {
+      new: true,
+      useFindAndModify: false
+    } as any);
   }
 }

@@ -9,13 +9,6 @@ import { User } from '../shared/models/user.model';
 export class AuthService {
   constructor(private http: HttpClient) {}
 
-  updateAvatar(_id: string, avatarUrl: string) {
-    return this.http.post<User>(`${environment.API_URL}users/updateAvatar`, {
-      _id,
-      avatarUrl
-    });
-  }
-
   signUp(email: string, password: string) {
     return this.http.post<User>(`${environment.API_URL}users/`, {
       email,

@@ -5,7 +5,7 @@ import { User } from '../../shared/Models';
 import { EntityRepository } from '../../shared/generics';
 
 @Injectable()
-export class UsersRepo extends EntityRepository<User> {
+export class UsersRepository extends EntityRepository<User> {
   constructor(@InjectModel('User') public readonly userModel: Model<User>) {
     super(userModel);
   }

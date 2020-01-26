@@ -1,9 +1,10 @@
 import { Document } from 'mongoose';
 import { Repository, EntityService } from '../interfaces';
+import { EntityRepository } from './entity-repository.generic';
 
 export class GenericService<T extends Document, Resource extends Partial<T>>
   implements EntityService<T, Resource> {
-  constructor(public repository: Repository<T>) {}
+  constructor(public repository: EntityRepository<T>) {}
 
   async get(): Promise<T[]> {
     return await this.repository.findAll().exec();
@@ -26,6 +27,6 @@ export class GenericService<T extends Document, Resource extends Partial<T>>
   }
 
   async update(id: string, update: Partial<T>): Promise<T> {
-    return (await this.repository.updateOne(id, update)).save();
+    return await (await this.repository.updateOne(id, update)).save();
   }
 }

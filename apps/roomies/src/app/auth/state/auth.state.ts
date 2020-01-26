@@ -3,13 +3,14 @@ import { tap } from 'rxjs/operators';
 import { AuthService } from '../../auth/auth.service';
 import { User } from '../../shared/models/user.model';
 import * as AuthActions from './auth.actions';
+import { UsersService } from '../../core/services/users.service';
 
 export interface AuthStateMode {
   currentUser: User | null;
 }
 
 @State<AuthStateMode>({
-  name: 'users',
+  name: 'auth',
   defaults: {
     currentUser:
       (JSON.parse(localStorage.getItem('user') as string) as User) || null
@@ -26,7 +27,10 @@ export class AuthState {
     return state.currentUser !== null;
   }
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    public userService: UsersService
+  ) {}
 
   @Action(AuthActions.Login)
   login(
@@ -58,9 +62,9 @@ export class AuthState {
     { email, password }: AuthActions.SignUp
   ) {
     return this.authService.signUp(email, password).pipe(
-      tap(user => {
-        ctx.patchState({ currentUser: user });
-        localStorage.setItem('user', JSON.stringify(user));
+      tap(currentUser => {
+        ctx.patchState({ currentUser });
+        localStorage.setItem('user', JSON.stringify(currentUser));
       })
     );
   }
@@ -71,10 +75,11 @@ export class AuthState {
     { avatarUrl }: AuthActions.UpdateUserAvatar
   ) {
     const user = ctx.getState().currentUser;
-    return this.authService.updateAvatar(user._id, avatarUrl).pipe(
+    return this.userService.update(user._id, { avatarUrl }).pipe(
       tap(() => {
-        ctx.patchState({ currentUser: { ...user, avatarUrl } });
-        localStorage.setItem('user', JSON.stringify(user));
+        const currentUser = { ...user, avatarUrl };
+        ctx.patchState({ currentUser });
+        localStorage.setItem('user', JSON.stringify(currentUser));
       })
     );
   }
