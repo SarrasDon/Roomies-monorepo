@@ -2,9 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/services';
 
-export const jwtConstants = {
-  secret: 'secretKey'
-};
 @Injectable()
 export class AuthService {
   constructor(

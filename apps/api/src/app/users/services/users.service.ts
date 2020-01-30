@@ -1,13 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { UsersRepo } from '../repositories';
-import { UserResource } from '../models';
 import { GenericService } from '../../shared/generics';
 import { User } from '../../shared/Models';
-import { JwtService } from '@nestjs/jwt';
+import { UserResource } from '../models';
+import { UsersRepo } from '../repositories';
 
-export const jwtConstants = {
-  secret: 'secretKey'
-};
 @Injectable()
 export class UsersService extends GenericService<User, UserResource> {
   constructor(public repository: UsersRepo) {
