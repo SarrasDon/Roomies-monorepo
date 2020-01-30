@@ -28,8 +28,13 @@ export class AuthState {
   }
 
   @Selector()
-  public static isLoggedIn(state: AuthStateModel): boolean {
+  public static isLoggedIn(state: AuthStateModel) {
     return state.currentUser !== null;
+  }
+
+  @Selector()
+  public static access_token(state: AuthStateModel) {
+    return state.access_token;
   }
 
   constructor(

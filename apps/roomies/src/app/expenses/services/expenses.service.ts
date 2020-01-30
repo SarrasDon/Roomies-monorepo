@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DataService } from '../../core/services';
 import { Expense, ExpenseReason, Total } from '../../shared/models';
@@ -11,6 +11,8 @@ export class ExpensesService extends DataService<Expense> {
   }
 
   getExpenses(index: number, limit: number) {
+    // const access_token = document.cookie.split('access_token=')[1];
+
     return this.http.get<Expense[]>(
       // `${this.featureUrl}?userId=${id}&index=${index}&limit=${limit}`
       `${this.featureUrl}?index=${index}&limit=${limit}`
