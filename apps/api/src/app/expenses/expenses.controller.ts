@@ -1,8 +1,9 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
 import { GenericController } from '../shared/generics';
 import { Expense, ExpenseResource } from './models';
 import { CreateExpenseValidPipe } from './pipes';
 import { ExpensesService } from './services';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('expenses')
 export class ExpensesController extends GenericController<
@@ -13,6 +14,7 @@ export class ExpensesController extends GenericController<
     super(expensesService);
   }
 
+  @UseGuards(AuthGuard())
   @Get()
   public async getAll(
     @Query()

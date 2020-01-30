@@ -14,6 +14,10 @@ export class GenericService<T extends Document, Resource extends Partial<T>>
     return await this.repository.findById(id).exec();
   }
 
+  async getOneBy(conditions: Partial<T>): Promise<T> {
+    return await this.repository.findOneBy(conditions).then(result => result);
+  }
+
   async getCount(): Promise<number> {
     return await this.repository.count().exec();
   }

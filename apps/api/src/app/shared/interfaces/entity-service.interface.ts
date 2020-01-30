@@ -11,6 +11,8 @@ export interface EntityService<
 
   getById(id: Object | String | Number): Promise<T>;
 
+  getOneBy(conditions: Partial<T>): Promise<T>;
+
   getCount(): Promise<number>;
 
   create(resource: Resource): Promise<T>;

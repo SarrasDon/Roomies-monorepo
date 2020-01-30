@@ -14,8 +14,8 @@ export class EntityRepository<T extends Document> implements Repository<T> {
     return this.model.findById(id);
   }
 
-  findBy(key: Partial<T>): DocumentQuery<T, T, {}> {
-    return this.model.findOne(key);
+  findOneBy(conditions: Partial<T>): DocumentQuery<T, T, {}> {
+    return this.model.findOne(conditions);
   }
 
   count() {

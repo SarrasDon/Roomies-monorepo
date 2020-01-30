@@ -7,7 +7,7 @@ export interface Repository<T extends Document> {
 
   findById(id: Object | String | Number): DocumentQuery<T, T, {}>;
 
-  findBy(key: Partial<T>): DocumentQuery<T, T, {}>;
+  findOneBy(key: Partial<T>): DocumentQuery<T, T, {}>;
 
   create(Dto: any): T;
 
