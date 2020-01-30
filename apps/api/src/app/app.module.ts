@@ -5,7 +5,8 @@ import { UsersModule } from './users/users.module';
 import { ExpensesModule } from './expenses/expenses.module';
 import { environment } from '../environments/environment';
 
-const connectionString = environment.mongoDBstring;
+const connectionString =
+  process.env.MONGO_DB_CONN_STRING || environment.mongoDBstring;
 
 @Module({
   imports: [
