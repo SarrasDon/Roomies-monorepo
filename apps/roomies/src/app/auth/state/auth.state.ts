@@ -9,12 +9,14 @@ import { UsersService } from '../../core/services';
 export interface AuthStateModel {
   currentUser: User | null;
   userDictionary: Dictionary<User>;
+  access_token: string;
 }
 
 @State<AuthStateModel>({
   name: 'auth',
   defaults: {
     userDictionary: {},
+    access_token: null,
     currentUser:
       (JSON.parse(localStorage.getItem('user') as string) as User) || null
   }
@@ -41,8 +43,9 @@ export class AuthState {
     { email, password }: AuthActions.Login
   ) {
     return this.authService.login(email, password).pipe(
-      tap(user => {
-        ctx.patchState({ currentUser: user });
+      tap(({ access_token, user }) => {
+        ctx.patchState({ access_token, currentUser: user });
+        document.cookie = `access_token=${access_token}`;
         localStorage.setItem('user', JSON.stringify(user));
       })
     );

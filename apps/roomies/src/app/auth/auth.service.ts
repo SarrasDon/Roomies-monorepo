@@ -10,14 +10,17 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   signUp(email: string, password: string) {
-    return this.http.post<User>(`${environment.API_URL}users/`, {
+    return this.http.post<User>(`${environment.API_URL}auth/`, {
       email,
       password
     });
   }
 
   login(email: string, password: string) {
-    return this.http.post<User>(`${environment.API_URL}users/login/`, {
+    return this.http.post<{
+      user: User;
+      access_token: string;
+    }>(`${environment.API_URL}auth/login/`, {
       email,
       password
     });
