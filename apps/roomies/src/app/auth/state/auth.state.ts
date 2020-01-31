@@ -67,19 +67,6 @@ export class AuthState {
     return ctx.patchState({ currentUser: null });
   }
 
-  @Action(AuthActions.SignUp)
-  signup(
-    ctx: StateContext<AuthStateModel>,
-    { email, password }: AuthActions.SignUp
-  ) {
-    return this.authService.signUp(email, password).pipe(
-      tap(currentUser => {
-        ctx.patchState({ currentUser });
-        localStorage.setItem('user', JSON.stringify(currentUser));
-      })
-    );
-  }
-
   @Action(AuthActions.UpdateUserAvatar)
   updateAvatar(
     ctx: StateContext<AuthStateModel>,

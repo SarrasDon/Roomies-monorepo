@@ -2,18 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { User } from '../shared/models/user.model';
+import { UsersService } from '../core/services';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
-  constructor(private http: HttpClient) {}
-
-  signUp(email: string, password: string) {
-    return this.http.post<User>(`${environment.API_URL}auth/`, {
-      email,
-      password
-    });
+export class AuthService extends UsersService {
+  constructor(public http: HttpClient) {
+    super(http);
   }
 
   login(email: string, password: string) {

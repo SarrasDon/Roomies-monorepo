@@ -3,6 +3,7 @@ import { GenericService } from '../../shared/generics';
 import { User } from '../../shared/Models';
 import { UserResource } from '../models';
 import { UsersRepo } from '../repositories';
+import { hash } from 'bcryptjs';
 
 @Injectable()
 export class UsersService extends GenericService<User, UserResource> {
@@ -16,8 +17,13 @@ export class UsersService extends GenericService<User, UserResource> {
   }
 
   async createUser(createUsersDto: UserResource) {
+    const password = await hash(
+      createUsersDto.password,
+      process.env['BCRYPT_SALT']
+    );
+
     return await this.repository
-      .create(createUsersDto)
+      .create({ ...createUsersDto, password })
       .save()
       .then(({ email, name, _id }) => ({ email, name, _id }));
   }

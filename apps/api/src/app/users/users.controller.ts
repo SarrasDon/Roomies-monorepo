@@ -15,7 +15,7 @@ export class UsersController extends GenericController<User, UserResource> {
   public async create(
     @Body(new CreateUserValidPipe()) userResource: UserResource
   ) {
-    const user = await super.create(userResource);
+    const user = (await this.usersService.createUser(userResource)) as any;
     if (!user) throw new BadRequestException('User not created');
     return user;
   }
