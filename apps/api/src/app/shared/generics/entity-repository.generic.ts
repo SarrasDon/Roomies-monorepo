@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Document, DocumentQuery, Model } from 'mongoose';
+import { Document, DocumentQuery, Model, Query } from 'mongoose';
 import { Repository } from '../interfaces';
 
 @Injectable()
@@ -35,5 +35,13 @@ export class EntityRepository<T extends Document> implements Repository<T> {
       new: true,
       useFindAndModify: false
     } as any);
+  }
+
+  upsertOne(conditions: any, update: Partial<T>): Query<T> {
+    return this.model.updateOne(
+      conditions,
+      { ...update },
+      { new: true, upsert: true }
+    );
   }
 }

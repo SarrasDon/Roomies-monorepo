@@ -14,7 +14,8 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { Cloudinary } from '@cloudinary/angular-5.x/src/cloudinary.service';
 import { LayoutModule } from '@angular/cdk/layout';
-import { AuthInterceptorService } from './auth/auth-interceptor.service';
+import { AuthInterceptorService } from './auth/services';
+import { BaseInterceptorService } from './core/services';
 
 export const cloudinaryLib = {
   Cloudinary: CloudinaryCore
@@ -40,6 +41,11 @@ export const cloudinaryLib = {
     LayoutModule
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: BaseInterceptorService,
+      multi: true
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,

@@ -2,12 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { GenericService } from '../../shared/generics';
 import { User } from '../../shared/Models';
 import { UserResource } from '../models';
-import { UsersRepo } from '../repositories';
 import { hash } from 'bcryptjs';
+import { UsersRepository } from '../repositories';
 
 @Injectable()
 export class UsersService extends GenericService<User, UserResource> {
-  constructor(public repository: UsersRepo) {
+  constructor(public repository: UsersRepository) {
     super(repository);
   }
 

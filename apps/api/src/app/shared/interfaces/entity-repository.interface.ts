@@ -19,4 +19,6 @@ export interface Repository<T extends Document> {
     _id: Object | String | Number,
     update: Partial<T>
   ): DocumentQuery<T, T, {}>;
+
+  upsertOne(conditions: any, update: Partial<T>): Query<T>;
 }

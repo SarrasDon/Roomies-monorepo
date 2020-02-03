@@ -6,7 +6,7 @@ import {
   HttpEvent
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthState } from './state/auth.state';
+import { AuthState } from '../state/auth.state';
 import { Select } from '@ngxs/store';
 import { first } from 'rxjs/operators';
 

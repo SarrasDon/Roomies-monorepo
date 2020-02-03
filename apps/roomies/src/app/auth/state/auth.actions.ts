@@ -29,3 +29,12 @@ export class UsersLoaded {
   static readonly type = '[Expense Resolver] Users Loaded';
   constructor(public users: User[]) {}
 }
+
+export class RefreshedTokenSuccess {
+  static readonly type = '[Auth guard] User Refreshed Token';
+  constructor(public user: User, public access_token: string) {}
+}
+
+export class RefreshedTokenFail {
+  static readonly type = '[Auth guard] Refresh Failed';
+}
