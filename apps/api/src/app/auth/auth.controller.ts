@@ -4,11 +4,11 @@ import {
   HttpStatus,
   Post,
   Res,
-  Request,
+  Req,
   UseGuards
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { Response } from 'express';
+import { Response, Request } from 'express';
 import { AuthService } from './services';
 import { environment } from '../../environments/environment';
 import { User } from '../shared/Models';
@@ -23,11 +23,7 @@ export class AuthController {
     const result = await this.authService.login(email, password);
 
     const { refresh_token, ...user } = result;
-    res.cookie('refreshToken', refresh_token, {
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-      secure: environment.production,
-      httpOnly: true
-    });
+    this.addRefreshToken(refresh_token, res);
 
     res.status(HttpStatus.CREATED).send(user);
   }
@@ -35,7 +31,7 @@ export class AuthController {
   @Post('refresh')
   public async refresh(
     @Body() user: User,
-    @Request() req,
+    @Req() req: Request,
     @Res() res: Response
   ) {
     const result = await this.authService.validateToken(
@@ -44,12 +40,16 @@ export class AuthController {
     );
 
     const { refresh_token, ...userDB } = result;
+    this.addRefreshToken(refresh_token, res);
+
+    res.status(HttpStatus.CREATED).send(userDB);
+  }
+
+  private addRefreshToken(refresh_token: string, @Res() res: Response) {
     res.cookie('refreshToken', refresh_token, {
       maxAge: 7 * 24 * 60 * 60 * 1000,
       secure: environment.production,
       httpOnly: true
     });
-
-    res.status(HttpStatus.CREATED).send(userDB);
   }
 }
