@@ -3,16 +3,11 @@ import { JwtModule } from '@nestjs/jwt';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PassportModule } from '@nestjs/passport';
 import { environment } from '../../environments/environment';
-import { RefreshTokenSchema } from './refresh-token.model';
 import { UsersModule } from '../users/users.module';
 import { AuthController } from './Auth.controller';
-import {
-  LocalStrategy,
-  JwtStrategy,
-  AuthService,
-  RefreshStrategy
-} from './services';
+import { RefreshTokenSchema } from './refresh-token.model';
 import { RefreshTokensRepository } from './repositories';
+import { AuthService, JwtStrategy, LocalStrategy } from './services';
 
 @Module({
   exports: [],
@@ -29,12 +24,6 @@ import { RefreshTokensRepository } from './repositories';
     ])
   ],
   controllers: [AuthController],
-  providers: [
-    LocalStrategy,
-    JwtStrategy,
-    AuthService,
-    RefreshTokensRepository,
-    RefreshStrategy
-  ]
+  providers: [LocalStrategy, JwtStrategy, AuthService, RefreshTokensRepository]
 })
 export class AuthModule {}

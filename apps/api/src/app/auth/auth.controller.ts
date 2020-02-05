@@ -34,7 +34,7 @@ export class AuthController {
     @Req() req: Request,
     @Res() res: Response
   ) {
-    const result = await this.authService.validateToken(
+    const result = await this.authService.validateRefreshToken(
       user,
       req.cookies['refreshToken']
     );

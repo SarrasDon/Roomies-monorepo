@@ -1,56 +1,32 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { environment } from 'apps/api/src/environments/environment';
 import { compare, hash } from 'bcryptjs';
-import { UsersService } from '../../users/services';
+import { User } from '../../shared/Models';
 import { UsersRepository } from '../../users/repositories';
 import { RefreshTokensRepository } from '../repositories';
-import { environment } from 'apps/api/src/environments/environment';
-import { User } from '../../shared/Models';
 
 @Injectable()
 export class AuthService {
   constructor(
     private usersRepository: UsersRepository,
     private refreshTokenRepository: RefreshTokensRepository,
-    private readonly jwtService: JwtService
+    private jwtService: JwtService
   ) {}
 
   async login(email: string, password: string) {
-    const userDB: any = await this.usersRepository
+    const user: Partial<User> = await this.usersRepository
       .findOneBy({ email })
-      .then(res => ({
-        _id: res._id,
-        name: res.name,
-        email: res.email,
-        avatarUrl: res.avatarUrl
-      }));
+      .then(res => {
+        const { password, ...userDB } = res;
+        return userDB;
+      });
+    const access_token = await this.createToken(email, user._id);
+    const refresh_token = await this.createToken(user, user._id);
 
-    const access_token = await this.jwtService.signAsync({
-      email,
-      sub: userDB._id
-    });
-    const refresh_token = await this.jwtService.signAsync({
-      userDB,
-      sub: userDB._id
-    });
-
-    const token = await hash(
-      refresh_token,
-      process.env['BCRYPT_SALT'] || environment.bcryptSalt
-    );
-
-    const tokenDB = await this.refreshTokenRepository
-      .upsertOne(
-        { person: userDB._id },
-        {
-          token,
-          person: userDB._id
-        }
-      )
-      .exec();
-
+    await this.saveRefreshToken(refresh_token, user._id);
     return {
-      user: userDB,
+      user,
       access_token,
       refresh_token
     };
@@ -70,7 +46,7 @@ export class AuthService {
     });
   }
 
-  async validateToken(user: User, token: string) {
+  async validateRefreshToken(user: User, token: string) {
     if (!user || !token) {
       throw new UnauthorizedException();
     }
@@ -83,39 +59,39 @@ export class AuthService {
     if (!tokenDb) {
       throw new UnauthorizedException();
     }
+
     const result = await compare(token, tokenDb.token.toString());
     if (!result) {
       throw new UnauthorizedException();
     }
 
-    const access_token = await this.jwtService.signAsync({
-      email: user.email,
-      sub: user._id
-    });
-    const refresh_token = await this.jwtService.signAsync({
-      user,
-      sub: user._id
-    });
+    const access_token = await this.createToken(user.email, user._id);
+    const refresh_token = await this.createToken(user, user._id);
 
-    const newToken = await hash(
-      refresh_token,
-      process.env['BCRYPT_SALT'] || environment.bcryptSalt
-    );
-
-    await this.refreshTokenRepository
-      .upsertOne(
-        { person: user._id },
-        {
-          token: newToken,
-          person: user._id
-        }
-      )
-      .exec();
+    await this.saveRefreshToken(refresh_token, user._id);
 
     return {
       user,
       access_token,
       refresh_token
     };
+  }
+
+  private async hashToken(token: string) {
+    return await hash(
+      token,
+      process.env['BCRYPT_SALT'] || environment.bcryptSalt
+    );
+  }
+
+  private async createToken(payload: any, userId: string) {
+    return await this.jwtService.signAsync({ payload, sub: userId });
+  }
+
+  private async saveRefreshToken(refresh_token: string, userId: string) {
+    const token = await this.hashToken(refresh_token);
+    await this.refreshTokenRepository
+      .upsertOne({ person: userId }, { token, person: userId })
+      .exec();
   }
 }
