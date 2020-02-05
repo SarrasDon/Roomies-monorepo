@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -14,6 +14,8 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { Cloudinary } from '@cloudinary/angular-5.x/src/cloudinary.service';
 import { LayoutModule } from '@angular/cdk/layout';
+import { AuthInterceptorService } from './auth/services';
+import { BaseInterceptorService } from './core/services';
 
 export const cloudinaryLib = {
   Cloudinary: CloudinaryCore
@@ -38,7 +40,18 @@ export const cloudinaryLib = {
     CloudinaryModule.forRoot(cloudinaryLib, { cloud_name: 'donatos' }),
     LayoutModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: BaseInterceptorService,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
