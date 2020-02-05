@@ -4,7 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { PassportModule } from '@nestjs/passport';
 import { environment } from '../../environments/environment';
 import { UsersModule } from '../users/users.module';
-import { AuthController } from './Auth.controller';
+import { AuthController } from './auth.controller';
 import { RefreshTokenSchema } from './refresh-token.model';
 import { RefreshTokensRepository } from './repositories';
 import { AuthService, JwtStrategy, LocalStrategy } from './services';
