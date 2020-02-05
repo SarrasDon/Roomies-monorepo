@@ -78,9 +78,10 @@ export class AuthService {
   }
 
   private async hashToken(token: string) {
+    console.log(process.env['BCRYPT_SALT']);
     return await hash(
       token,
-      process.env['BCRYPT_SALT'] || environment.bcryptSalt
+      +process.env['BCRYPT_SALT'] || environment.bcryptSalt
     );
   }
 
