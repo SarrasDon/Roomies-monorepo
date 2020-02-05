@@ -6,7 +6,7 @@ import {
   UseGuards
 } from '@nestjs/common';
 import { GenericController } from '../shared/generics';
-import { User } from '../shared/models';
+import { User } from '../shared/Models';
 import { UserResource } from './models';
 import { CreateUserValidPipe } from './pipes';
 import { UsersService } from './services';
