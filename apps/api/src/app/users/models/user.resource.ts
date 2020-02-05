@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsEmail } from 'class-validator';
-import { User } from '../../shared/Models';
+import { User } from '../../shared/models';
 
 export class UserResource implements Partial<User> {
   @IsNotEmpty({ message: 'Name was not provided.' })

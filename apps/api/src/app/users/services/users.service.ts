@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { GenericService } from '../../shared/generics';
-import { User } from '../../shared/Models';
+import { User } from '../../shared/models';
 import { UserResource } from '../models';
 import { hash } from 'bcryptjs';
 import { UsersRepository } from '../repositories';

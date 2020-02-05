@@ -15,7 +15,6 @@ import { PassportModule } from '@nestjs/passport';
       { name: 'ExpenseReason', schema: ExpenseReasonSchema }
     ]),
     UsersModule,
-    PassportModule,
     PassportModule.register({ defaultStrategy: 'jwt' })
   ],
   controllers: [ExpensesController, ExpenseReasonsController],

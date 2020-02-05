@@ -26,7 +26,7 @@ export class AuthInterceptorService implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    if (request.url.includes('login')) {
+    if (request.url.toLowerCase().includes('login')) {
       return next.handle(request);
     }
     request = request.clone({

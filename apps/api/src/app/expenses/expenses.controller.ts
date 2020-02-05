@@ -6,6 +6,7 @@ import { ExpensesService } from './services';
 import { AuthGuard } from '@nestjs/passport';
 
 @Controller('expenses')
+@UseGuards(AuthGuard())
 export class ExpensesController extends GenericController<
   Expense,
   ExpenseResource
@@ -14,7 +15,6 @@ export class ExpensesController extends GenericController<
     super(expensesService);
   }
 
-  @UseGuards(AuthGuard())
   @Get()
   public async getAll(
     @Query()

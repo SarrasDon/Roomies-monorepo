@@ -2,7 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { environment } from 'apps/api/src/environments/environment';
 import { compare, hash } from 'bcryptjs';
-import { User } from '../../shared/Models';
+import { User } from '../../shared/models';
 import { UsersRepository } from '../../users/repositories';
 import { RefreshTokensRepository } from '../repositories';
 
@@ -84,7 +84,7 @@ export class AuthService {
     );
   }
 
-  private async createToken(payload: any, userId: string) {
+  private async createToken(payload: any, userId: any) {
     return await this.jwtService.signAsync({ payload, sub: userId });
   }
 
