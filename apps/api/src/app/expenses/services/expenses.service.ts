@@ -1,15 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { GenericService } from '../../shared/generics';
-import { UsersRepo } from '../../users/repositories';
+import { UsersRepository } from '../../users/repositories';
 import { Expense, ExpenseResource } from '../models';
-import { ExpenseReasonsRepo, ExpensesRepo } from '../repositories';
+import { ExpensesRepo } from '../repositories';
 
 @Injectable()
 export class ExpensesService extends GenericService<Expense, ExpenseResource> {
   constructor(
     public readonly expensesRepo: ExpensesRepo,
-    private reasonsRepo: ExpenseReasonsRepo,
-    private usersRepo: UsersRepo
+    private usersRepo: UsersRepository
   ) {
     super(expensesRepo);
   }
@@ -28,10 +27,6 @@ export class ExpensesService extends GenericService<Expense, ExpenseResource> {
   }): Promise<Expense[]> {
     return await this.expensesRepo.pagedFind(queryOptions);
   }
-
-  // async findAllReasons() {
-  //   return this.reasonsRepo.findAll().exec();
-  // }
 
   async getTotals() {
     const totals = await this.expensesRepo.getTotals();
