@@ -17,10 +17,16 @@ export class AuthService {
   async login(email: string, password: string) {
     const user: Partial<User> = await this.usersRepository
       .findOneBy({ email })
+      .exec()
       .then(res => {
-        const { password, ...userDB } = res;
-        return userDB;
+        return {
+          _id: res._id,
+          name: res.name,
+          email: res.email,
+          avatarUrl: res.avatarUrl
+        };
       });
+
     const access_token = await this.createToken(email, user._id);
     const refresh_token = await this.createToken(user, user._id);
 
