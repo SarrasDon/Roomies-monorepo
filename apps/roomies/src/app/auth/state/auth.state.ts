@@ -1,20 +1,24 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
-import { AuthService } from '../../auth/auth.service';
 import { User } from '../../shared/models/user.model';
 import * as AuthActions from './auth.actions';
 import { Dictionary } from '../../shared/interfaces';
 import { UsersService } from '../../core/services';
+import { AuthService } from '../services/auth.service';
 
 export interface AuthStateModel {
   currentUser: User | null;
+  isLoggedIn: boolean;
   userDictionary: Dictionary<User>;
+  access_token: string;
 }
 
 @State<AuthStateModel>({
   name: 'auth',
   defaults: {
     userDictionary: {},
+    access_token: null,
+    isLoggedIn: false,
     currentUser:
       (JSON.parse(localStorage.getItem('user') as string) as User) || null
   }
@@ -26,8 +30,13 @@ export class AuthState {
   }
 
   @Selector()
-  public static isLoggedIn(state: AuthStateModel): boolean {
-    return state.currentUser !== null;
+  public static isLoggedIn(state: AuthStateModel) {
+    return state.isLoggedIn;
+  }
+
+  @Selector()
+  public static access_token(state: AuthStateModel) {
+    return state.access_token;
   }
 
   constructor(
@@ -41,8 +50,8 @@ export class AuthState {
     { email, password }: AuthActions.Login
   ) {
     return this.authService.login(email, password).pipe(
-      tap(user => {
-        ctx.patchState({ currentUser: user });
+      tap(({ access_token, user }) => {
+        ctx.patchState({ access_token, currentUser: user, isLoggedIn: true });
         localStorage.setItem('user', JSON.stringify(user));
       })
     );
@@ -56,20 +65,7 @@ export class AuthState {
   @Action(AuthActions.Logout)
   logout(ctx: StateContext<AuthStateModel>) {
     localStorage.removeItem('user');
-    return ctx.patchState({ currentUser: null });
-  }
-
-  @Action(AuthActions.SignUp)
-  signup(
-    ctx: StateContext<AuthStateModel>,
-    { email, password }: AuthActions.SignUp
-  ) {
-    return this.authService.signUp(email, password).pipe(
-      tap(currentUser => {
-        ctx.patchState({ currentUser });
-        localStorage.setItem('user', JSON.stringify(currentUser));
-      })
-    );
+    return ctx.patchState({ currentUser: null, isLoggedIn: false });
   }
 
   @Action(AuthActions.UpdateUserAvatar)
@@ -93,5 +89,14 @@ export class AuthState {
     { users }: AuthActions.UsersLoaded
   ) {
     ctx.patchState({ userDictionary: users.toDictionary() });
+  }
+
+  @Action(AuthActions.RefreshedTokenSuccess)
+  tokenRefreshed(
+    ctx: StateContext<AuthStateModel>,
+    { user, access_token }: AuthActions.RefreshedTokenSuccess
+  ) {
+    ctx.patchState({ access_token, currentUser: user, isLoggedIn: true });
+    localStorage.setItem('user', JSON.stringify(user));
   }
 }

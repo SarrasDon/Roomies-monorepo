@@ -1,16 +1,10 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'apps/roomies/src/environments/environment';
 import { Entity } from '../../shared/interfaces';
 
 @Injectable({ providedIn: 'root' })
 export class DataService<T extends Entity> {
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  };
-
   private _featureUrl = '';
   protected set featureUrl(url: string) {
     this._featureUrl = `${environment.API_URL}${url}`;
@@ -34,11 +28,7 @@ export class DataService<T extends Entity> {
   }
 
   create(resource: any) {
-    return this.http.post<T>(
-      this.featureUrl,
-      JSON.stringify(resource),
-      this.httpOptions
-    );
+    return this.http.post<T>(this.featureUrl, JSON.stringify(resource));
   }
 
   delete(id: string) {
@@ -46,10 +36,6 @@ export class DataService<T extends Entity> {
   }
 
   update(id: string, resource: any) {
-    return this.http.put(
-      `${this.featureUrl}/${id}`,
-      JSON.stringify(resource),
-      this.httpOptions
-    );
+    return this.http.put(`${this.featureUrl}/${id}`, JSON.stringify(resource));
   }
 }

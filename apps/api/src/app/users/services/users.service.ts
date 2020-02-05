@@ -1,12 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { UsersRepo } from '../repositories';
-import { UserResource } from '../models';
 import { GenericService } from '../../shared/generics';
-import { User } from '../../shared/Models';
+import { User } from '../../shared/models';
+import { UserResource } from '../models';
+import { hash } from 'bcryptjs';
+import { UsersRepository } from '../repositories';
 
 @Injectable()
 export class UsersService extends GenericService<User, UserResource> {
-  constructor(public repository: UsersRepo) {
+  constructor(public repository: UsersRepository) {
     super(repository);
   }
 
@@ -16,16 +17,14 @@ export class UsersService extends GenericService<User, UserResource> {
   }
 
   async createUser(createUsersDto: UserResource) {
+    const password = await hash(
+      createUsersDto.password,
+      process.env['BCRYPT_SALT']
+    );
+
     return await this.repository
-      .create(createUsersDto)
+      .create({ ...createUsersDto, password })
       .save()
       .then(({ email, name, _id }) => ({ email, name, _id }));
-  }
-
-  async login({ email, password }) {
-    return await this.repository
-      .findBy({ email, password })
-      .select('_id email name avatarUrl')
-      .exec();
   }
 }

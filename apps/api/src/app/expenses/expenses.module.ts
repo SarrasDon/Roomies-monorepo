@@ -6,6 +6,7 @@ import * as Repositories from './repositories';
 import * as Services from './services';
 import { ExpenseReasonSchema, ExpenseSchema } from './models';
 import { ExpenseReasonsController } from './expense-reasons.controller';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
   imports: [
@@ -13,7 +14,8 @@ import { ExpenseReasonsController } from './expense-reasons.controller';
     MongooseModule.forFeature([
       { name: 'ExpenseReason', schema: ExpenseReasonSchema }
     ]),
-    UsersModule
+    UsersModule,
+    PassportModule.register({ defaultStrategy: 'jwt' })
   ],
   controllers: [ExpensesController, ExpenseReasonsController],
   providers: [
