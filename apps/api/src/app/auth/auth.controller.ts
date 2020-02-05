@@ -11,7 +11,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { Response, Request } from 'express';
 import { AuthService } from './services';
 import { environment } from '../../environments/environment';
-import { User } from '../shared/models';
+import { User } from '../shared/Models';
 
 @Controller('auth')
 export class AuthController {
