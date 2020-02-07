@@ -1,10 +1,12 @@
+import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
-import { User } from '../../shared/models/user.model';
-import * as AuthActions from './auth.actions';
-import { Dictionary } from '../../shared/interfaces';
 import { UsersService } from '../../core/services';
+import { Dictionary } from '../../shared/interfaces';
+import { User } from '../../shared/models/user.model';
+import { toDictionary } from '../../shared/utils';
 import { AuthService } from '../services/auth.service';
+import * as AuthActions from './auth.actions';
 
 export interface AuthStateModel {
   currentUser: User | null;
@@ -23,6 +25,7 @@ export interface AuthStateModel {
       (JSON.parse(localStorage.getItem('user') as string) as User) || null
   }
 })
+@Injectable()
 export class AuthState {
   @Selector()
   public static currentUser(state: AuthStateModel): User | null {
@@ -88,7 +91,7 @@ export class AuthState {
     ctx: StateContext<AuthStateModel>,
     { users }: AuthActions.UsersLoaded
   ) {
-    ctx.patchState({ userDictionary: users.toDictionary() });
+    ctx.patchState({ userDictionary: toDictionary(users) });
   }
 
   @Action(AuthActions.RefreshedTokenSuccess)
