@@ -92,7 +92,7 @@
     "dotenv": "^6.2.0",
     "eslint": "^6.8.0",
     "jest": "^24.1.0",
-    "jest-preset-angular": "^8.0.0",
+    "jest-preset-angular": "^7.1.0",
     "prettier": "^1.19.1",
     "ts-jest": "^24.0.0",
     "ts-node": "^7.0.1",
