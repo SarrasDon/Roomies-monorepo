@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
 import { UsersService } from '../../core/services';
@@ -7,6 +7,7 @@ import { User } from '../../shared/models/user.model';
 import { toDictionary } from '../../shared/utils';
 import { AuthService } from '../services/auth.service';
 import * as AuthActions from './auth.actions';
+import { Router } from '@angular/router';
 
 export interface AuthStateModel {
   currentUser: User | null;
@@ -44,7 +45,9 @@ export class AuthState {
 
   constructor(
     private authService: AuthService,
-    public userService: UsersService
+    public userService: UsersService,
+    private router: Router,
+    private ngZone: NgZone
   ) {}
 
   @Action(AuthActions.Login)
@@ -67,7 +70,8 @@ export class AuthState {
 
   @Action(AuthActions.Logout)
   logout(ctx: StateContext<AuthStateModel>) {
-    localStorage.removeItem('user');
+    localStorage.clear();
+    this.ngZone.run(() => this.router.navigate(['/auth']));
     return ctx.patchState({ currentUser: null, isLoggedIn: false });
   }
 
@@ -101,5 +105,14 @@ export class AuthState {
   ) {
     ctx.patchState({ access_token, currentUser: user, isLoggedIn: true });
     localStorage.setItem('user', JSON.stringify(user));
+  }
+
+  @Action(AuthActions.ClearUser)
+  clearUser(ctx: StateContext<AuthStateModel>) {
+    ctx.patchState({
+      access_token: null
+      // currentUser: null,
+      // isLoggedIn: false
+    });
   }
 }

@@ -26,7 +26,7 @@ export class AuthGuard implements CanLoad {
 
     const user = this.store.selectSnapshot(AuthState.currentUser);
     if (!user) {
-      this.router.navigate(['/auth']);
+      this.navigateToAuth();
       return of(false);
     }
     return this.authService.refresh(user).pipe(
@@ -36,9 +36,13 @@ export class AuthGuard implements CanLoad {
       }),
       catchError(error => {
         this.store.dispatch(new RefreshedTokenFail());
-        this.router.navigate(['/auth']);
+        this.navigateToAuth();
         return of(false);
       })
     );
+  }
+
+  navigateToAuth() {
+    this.router.navigate(['/auth']);
   }
 }

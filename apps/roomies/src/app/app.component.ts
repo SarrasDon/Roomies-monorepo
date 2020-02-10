@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Actions, ofActionDispatched, Select } from '@ngxs/store';
+import { Actions, ofActionDispatched, Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { Logout } from './auth/state/auth.actions';
+import { Logout, ClearUser } from './auth/state/auth.actions';
 import { AuthState } from './auth/state/auth.state';
 
 @Component({
@@ -14,11 +14,19 @@ import { AuthState } from './auth/state/auth.state';
 export class AppComponent implements OnInit {
   @Select(AuthState.isLoggedIn) isLoggedIn: Observable<boolean>;
 
-  constructor(private router: Router, private actions: Actions) {}
+  constructor(
+    private router: Router,
+    private actions: Actions,
+    private store: Store
+  ) {}
 
   ngOnInit(): void {
     this.actions.pipe(ofActionDispatched(Logout)).subscribe(() => {
       this.router.navigate(['/auth']);
     });
+  }
+
+  clearUser() {
+    this.store.dispatch(new ClearUser());
   }
 }
