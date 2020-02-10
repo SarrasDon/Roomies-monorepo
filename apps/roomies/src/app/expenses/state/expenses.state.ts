@@ -1,8 +1,8 @@
+import { Injectable } from '@angular/core';
 import { Action, State, StateContext, Store } from '@ngxs/store';
 import { map, tap } from 'rxjs/operators';
 import { AuthState } from '../../auth/state/auth.state';
 import { SnackbarService } from '../../core/services';
-import '../../shared/extensions/array.extensions';
 import { Dictionary } from '../../shared/interfaces/dictionary.interface';
 import { Expense, ExpenseReason, Total, User } from '../../shared/models';
 import { ExpensesService } from '../services';
@@ -13,6 +13,7 @@ import {
   SetExpensesCount,
   SetExpensesReasons as SetExpenseReasons
 } from './expenses.actions';
+import { toDictionary } from '../../shared/utils';
 
 export interface ExpensesStateModel {
   expenseDictionary: Dictionary<Expense> | null;
@@ -40,6 +41,7 @@ export interface ExpensesStateModel {
     isLoading: true
   }
 })
+@Injectable()
 export class ExpensesState {
   constructor(
     private store: Store,
@@ -68,7 +70,7 @@ export class ExpensesState {
         ctx.patchState({
           expenseDictionary: {
             ...expenseDictionary,
-            ...expenses.toDictionary()
+            ...toDictionary(expenses)
           },
           sorted: true,
           isLoading: false

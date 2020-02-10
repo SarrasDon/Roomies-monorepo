@@ -18,7 +18,13 @@ export class ExpenseSelectors extends ExpensesState {
     }
     return state.sorted
       ? Object.values(state.expenseDictionary)
-      : Object.values(state.expenseDictionary).sortBySpendDate();
+      : Object.values(state.expenseDictionary).sort((a, b) =>
+          new Date(a.spendAt).valueOf() > new Date(b.spendAt).valueOf()
+            ? -1
+            : new Date(a.spendAt).valueOf() < new Date(b.spendAt).valueOf()
+            ? 1
+            : 0
+        );
   }
   @Selector()
   public static reasons(state: ExpensesStateModel) {
