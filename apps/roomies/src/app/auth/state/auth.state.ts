@@ -1,10 +1,13 @@
+import { Injectable, NgZone } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
-import { User } from '../../shared/models/user.model';
-import * as AuthActions from './auth.actions';
-import { Dictionary } from '../../shared/interfaces';
 import { UsersService } from '../../core/services';
+import { Dictionary } from '../../shared/interfaces';
+import { User } from '../../shared/models/user.model';
+import { toDictionary } from '../../shared/utils';
 import { AuthService } from '../services/auth.service';
+import * as AuthActions from './auth.actions';
+import { Router } from '@angular/router';
 
 export interface AuthStateModel {
   currentUser: User | null;
@@ -23,6 +26,7 @@ export interface AuthStateModel {
       (JSON.parse(localStorage.getItem('user') as string) as User) || null
   }
 })
+@Injectable()
 export class AuthState {
   @Selector()
   public static currentUser(state: AuthStateModel): User | null {
@@ -41,7 +45,9 @@ export class AuthState {
 
   constructor(
     private authService: AuthService,
-    public userService: UsersService
+    public userService: UsersService,
+    private router: Router,
+    private ngZone: NgZone
   ) {}
 
   @Action(AuthActions.Login)
@@ -64,7 +70,8 @@ export class AuthState {
 
   @Action(AuthActions.Logout)
   logout(ctx: StateContext<AuthStateModel>) {
-    localStorage.removeItem('user');
+    localStorage.clear();
+    this.ngZone.run(() => this.router.navigate(['/auth']));
     return ctx.patchState({ currentUser: null, isLoggedIn: false });
   }
 
@@ -88,7 +95,7 @@ export class AuthState {
     ctx: StateContext<AuthStateModel>,
     { users }: AuthActions.UsersLoaded
   ) {
-    ctx.patchState({ userDictionary: users.toDictionary() });
+    ctx.patchState({ userDictionary: toDictionary(users) });
   }
 
   @Action(AuthActions.RefreshedTokenSuccess)
@@ -98,5 +105,14 @@ export class AuthState {
   ) {
     ctx.patchState({ access_token, currentUser: user, isLoggedIn: true });
     localStorage.setItem('user', JSON.stringify(user));
+  }
+
+  @Action(AuthActions.ClearUser)
+  clearUser(ctx: StateContext<AuthStateModel>) {
+    ctx.patchState({
+      access_token: null
+      // currentUser: null,
+      // isLoggedIn: false
+    });
   }
 }

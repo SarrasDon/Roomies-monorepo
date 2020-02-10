@@ -2,7 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { environment } from 'apps/api/src/environments/environment';
 import { compare, hash } from 'bcryptjs';
-import { User } from '../../shared/models';
+import { User } from '../../shared/Models';
 import { UsersRepository } from '../../users/repositories';
 import { RefreshTokensRepository } from '../repositories';
 
@@ -17,10 +17,16 @@ export class AuthService {
   async login(email: string, password: string) {
     const user: Partial<User> = await this.usersRepository
       .findOneBy({ email })
+      .exec()
       .then(res => {
-        const { password, ...userDB } = res;
-        return userDB;
+        return {
+          _id: res._id,
+          name: res.name,
+          email: res.email,
+          avatarUrl: res.avatarUrl
+        };
       });
+
     const access_token = await this.createToken(email, user._id);
     const refresh_token = await this.createToken(user, user._id);
 
@@ -80,7 +86,7 @@ export class AuthService {
   private async hashToken(token: string) {
     return await hash(
       token,
-      process.env['BCRYPT_SALT'] || environment.bcryptSalt
+      +process.env['BCRYPT_SALT'] || environment.bcryptSalt
     );
   }
 
