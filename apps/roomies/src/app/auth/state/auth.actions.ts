@@ -38,3 +38,7 @@ export class RefreshedTokenSuccess {
 export class RefreshedTokenFail {
   static readonly type = '[Auth guard] Refresh Failed';
 }
+
+export class ClearUser {
+  static readonly type = 'Clear user!';
+}
