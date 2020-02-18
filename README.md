@@ -1,7 +1,8 @@
 # Roomies
 
 Expense tracker for roomies!
-[https://user-images.githubusercontent.com/28558511/74775947-5a827c00-529f-11ea-9e8a-55289a7cfd63.png]
+
+![alt text](https://res.cloudinary.com/donatos/image/upload/v1582058626/fgsxcvijjmrsgivpqpli.png)
 
 This project was generated using [Nx](https://nx.dev).
 
