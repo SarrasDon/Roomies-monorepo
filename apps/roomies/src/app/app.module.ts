@@ -12,7 +12,6 @@ import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
-import { Cloudinary } from '@cloudinary/angular-5.x/src/cloudinary.service';
 import { LayoutModule } from '@angular/cdk/layout';
 import { AuthInterceptorService } from './auth/services';
 import { BaseInterceptorService } from './core/services';
