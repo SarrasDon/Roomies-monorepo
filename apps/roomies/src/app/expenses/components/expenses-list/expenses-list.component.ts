@@ -12,7 +12,7 @@ import {
   ViewChild
 } from '@angular/core';
 import { Subject } from 'rxjs';
-import { map, takeUntil, throttleTime, tap } from 'rxjs/operators';
+import { map, takeUntil, throttleTime } from 'rxjs/operators';
 import { Expense } from '../../../shared/models/expense.model';
 
 @Component({
