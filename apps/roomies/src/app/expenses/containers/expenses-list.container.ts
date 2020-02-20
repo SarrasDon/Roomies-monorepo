@@ -8,11 +8,9 @@ import {
 import { Select, Store } from '@ngxs/store';
 import { Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
-import { Expense, User } from '../../shared/models';
+import { Expense } from '../../shared/models';
 import { ExpensesListComponent } from '../components';
 import { ExpenseSelectors, GetExpenses } from '../state';
-import { HttpClient } from '@angular/common/http';
-import { AuthService } from '../../auth/services';
 
 @Component({
   selector: 'roomies-expenses-list-container',
