@@ -1,14 +1,8 @@
-<section class="expenses-list-content">
-  <ul class="expenses-list">
-    <cdk-virtual-scroll-viewport
-      [style.height.px]="listHeight"
-      [itemSize]="itemSize"
-    >
-      <roomies-expense-item
-        *cdkVirtualFor="let expense of expenses"
-        (cdkVirtualForTrackBy)="(trackByFn)"
-        [expense]="expense"
-      ></roomies-expense-item>
-    </cdk-virtual-scroll-viewport>
-  </ul>
-</section>
+<!-- [style.height.px]="listHeight" -->
+<cdk-virtual-scroll-viewport [itemSize]="itemSize">
+  <roomies-expense-item
+    *cdkVirtualFor="let expense of expenses"
+    (cdkVirtualForTrackBy)="(trackByFn)"
+    [expense]="expense"
+  ></roomies-expense-item>
+</cdk-virtual-scroll-viewport>
