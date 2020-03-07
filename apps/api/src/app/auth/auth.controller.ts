@@ -49,6 +49,7 @@ export class AuthController {
     res.cookie('refreshToken', refresh_token, {
       maxAge: 7 * 24 * 60 * 60 * 1000,
       secure: environment.production,
+      sameSite: environment.production ? 'none' : true,
       httpOnly: true
     });
   }
