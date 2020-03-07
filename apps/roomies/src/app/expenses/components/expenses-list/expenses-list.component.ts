@@ -2,7 +2,6 @@ import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -10,11 +9,12 @@ import {
   OnDestroy,
   OnInit,
   Output,
-  ViewChild,
-  Renderer2
+  Renderer2,
+  ViewChild
 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { map, takeUntil, throttleTime } from 'rxjs/operators';
+import { UiService } from '../../../core/services';
 import { Expense } from '../../../shared/models';
 
 @Component({
@@ -27,6 +27,9 @@ export class ExpensesListComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(CdkVirtualScrollViewport)
   virtualScroll: CdkVirtualScrollViewport;
 
+  @ViewChild('wrapper')
+  wrapper: ElementRef;
+
   @Input() expenses: Expense[] = [];
 
   @Output() paging = new EventEmitter<{ first: number; rows: number }>();
@@ -34,7 +37,7 @@ export class ExpensesListComponent implements OnInit, AfterViewInit, OnDestroy {
   itemSize = 76;
   destroy$ = new Subject();
 
-  constructor(private host: ElementRef, private render: Renderer2) {}
+  constructor(private render: Renderer2, private uiService: UiService) {}
 
   ngOnInit() {}
 
@@ -61,10 +64,8 @@ export class ExpensesListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   calcListHeight() {
-    const el = this.host.nativeElement;
-    const topOfDiv = el.offsetTop;
-    const bottomOfVisibleWindow = window.innerHeight;
-    return bottomOfVisibleWindow - topOfDiv;
+    const offset = this.uiService.isSmall ? 100 + 56 : 100 + 64;
+    return window.innerHeight - offset;
   }
 
   ngOnDestroy(): void {
