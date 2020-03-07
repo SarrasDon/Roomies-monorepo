@@ -18,11 +18,10 @@
   font-size: 14px;
 }
 
-header-middle {
-  font-size: 20pt !important;
+.header-middle {
+  font-size: 3rem !important;
+  font-family: lemon-jelly;
 }
-
-
 
 .header-right {
   margin-left: auto;
@@ -30,22 +29,22 @@ header-middle {
   div {
     display: inline-block;
   }
-div.avatar-text {
+  div.avatar-text {
     display: none;
   }
- 
 }
 
 @media only screen and (min-width: 600px) {
- .header-middle {
-  font-size: 20pt !important;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-}
-.header-right {
-   div.avatar-text {
-    display: inline-block;
+  .header-middle {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    // font-size: 3rem !important;
+    // font-family: lemon-jelly;
   }
-}
+  .header-right {
+    div.avatar-text {
+      display: inline-block;
+    }
+  }
 }

@@ -2,6 +2,7 @@ import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -9,11 +10,12 @@ import {
   OnDestroy,
   OnInit,
   Output,
-  ViewChild
+  ViewChild,
+  Renderer2
 } from '@angular/core';
 import { Subject } from 'rxjs';
-import { map, takeUntil, throttleTime, tap } from 'rxjs/operators';
-import { Expense } from '../../../shared/models/expense.model';
+import { map, takeUntil, throttleTime } from 'rxjs/operators';
+import { Expense } from '../../../shared/models';
 
 @Component({
   selector: 'roomies-expenses-list',
@@ -22,29 +24,31 @@ import { Expense } from '../../../shared/models/expense.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExpensesListComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild(CdkVirtualScrollViewport, { static: true })
+  @ViewChild(CdkVirtualScrollViewport)
   virtualScroll: CdkVirtualScrollViewport;
 
   @Input() expenses: Expense[] = [];
 
   @Output() paging = new EventEmitter<{ first: number; rows: number }>();
 
-  listHeight = 500;
   itemSize = 76;
-  destroy$ = new Subject<{ first: number; rows: number }>();
+  destroy$ = new Subject();
 
-  constructor(private host: ElementRef) {}
+  constructor(private host: ElementRef, private render: Renderer2) {}
 
   ngOnInit() {}
 
   ngAfterViewInit(): void {
-    this.listHeight = this.calcListHeight();
-    const step = Math.floor(this.listHeight / this.itemSize);
+    this.render.setStyle(
+      this.virtualScroll.elementRef.nativeElement,
+      'height',
+      `${this.calcListHeight()}px`
+    );
     this.virtualScroll.scrolledIndexChange
       .pipe(
         throttleTime(100),
         map((e: number) => ({
-          first: e > 0 ? e + 2 * step : 0,
+          first: e > 0 ? e + 20 : 0,
           rows: 30
         })),
         takeUntil(this.destroy$)
