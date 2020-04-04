@@ -93,7 +93,8 @@
           "options": {
             "jestConfig": "apps/roomies/jest.config.js",
             "tsConfig": "apps/roomies/tsconfig.spec.json",
-            "setupFile": "apps/roomies/src/test-setup.ts"
+            "setupFile": "apps/roomies/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       }
@@ -137,7 +138,8 @@
             "outputPath": "dist/apps/api",
             "main": "apps/api/src/main.ts",
             "tsConfig": "apps/api/tsconfig.app.json",
-            "assets": ["apps/api/src/assets"]
+            "assets": ["apps/api/src/assets"],
+            "buildLibsFromSource": true
           },
           "configurations": {
             "production": {
@@ -173,7 +175,8 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/api/jest.config.js",
-            "tsConfig": "apps/api/tsconfig.spec.json"
+            "tsConfig": "apps/api/tsconfig.spec.json",
+            "passWithNoTests": true
           }
         }
       }
