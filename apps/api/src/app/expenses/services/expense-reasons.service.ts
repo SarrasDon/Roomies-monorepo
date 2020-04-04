@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { ExpenseReasonDocument, ExpenseReasonResource } from '../models';
-import { ExpenseReasonsRepo } from '../repositories';
 import { GenericService } from '../../shared/generics';
+import { ExpenseReasonResource } from '../models';
+import { ExpenseReasonsRepo } from '../repositories';
+import { ExpenseReason } from '@roomies/expenses.contracts';
 
 @Injectable()
 export class ExpenseReasonsService extends GenericService<
-  ExpenseReasonDocument,
+  ExpenseReason,
   ExpenseReasonResource
 > {
   constructor(public readonly repository: ExpenseReasonsRepo) {

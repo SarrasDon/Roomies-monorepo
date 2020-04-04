@@ -1,8 +1,6 @@
 import { Document, Schema } from 'mongoose';
 import { Expense } from '@roomies/expenses.contracts';
 
-export interface ExpenseDocument extends Expense, Document {}
-
 export const ExpenseSchema = new Schema({
   amount: Number,
   createdAt: Date,
@@ -17,7 +15,7 @@ export const ExpenseSchema = new Schema({
   }
 });
 
-ExpenseSchema.pre<ExpenseDocument>('save', function(next) {
+ExpenseSchema.pre<Expense & Document>('save', function(next) {
   if (!this.createdAt) this.createdAt = new Date();
   if (!this.spendAt) this.spendAt = new Date();
   next();

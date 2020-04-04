@@ -1,4 +1,4 @@
 export * from './expense.resource';
-export * from './expense.model';
-export * from './expense-reason.model';
+export * from './expense.schema';
+export * from './expense-reason.schema';
 export * from './expense-reason.resource';

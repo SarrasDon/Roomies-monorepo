@@ -1,8 +1,7 @@
-import { Document } from 'mongoose';
-import { Repository, EntityService } from '../interfaces';
+import { EntityService } from '../interfaces';
 import { EntityRepository } from './entity-repository.generic';
 
-export class GenericService<T extends Document, Resource extends Partial<T>>
+export class GenericService<T, Resource extends Partial<T>>
   implements EntityService<T, Resource> {
   constructor(public repository: EntityRepository<T>) {}
 

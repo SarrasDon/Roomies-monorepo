@@ -2,7 +2,7 @@ import { Body, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { Document } from 'mongoose';
 import { EntityController, EntityService } from '../interfaces';
 
-export class GenericController<T extends Document, Resource extends Partial<T>>
+export class GenericController<T, Resource extends Partial<T>>
   implements EntityController<T, Resource> {
   constructor(public service: EntityService<T, Resource>) {}
 

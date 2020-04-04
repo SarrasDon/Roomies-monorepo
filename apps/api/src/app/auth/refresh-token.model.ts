@@ -1,8 +1,9 @@
 import { Document, Schema } from 'mongoose';
 
-export interface RefreshToken extends Document {
-  token: String;
-  person: String;
+export interface RefreshToken {
+  _id: any;
+  token: string;
+  person: string;
   createdAt: Date;
 }
 
@@ -15,7 +16,7 @@ export const RefreshTokenSchema = new Schema({
   token: String
 });
 
-RefreshTokenSchema.pre<RefreshToken>('save', function(next) {
+RefreshTokenSchema.pre<RefreshToken & Document>('save', function(next) {
   if (!this.createdAt) {
     this.createdAt = new Date();
   }
