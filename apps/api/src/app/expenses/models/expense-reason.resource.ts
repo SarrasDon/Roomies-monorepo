@@ -1,4 +1,4 @@
-import { ExpenseCategory } from './expense-reason.model';
+import { ExpenseCategory } from '@roomies/expenses.contracts';
 
 export interface ExpenseReasonResource {
   category: ExpenseCategory;

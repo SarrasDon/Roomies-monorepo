@@ -1,19 +1,7 @@
 import { Schema, Document } from 'mongoose';
-
-export interface ExpenseReason {
-  _id: string | any;
-  category: ExpenseCategory;
-  reason: string;
-}
+import { ExpenseReason } from '@roomies/expenses.contracts';
 
 export interface ExpenseReasonDocument extends ExpenseReason, Document {}
-
-export enum ExpenseCategory {
-  Groceries,
-  Bills,
-  Furniture,
-  Fun
-}
 
 export const ExpenseReasonSchema = new Schema({
   category: String,

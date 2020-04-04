@@ -48,6 +48,7 @@
     "@nestjsplus/cookies": "^1.0.2",
     "@ngxs/store": "^3.6.2",
     "@nrwl/angular": "^9.2.2",
+    "@nrwl/nx": "^7.8.7",
     "@swimlane/ngx-charts": "^13.0.0",
     "@types/bcrypt": "^3.0.0",
     "@types/bcryptjs": "^2.4.2",

@@ -180,6 +180,32 @@
           }
         }
       }
+    },
+    "expenses.contracts": {
+      "root": "libs/expenses.contracts",
+      "sourceRoot": "libs/expenses.contracts/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/expenses.contracts/tsconfig.lib.json",
+              "libs/expenses.contracts/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/expenses.contracts/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/expenses.contracts/jest.config.js",
+            "tsConfig": "libs/expenses.contracts/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {

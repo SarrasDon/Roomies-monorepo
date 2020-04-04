@@ -16,6 +16,9 @@
     },
     "api": {
       "tags": []
+    },
+    "expenses.contracts": {
+      "tags": []
     }
   },
   "tasksRunnerOptions": {

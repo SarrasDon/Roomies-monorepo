@@ -1,13 +1,5 @@
 import { Document, Schema } from 'mongoose';
-
-export interface Expense {
-  _id: string | any;
-  reason: string;
-  amount: number;
-  createdAt: Date;
-  spendAt: Date;
-  person: string;
-}
+import { Expense } from '@roomies/expenses.contracts';
 
 export interface ExpenseDocument extends Expense, Document {}
 
