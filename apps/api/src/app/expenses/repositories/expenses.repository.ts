@@ -2,14 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { EntityRepository } from '../../shared/generics';
-import { Expense } from '../models';
+import { ExpenseDocument } from '../models';
 import { ExpensesQueryBuilder } from './expenses-query.builder';
 
 @Injectable()
-export class ExpensesRepo extends EntityRepository<Expense> {
+export class ExpensesRepo extends EntityRepository<ExpenseDocument> {
   constructor(
     @InjectModel('Expense')
-    private readonly expenseModel: Model<Expense>,
+    private readonly expenseModel: Model<ExpenseDocument>,
     private queryBuilder: ExpensesQueryBuilder
   ) {
     super(expenseModel);

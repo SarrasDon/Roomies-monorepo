@@ -1,4 +1,12 @@
-import { Schema } from 'mongoose';
+import { Schema, Document } from 'mongoose';
+
+export interface ExpenseReason {
+  _id: string | any;
+  category: ExpenseCategory;
+  reason: string;
+}
+
+export interface ExpenseReasonDocument extends ExpenseReason, Document {}
 
 export enum ExpenseCategory {
   Groceries,

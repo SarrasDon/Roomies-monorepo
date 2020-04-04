@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
 import { GenericController } from '../shared/generics';
-import { Expense, ExpenseResource } from './models';
+import { ExpenseDocument, ExpenseResource } from './models';
 import { CreateExpenseValidPipe } from './pipes';
 import { ExpensesService } from './services';
 import { AuthGuard } from '@nestjs/passport';
@@ -8,7 +8,7 @@ import { AuthGuard } from '@nestjs/passport';
 @Controller('expenses')
 @UseGuards(AuthGuard())
 export class ExpensesController extends GenericController<
-  Expense,
+  ExpenseDocument,
   ExpenseResource
 > {
   constructor(public expensesService: ExpensesService) {

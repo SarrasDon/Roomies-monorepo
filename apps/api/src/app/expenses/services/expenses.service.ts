@@ -1,11 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { GenericService } from '../../shared/generics';
 import { UsersRepository } from '../../users/repositories';
-import { Expense, ExpenseResource } from '../models';
+import { ExpenseDocument, ExpenseResource } from '../models';
 import { ExpensesRepo } from '../repositories';
 
 @Injectable()
-export class ExpensesService extends GenericService<Expense, ExpenseResource> {
+export class ExpensesService extends GenericService<
+  ExpenseDocument,
+  ExpenseResource
+> {
   constructor(
     public readonly expensesRepo: ExpensesRepo,
     private usersRepo: UsersRepository
@@ -13,7 +16,7 @@ export class ExpensesService extends GenericService<Expense, ExpenseResource> {
     super(expensesRepo);
   }
 
-  async createExpense(resource: ExpenseResource): Promise<Expense> {
+  async createExpense(resource: ExpenseResource): Promise<ExpenseDocument> {
     return await super.create({
       ...resource,
       amount: +resource.amount
@@ -24,7 +27,7 @@ export class ExpensesService extends GenericService<Expense, ExpenseResource> {
     id?: string;
     index: number;
     limit: number;
-  }): Promise<Expense[]> {
+  }): Promise<ExpenseDocument[]> {
     return await this.expensesRepo.pagedFind(queryOptions);
   }
 
