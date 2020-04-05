@@ -16,6 +16,23 @@
     },
     "api": {
       "tags": []
+    },
+    "expenses.contracts": {
+      "tags": []
+    },
+    "shared.data": {
+      "tags": []
+    },
+    "user.contracts": {
+      "tags": []
+    }
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/workspace/tasks-runners/default",
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
+      }
     }
   }
 }

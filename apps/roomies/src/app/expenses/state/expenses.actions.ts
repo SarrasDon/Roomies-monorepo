@@ -1,4 +1,4 @@
-import { ExpenseReason } from '../../shared/models/expenseReason.model';
+import { ExpenseReason } from '@roomies/expenses.contracts';
 
 export class GetExpenses {
   static readonly type = '[Expenses] Get Expenses';

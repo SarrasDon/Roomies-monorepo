@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Expense } from '../../shared/models';
+import { Expense } from '@roomies/expenses.contracts';
 
 @Pipe({
   name: 'expenseImgSource',

@@ -1,4 +1,4 @@
-import { User } from './user.model';
+import { User } from '@roomies/user.contracts';
 
 export class Total {
   total: number;

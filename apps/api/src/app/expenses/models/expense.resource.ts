@@ -2,7 +2,7 @@ import { IsNotEmpty, IsNumber, IsPositive } from 'class-validator';
 
 export class ExpenseResource {
   @IsNotEmpty({ message: 'Reason was not provided!' })
-  reason: string;
+  reason: any;
 
   @IsNotEmpty({ message: 'Amount was not provided!' })
   @IsNumber({}, { message: 'Not valid expense amount!' })
@@ -10,5 +10,5 @@ export class ExpenseResource {
   amount: number;
 
   @IsNotEmpty({ message: 'User was not provided!' })
-  person: string;
+  person: any;
 }

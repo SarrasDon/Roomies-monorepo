@@ -2,12 +2,12 @@ import { Injectable, NgZone } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
 import { UsersService } from '../../core/services';
-import { Dictionary } from '../../shared/interfaces';
-import { User } from '../../shared/models/user.model';
 import { toDictionary } from '../../shared/utils';
 import { AuthService } from '../services/auth.service';
 import * as AuthActions from './auth.actions';
 import { Router } from '@angular/router';
+import { Dictionary } from '@roomies/shared.data';
+import { User } from '@roomies/user.contracts';
 
 export interface AuthStateModel {
   currentUser: User | null;

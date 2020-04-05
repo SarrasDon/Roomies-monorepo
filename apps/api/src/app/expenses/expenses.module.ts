@@ -10,8 +10,8 @@ import { PassportModule } from '@nestjs/passport';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: 'Expense', schema: ExpenseSchema }]),
     MongooseModule.forFeature([
+      { name: 'Expense', schema: ExpenseSchema },
       { name: 'ExpenseReason', schema: ExpenseReasonSchema }
     ]),
     UsersModule,

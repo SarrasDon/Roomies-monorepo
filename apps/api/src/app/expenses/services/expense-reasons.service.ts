@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { ExpenseReason, ExpenseReasonResource } from '../models';
+import { GenericService } from '@roomies/shared.data';
+import { ExpenseReasonResource } from '../models';
 import { ExpenseReasonsRepo } from '../repositories';
-import { GenericService } from '../../shared/generics';
+import { ExpenseReason } from '@roomies/expenses.contracts';
 
 @Injectable()
 export class ExpenseReasonsService extends GenericService<
