@@ -17,7 +17,9 @@ export class EntityRepository<T> implements Repository<T, DocType<T>> {
     return this.model.findById(id);
   }
 
-  findOneBy(conditions: Partial<T>): DocumentQuery<DocType<T>, DocType<T>, {}> {
+  findOneBy(
+    conditions: Partial<DocType<T>>
+  ): DocumentQuery<DocType<T>, DocType<T>, {}> {
     return this.model.findOne(conditions);
   }
 
@@ -37,7 +39,7 @@ export class EntityRepository<T> implements Repository<T, DocType<T>> {
 
   updateOne(
     _id: string,
-    update: Partial<T>
+    update: Partial<DocType<T>>
   ): DocumentQuery<DocType<T>, DocType<T>, {}> {
     return this.model.findOneAndUpdate({ _id }, update, {
       new: true,
