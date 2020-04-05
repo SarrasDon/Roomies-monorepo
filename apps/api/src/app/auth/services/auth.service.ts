@@ -2,7 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { environment } from 'apps/api/src/environments/environment';
 import { compare, hash } from 'bcryptjs';
-import { User } from '../../shared/Models';
+import { User } from '@roomies/user.contracts';
 import { UsersRepository } from '../../users/repositories';
 import { RefreshTokensRepository } from '../repositories';
 

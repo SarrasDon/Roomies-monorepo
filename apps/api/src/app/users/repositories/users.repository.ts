@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { EntityRepository } from '@roomies/shared.data';
 import { DocType } from '@roomies/shared.data';
-import { User } from '../../shared/models';
+import { User } from '@roomies/user.contracts';
 
 @Injectable()
 export class UsersRepository extends EntityRepository<User> {

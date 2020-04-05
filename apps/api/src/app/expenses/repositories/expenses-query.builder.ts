@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { QueryBuilder } from '@roomies/shared.data';
-import { User } from '../../shared/Models';
+import { User } from '@roomies/user.contracts';
 import { DocType } from '@roomies/shared.data';
 import { Expense } from '@roomies/expenses.contracts';
 
