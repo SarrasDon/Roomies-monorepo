@@ -39,7 +39,7 @@ export class EntityRepository<T extends Entity>
   }
 
   updateOne(
-    _id: string,
+    _id: any,
     update: Partial<T>
   ): DocumentQuery<DocType<T>, DocType<T>, {}> {
     return this.model.findOneAndUpdate({ _id }, update, {
