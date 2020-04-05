@@ -206,6 +206,58 @@
           }
         }
       }
+    },
+    "shared.data": {
+      "root": "libs/shared.data",
+      "sourceRoot": "libs/shared.data/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/shared.data/tsconfig.lib.json",
+              "libs/shared.data/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/shared.data/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared.data/jest.config.js",
+            "tsConfig": "libs/shared.data/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "user.contracts": {
+      "root": "libs/user.contracts",
+      "sourceRoot": "libs/user.contracts/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/user.contracts/tsconfig.lib.json",
+              "libs/user.contracts/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/user.contracts/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/user.contracts/jest.config.js",
+            "tsConfig": "libs/user.contracts/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {

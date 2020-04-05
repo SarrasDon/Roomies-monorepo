@@ -4,7 +4,7 @@ import { from, Observable, of } from 'rxjs';
 import { filter, map, switchMap, take } from 'rxjs/operators';
 import { Logout, UpdateUserAvatar } from '../../../auth/state/auth.actions';
 import { AuthState } from '../../../auth/state/auth.state';
-import { User } from '../../../shared/models';
+import { User } from '@roomies/user.contracts';
 import { CloudinaryService } from '../../services/cloudinary.service';
 
 @Component({

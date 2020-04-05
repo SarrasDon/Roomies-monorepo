@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { ExpenseReason } from '../../shared/models';
 import { CreateExpense, ExpenseSelectors } from '../state';
+import { ExpenseReason } from '@roomies/expenses.contracts';
 
 @Component({
   selector: 'roomies-expenses-actions-container',

@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DataService } from '../../core/services';
-import { Expense, ExpenseReason, Total } from '../../shared/models';
+import { Total } from '../../shared/models';
+import { Expense, ExpenseReason } from '@roomies/expenses.contracts';
 
 @Injectable({ providedIn: 'root' })
 export class ExpensesService extends DataService<Expense> {

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { GenericService } from '../../shared/generics';
+import { GenericService } from '@roomies/shared.data';
 import { ExpenseReasonResource } from '../models';
 import { ExpenseReasonsRepo } from '../repositories';
 import { ExpenseReason } from '@roomies/expenses.contracts';

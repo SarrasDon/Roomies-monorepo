@@ -19,6 +19,12 @@
     },
     "expenses.contracts": {
       "tags": []
+    },
+    "shared.data": {
+      "tags": []
+    },
+    "user.contracts": {
+      "tags": []
     }
   },
   "tasksRunnerOptions": {

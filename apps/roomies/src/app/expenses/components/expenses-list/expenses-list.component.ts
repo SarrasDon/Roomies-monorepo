@@ -15,7 +15,7 @@ import {
 import { Subject } from 'rxjs';
 import { map, takeUntil, throttleTime } from 'rxjs/operators';
 import { UiService } from '../../../core/services';
-import { Expense } from '../../../shared/models';
+import { Expense } from '@roomies/expenses.contracts';
 
 @Component({
   selector: 'roomies-expenses-list',

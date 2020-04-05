@@ -9,7 +9,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { filter } from 'rxjs/operators';
 import { CreateExpenseDialogComponent } from '../create-expense-dialog/create-expense-dialog.component';
 import { CreateExpenseConfig } from '../../../shared/interfaces';
-import { ExpenseReason } from '../../../shared/models';
+import { ExpenseReason } from '@roomies/expenses.contracts';
 
 @Component({
   selector: 'roomies-expenses-actions',
