@@ -1,4 +1,4 @@
-import { EntityService } from '../interfaces';
+import { EntityService, DocType } from '../interfaces';
 import { EntityRepository } from './entity-repository.generic';
 
 export class GenericService<T, Resource extends Partial<T>>
@@ -13,7 +13,7 @@ export class GenericService<T, Resource extends Partial<T>>
     return await this.repository.findById(id).exec();
   }
 
-  async getOneBy(conditions: Partial<T>): Promise<T> {
+  async getOneBy(conditions: Partial<DocType<T>>): Promise<T> {
     return await this.repository.findOneBy(conditions).then(result => result);
   }
 
@@ -29,7 +29,7 @@ export class GenericService<T, Resource extends Partial<T>>
     return await this.repository.deleteById(id).exec();
   }
 
-  async update(id: string, update: Partial<T>): Promise<T> {
+  async update(id: string, update: Partial<DocType<T>>): Promise<T> {
     return await (await this.repository.updateOne(id, update)).save();
   }
 }
