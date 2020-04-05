@@ -1,20 +1,23 @@
 import { Injectable } from '@nestjs/common';
-import { Document, DocumentQuery, Model, Query } from 'mongoose';
+import { DocumentQuery, Model, Query } from 'mongoose';
 import { Repository } from '../interfaces';
+import { DocType } from '../interfaces/document.type';
 
 @Injectable()
-export class EntityRepository<T extends Document> implements Repository<T> {
-  constructor(public readonly model: Model<T>) {}
+export class EntityRepository<T> implements Repository<T, DocType<T>> {
+  constructor(public readonly model: Model<DocType<T>>) {}
 
-  findAll(): DocumentQuery<T[], T, {}> {
+  findAll(): DocumentQuery<DocType<T>[], DocType<T>, {}> {
     return this.model.find();
   }
 
-  findById(id: Object | String | Number): DocumentQuery<T, T, {}> {
+  findById(
+    id: Object | String | Number
+  ): DocumentQuery<DocType<T>, DocType<T>, {}> {
     return this.model.findById(id);
   }
 
-  findOneBy(conditions: Partial<T>): DocumentQuery<T, T, {}> {
+  findOneBy(conditions: Partial<T>): DocumentQuery<DocType<T>, DocType<T>, {}> {
     return this.model.findOne(conditions);
   }
 
@@ -22,22 +25,27 @@ export class EntityRepository<T extends Document> implements Repository<T> {
     return this.model.countDocuments();
   }
 
-  create(Dto: any): T {
+  create(Dto: any): DocType<T> {
     return new this.model({ ...Dto });
   }
 
-  deleteById(id: Object | String | Number): DocumentQuery<T, T, {}> {
+  deleteById(
+    id: Object | String | Number
+  ): DocumentQuery<DocType<T>, DocType<T>, {}> {
     return this.model.findByIdAndDelete(id);
   }
 
-  updateOne(_id: string, update: Partial<T>): DocumentQuery<T, T, {}> {
+  updateOne(
+    _id: string,
+    update: Partial<T>
+  ): DocumentQuery<DocType<T>, DocType<T>, {}> {
     return this.model.findOneAndUpdate({ _id }, update, {
       new: true,
       useFindAndModify: false
     } as any);
   }
 
-  upsertOne(conditions: any, update: Partial<T>): Query<T> {
+  upsertOne(conditions: any, update: Partial<T>): Query<DocType<T>> {
     return this.model.updateOne(
       conditions,
       { ...update },

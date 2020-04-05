@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
+import { Expense } from '@roomies/expenses.contracts';
 import { GenericService } from '../../shared/generics';
 import { UsersRepository } from '../../users/repositories';
-import { Expense, ExpenseResource } from '../models';
+import { ExpenseResource } from '../models';
 import { ExpensesRepo } from '../repositories';
 
 @Injectable()
@@ -38,12 +39,4 @@ export class ExpensesService extends GenericService<Expense, ExpenseResource> {
       count: users.length
     }));
   }
-
-  // async createReason(reason: { category: ExpenseCategory; reason: string }) {
-  //   return this.reasonsRepo
-  //     .create({
-  //       ...reason
-  //     })
-  //     .save();
-  // }
 }
