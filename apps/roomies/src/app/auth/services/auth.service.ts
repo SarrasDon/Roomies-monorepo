@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { User } from '../../shared/models/user.model';
 import { UsersService } from '../../core/services';
+import { User } from '@roomies/user.contracts';
 
 @Injectable({
   providedIn: 'root'

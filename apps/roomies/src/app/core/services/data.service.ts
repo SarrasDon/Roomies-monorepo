@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'apps/roomies/src/environments/environment';
-import { Entity } from '../../shared/interfaces';
+import { Entity } from '@roomies/shared.data';
 
 @Injectable({ providedIn: 'root' })
 export class DataService<T extends Entity> {

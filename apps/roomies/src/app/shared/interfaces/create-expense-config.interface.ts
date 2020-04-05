@@ -1,4 +1,4 @@
-import { ExpenseReason } from '../models';
+import { ExpenseReason } from '@roomies/expenses.contracts';
 
 export interface CreateExpenseConfig {
   reasons: ExpenseReason[];
