@@ -13,7 +13,11 @@ async function bootstrap() {
   app.setGlobalPrefix(globalPrefix);
   app.enableCors({
     credentials: true,
-    origin: ['http://localhost:4200', 'https://roomies.netlify.com']
+    origin: [
+      'http://localhost:4200',
+      'https://roomies.netlify.com',
+      'https://roomies.netlify.app'
+    ]
   });
   app.use(CookieParser('secret'));
 
