@@ -1,8 +1,9 @@
 import { Controller, UseGuards } from '@nestjs/common';
-import { GenericController } from '../shared/generics';
-import { ExpenseReason, ExpenseReasonResource } from './models';
-import { ExpenseReasonsService } from './services';
 import { AuthGuard } from '@nestjs/passport';
+import { ExpenseReason } from '@roomies/expenses.contracts';
+import { GenericController } from '../shared/generics';
+import { ExpenseReasonResource } from './models';
+import { ExpenseReasonsService } from './services';
 
 @Controller('expenseReasons')
 @UseGuards(AuthGuard())

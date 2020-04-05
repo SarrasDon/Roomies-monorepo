@@ -1,10 +1,7 @@
 import { Document } from 'mongoose';
 import { EntityService } from './entity-service.interface';
 
-export interface EntityController<
-  T extends Document,
-  Resource extends Partial<T>
-> {
+export interface EntityController<T, Resource extends Partial<T>> {
   service: EntityService<T, Resource>;
   /**
    * Get a list of {content-type} entries:

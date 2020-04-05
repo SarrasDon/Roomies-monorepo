@@ -1,11 +1,8 @@
-import { Document } from 'mongoose';
-import { Repository } from '.';
+import { Repository } from './entity-repository.interface';
+import { DocType } from './document.type';
 
-export interface EntityService<
-  T extends Document,
-  Resource extends Partial<T>
-> {
-  repository: Repository<T>;
+export interface EntityService<T, Resource extends Partial<T>> {
+  repository: Repository<T, DocType<T>>;
 
   get(): Promise<T[]>;
 

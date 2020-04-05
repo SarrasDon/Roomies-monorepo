@@ -2,14 +2,15 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { QueryBuilder } from '../../shared/generics';
-import { Expense, ExpenseReason } from '../models';
 import { User } from '../../shared/Models';
+import { DocType } from '../../shared/interfaces/document.type';
+import { Expense } from '@roomies/expenses.contracts';
 
 @Injectable()
-export class ExpensesQueryBuilder extends QueryBuilder<Expense> {
+export class ExpensesQueryBuilder extends QueryBuilder<DocType<Expense>> {
   constructor(
     @InjectModel('Expense')
-    private readonly model: Model<Expense>
+    private readonly model: Model<DocType<Expense>>
   ) {
     super(model);
   }
@@ -23,7 +24,7 @@ export class ExpensesQueryBuilder extends QueryBuilder<Expense> {
   }
 
   includeUserAndReason() {
-    return this.populate<User>('person', 'name').populate<ExpenseReason>(
+    return this.populate<User>('person', 'name').populate<DocType<Expense>>(
       'reason',
       'reason'
     );
