@@ -1,4 +1,4 @@
-import { Document, Schema } from 'mongoose';
+import { Schema } from 'mongoose';
 
 export interface User {
   _id: any;
@@ -7,8 +7,6 @@ export interface User {
   password: string;
   avatarUrl: string;
 }
-
-export interface UserDocument extends User, Document {}
 
 export const UserSchema = new Schema({
   name: String,

@@ -5,7 +5,7 @@ import {
   Post,
   UseGuards
 } from '@nestjs/common';
-import { GenericController } from '../shared/generics';
+import { GenericController } from '@roomies/shared.data';
 import { User } from '../shared/Models';
 import { UserResource } from './models';
 import { CreateUserValidPipe } from './pipes';

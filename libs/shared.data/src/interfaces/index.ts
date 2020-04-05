@@ -7,3 +7,4 @@ export * from './populate.builder';
 export * from './sorting.builder';
 export * from './conditional.builder';
 export * from './base.builder';
+export * from './document.type';

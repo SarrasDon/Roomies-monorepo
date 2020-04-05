@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { QueryBuilder } from '../../shared/generics';
+import { QueryBuilder } from '@roomies/shared.data';
 import { User } from '../../shared/Models';
-import { DocType } from '../../shared/interfaces/document.type';
+import { DocType } from '@roomies/shared.data';
 import { Expense } from '@roomies/expenses.contracts';
 
 @Injectable()

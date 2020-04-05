@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Expense } from '@roomies/expenses.contracts';
-import { GenericService } from '../../shared/generics';
+import { GenericService } from '@roomies/shared.data';
 import { UsersRepository } from '../../users/repositories';
 import { ExpenseResource } from '../models';
 import { ExpensesRepo } from '../repositories';

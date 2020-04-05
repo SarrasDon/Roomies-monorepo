@@ -16,7 +16,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@roomies/expenses.contracts": ["libs/expenses.contracts/src/index.ts"]
+      "@roomies/expenses.contracts": ["libs/expenses.contracts/src/index.ts"],
+      "@roomies/shared.data": ["libs/shared.data/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

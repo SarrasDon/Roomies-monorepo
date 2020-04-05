@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Expense } from '@roomies/expenses.contracts';
-import { GenericController } from '../shared/generics';
+import { GenericController } from '@roomies/shared.data';
 import { ExpenseResource } from './models';
 import { CreateExpenseValidPipe } from './pipes';
 import { ExpensesService } from './services';
