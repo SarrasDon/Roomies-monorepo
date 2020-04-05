@@ -4,7 +4,7 @@ import {
   OnInit,
   ChangeDetectionStrategy
 } from '@angular/core';
-import { Expense } from '../../../shared/models';
+import { Expense } from '@roomies/expenses.contracts';
 
 @Component({
   selector: 'roomies-expense-item',

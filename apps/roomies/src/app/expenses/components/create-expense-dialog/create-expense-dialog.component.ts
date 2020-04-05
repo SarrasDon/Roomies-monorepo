@@ -12,7 +12,7 @@ import {
 } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CreateExpenseConfig } from '../../../shared/interfaces';
-import { ExpenseReason } from '../../../shared/models';
+import { ExpenseReason } from '@roomies/expenses.contracts';
 
 @Component({
   selector: 'roomies-create-expense-dialog',

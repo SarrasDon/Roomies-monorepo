@@ -1,4 +1,4 @@
-import { User } from '../../shared/models';
+import { User } from '@roomies/user.contracts';
 
 export class SetCurrentUser {
   static readonly type = '[Auth] Set current user';

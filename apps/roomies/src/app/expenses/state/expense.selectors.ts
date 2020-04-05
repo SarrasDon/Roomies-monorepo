@@ -1,6 +1,6 @@
 import { Selector } from '@ngxs/store';
-import { Expense } from '../../shared/models';
 import { ExpensesState, ExpensesStateModel, calcTotal } from './expenses.state';
+import { Expense } from '@roomies/expenses.contracts';
 
 export class ExpenseSelectors extends ExpensesState {
   @Selector()

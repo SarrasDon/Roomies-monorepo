@@ -3,8 +3,7 @@ import { Action, State, StateContext, Store } from '@ngxs/store';
 import { map, tap } from 'rxjs/operators';
 import { AuthState } from '../../auth/state/auth.state';
 import { SnackbarService } from '../../core/services';
-import { Dictionary } from '../../shared/interfaces/dictionary.interface';
-import { Expense, ExpenseReason, Total, User } from '../../shared/models';
+import { Dictionary } from '@roomies/shared.data';
 import { ExpensesService } from '../services';
 import {
   CreateExpense,
@@ -14,6 +13,9 @@ import {
   SetExpensesReasons as SetExpenseReasons
 } from './expenses.actions';
 import { toDictionary } from '../../shared/utils';
+import { Expense, ExpenseReason } from '@roomies/expenses.contracts';
+import { User } from '@roomies/user.contracts';
+import { Total } from '../../shared/models';
 
 export interface ExpensesStateModel {
   expenseDictionary: Dictionary<Expense> | null;

@@ -1,3 +1,5 @@
+import { Entity } from '@roomies/shared.data';
+
 export enum ExpenseCategory {
   Groceries,
   Bills,
@@ -5,8 +7,7 @@ export enum ExpenseCategory {
   Fun
 }
 
-export interface ExpenseReason {
-  _id: string | any;
+export interface ExpenseReason extends Entity {
   category: ExpenseCategory;
   reason: string;
 }

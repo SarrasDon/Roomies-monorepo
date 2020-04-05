@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DataService } from './data.service';
-import { User } from '../../shared/models';
+import { User } from '@roomies/user.contracts';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
