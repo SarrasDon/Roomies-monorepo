@@ -1,7 +1,7 @@
-import { EntityService, DocType } from '../interfaces';
+import { EntityService, DocType, Entity } from '../interfaces';
 import { EntityRepository } from './entity-repository.generic';
 
-export class GenericService<T, Resource extends Partial<T>>
+export class GenericService<T extends Entity, Resource extends Partial<T>>
   implements EntityService<T, Resource> {
   constructor(public repository: EntityRepository<T>) {}
 
