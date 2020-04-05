@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { DocumentQuery, Model, Query } from 'mongoose';
-import { Repository } from '../interfaces';
+import { Repository, Entity } from '../interfaces';
 import { DocType } from '../interfaces/document.type';
 
 @Injectable()
-export class EntityRepository<T> implements Repository<T, DocType<T>> {
+export class EntityRepository<T extends Entity>
+  implements Repository<T, DocType<T>> {
   constructor(public readonly model: Model<DocType<T>>) {}
 
   findAll(): DocumentQuery<DocType<T>[], DocType<T>, {}> {
@@ -39,7 +40,7 @@ export class EntityRepository<T> implements Repository<T, DocType<T>> {
 
   updateOne(
     _id: string,
-    update: Partial<DocType<T>>
+    update: Partial<T>
   ): DocumentQuery<DocType<T>, DocType<T>, {}> {
     return this.model.findOneAndUpdate({ _id }, update, {
       new: true,
