@@ -38,17 +38,14 @@ export class EntityRepository<T extends Entity>
     return this.model.findByIdAndDelete(id);
   }
 
-  updateOne(
-    _id: any,
-    update: Partial<T>
-  ): DocumentQuery<DocType<T>, DocType<T>, {}> {
+  updateOne(_id: any, update: any): DocumentQuery<DocType<T>, DocType<T>, {}> {
     return this.model.findOneAndUpdate({ _id }, update, {
       new: true,
       useFindAndModify: false
     } as any);
   }
 
-  upsertOne(conditions: any, update: Partial<T>): Query<DocType<T>> {
+  upsertOne(conditions: any, update: any): Query<DocType<T>> {
     return this.model.updateOne(
       conditions,
       { ...update },
