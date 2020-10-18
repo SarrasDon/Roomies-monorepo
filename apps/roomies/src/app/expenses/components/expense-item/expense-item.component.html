@@ -12,6 +12,11 @@
         {{ expense.spendAt | expenseDate }}
       </div>
     </div>
-    <div class="expense-amount">{{ expense.amount | expenseAmount }} €</div>
+    <div class="expense-amount">
+      {{ expense.amount | expenseAmount }}
+      <span class="expense-currency">
+        €
+      </span>
+    </div>
   </section>
 </mat-card>

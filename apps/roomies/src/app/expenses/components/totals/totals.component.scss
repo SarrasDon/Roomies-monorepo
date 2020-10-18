@@ -21,3 +21,12 @@ mat-card {
   font-size: 1.8em;
   font-weight: bold;
 }
+
+::ng-deep .ngx-charts {
+  text {
+    fill: #20242e;
+    color: #20242e;
+    font-weight: 600;
+    font-size: 14px !important;
+  }
+}
