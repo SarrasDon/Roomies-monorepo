@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { CreateExpense, ExpenseSelectors } from '../state';
@@ -12,7 +12,19 @@ import { ExpenseReason } from '@roomies/expenses.contracts';
       [isLoading]="isLoading | async"
       (formSubmitted)="onFormSubmitted($event)"
     ></roomies-expenses-actions>
-  `
+  `,
+  styles: [
+    `
+      :host {
+        position: fixed;
+        bottom: 1rem;
+        right: 1rem;
+        z-index: 1;
+        display: block;
+      }
+    `
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExpensesActionsContainer implements OnInit {
   @Select(ExpenseSelectors.reasons) reasons: Observable<ExpenseReason[]>;

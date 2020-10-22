@@ -1,69 +1,12 @@
 :host {
+  display: grid;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.totals-wrapper {
-  width: 100%;
-  position: relative;
+  grid-template-columns:
+    1fr
+    min(70ch, 100%)
+    1fr;
 
-  div {
-    padding: 2.5px 0;
-  }
-}
-.expenses-list {
-  width: 100%;
-}
-
-.create-expense {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  transform: translate(-1rem, -1rem);
-  z-index: 1;
-}
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
-  .totals-wrapper {
-    width: 80%;
-
-    div :not(.create-expense) {
-      padding: 10px 0;
-    }
-  }
-
-  .expenses-list {
-    width: 80%;
-  }
-}
-
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {
-  .totals-wrapper {
-    width: 65%;
-  }
-
-  .expenses-list {
-    width: 65%;
-  }
-}
-
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1150px) {
-  .totals-wrapper {
-    width: 50%;
-  }
-  .expenses-list {
-    width: 50%;
-  }
-}
-
-@media only screen and (min-width: 1300px) {
-  .totals-wrapper {
-    width: 40%;
-  }
-  .expenses-list {
-    width: 40%;
+  > * {
+    grid-column: 2;
   }
 }
