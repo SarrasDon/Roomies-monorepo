@@ -64,7 +64,7 @@ export class ExpensesListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   calcListHeight() {
-    const offset = this.uiService.isSmall ? 100 + 56 : 100 + 64;
+    const offset = this.uiService.isSmall ? 132 + 56 : 132 + 64;
     return window.innerHeight - offset;
   }
 

@@ -2,7 +2,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  OnInit
+  OnInit,
+  ViewChild
 } from '@angular/core';
 import {
   BreakpointObserver,
@@ -10,6 +11,14 @@ import {
   Breakpoints
 } from '@angular/cdk/layout';
 import { map } from 'rxjs/operators';
+import { Dictionary } from '@roomies/shared.data';
+import { User } from '@roomies/user.contracts';
+import {
+  BAR_PADDING,
+  IMAGES_TOP,
+  IMAGE_BORDER_WIDTH,
+  IMAGE_RADIUS
+} from './chart-setup';
 
 @Component({
   selector: 'roomies-totals',
@@ -19,6 +28,10 @@ import { map } from 'rxjs/operators';
 })
 export class TotalsComponent implements OnInit {
   @Input() totals: { value: number; name: string }[] = [];
+  @Input() userImagesDict: {
+    name: string;
+    avatarUrl: string;
+  }[];
 
   _myBalance: {
     amount: number;
@@ -29,6 +42,17 @@ export class TotalsComponent implements OnInit {
     return this._myBalance;
   }
 
+  imagesTop = IMAGES_TOP;
+  imageSize = 2 * IMAGE_RADIUS;
+  barPadding = BAR_PADDING;
+  readonly colorScheme = {
+    domain: ['#42a5f5', '#80d6ff']
+  };
+  imageBorders = [
+    `${IMAGE_BORDER_WIDTH}px solid ${this.colorScheme.domain[0]}`,
+    `${IMAGE_BORDER_WIDTH}px solid ${this.colorScheme.domain[1]}`
+  ];
+
   @Input('myBalance') set setBalance(balance: {
     amount: number;
     sign: 'positive' | 'negative' | 'balanced';
@@ -38,10 +62,6 @@ export class TotalsComponent implements OnInit {
   }
 
   balanceColor = 'orange';
-
-  readonly colorScheme = {
-    domain: ['#008CE0', '#00AEEF']
-  };
 
   showDataLabel$ = this.breakpointObserver
     .observe([Breakpoints.XSmall, Breakpoints.HandsetPortrait])

@@ -32,10 +32,12 @@ export class ExpenseSelectors extends ExpensesState {
   }
   @Selector()
   static totals(state: ExpensesStateModel) {
-    return state.totals.map(t => ({
-      name: t.user.name,
-      value: t.total
-    }));
+    return state.totals
+      .map(t => ({
+        name: t.user.name,
+        value: t.total
+      }))
+      .sort((a, b) => b.value - a.value);
   }
   @Selector()
   static sum(state: ExpensesStateModel) {

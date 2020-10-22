@@ -43,6 +43,27 @@ export class AuthState {
     return state.access_token;
   }
 
+  @Selector()
+  public static usersDict(state: AuthStateModel) {
+    return state.userDictionary;
+  }
+
+  @Selector()
+  public static userImagesDict(state: AuthStateModel) {
+    return Object.values(state.userDictionary)
+      .map(({ name, avatarUrl }) => ({
+        name,
+        avatarUrl
+      }))
+      .reduce(
+        (acc, cur) => ({
+          ...acc,
+          [cur.name]: cur.avatarUrl
+        }),
+        {}
+      );
+  }
+
   constructor(
     private authService: AuthService,
     public userService: UsersService,
