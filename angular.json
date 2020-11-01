@@ -92,8 +92,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/roomies/jest.config.js",
-            "tsConfig": "apps/roomies/tsconfig.spec.json",
-            "setupFile": "apps/roomies/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -175,7 +173,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/api/jest.config.js",
-            "tsConfig": "apps/api/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }
@@ -201,7 +198,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/expenses.contracts/jest.config.js",
-            "tsConfig": "libs/expenses.contracts/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }
@@ -227,7 +223,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/shared.data/jest.config.js",
-            "tsConfig": "libs/shared.data/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }
@@ -253,7 +248,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/user.contracts/jest.config.js",
-            "tsConfig": "libs/user.contracts/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }
