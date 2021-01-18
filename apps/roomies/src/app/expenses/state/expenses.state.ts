@@ -23,8 +23,6 @@ export interface ExpensesStateModel {
   selectedItem: Expense | null;
   reasons: ExpenseReason[];
   sorted: boolean;
-  totals: Total[];
-  balance: number;
   lastCall: boolean;
   isLoading: boolean;
 }
@@ -37,8 +35,6 @@ export interface ExpensesStateModel {
     selectedItem: null,
     sorted: true,
     reasons: [],
-    totals: [],
-    balance: 0,
     lastCall: false,
     isLoading: true
   }
@@ -113,46 +109,28 @@ export class ExpensesState {
       .pipe(
         map((exp: Expense) => ({
           exp: { [exp._id]: { ...exp, person, reason } } as Dictionary<Expense>,
-          totals: incrementUserTotal(ctx.getState().totals, exp, _id)
         })),
         tap(
           () => this.snackbarService.success('Record added!'),
           () => this.snackbarService.fail('Something went wrong.')
         ),
-        tap(({ exp, totals }) =>
+        tap(({ exp }) =>
           ctx.patchState({
             sorted: false,
             expenseDictionary: {
               ...ctx.getState().expenseDictionary,
               ...exp
             },
-            totals,
-            balance: calcBalance(totals, person)
           })
         )
       );
-  }
-
-  @Action(GetTotals)
-  getTotals(ctx: StateContext<ExpensesStateModel>) {
-    const user = this.store.selectSnapshot(AuthState.currentUser);
-
-    if (!user) {
-      return;
-    }
-    return this.expensesService.getTotals().pipe(
-      map(totals => totals.sort((a, b) => (a.user._id === user._id ? -1 : 1))),
-      tap(totals =>
-        ctx.patchState({ totals, balance: calcBalance(totals, user) })
-      )
-    );
   }
 }
 
 export const calcTotal = (totals: Total[]) =>
   totals.reduce((acc, cur) => acc + cur.total, 0);
 
-const calcBalance = (totals: Total[], user: User) => {
+export const calcBalance = (totals: Total[], user: User) => {
   const count = (totals[0] || { count: 0 }).count;
   if (!count) {
     return 0;

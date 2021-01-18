@@ -30,36 +30,6 @@ export class ExpenseSelectors extends ExpensesState {
   public static reasons(state: ExpensesStateModel) {
     return state.reasons;
   }
-  @Selector()
-  static totals(state: ExpensesStateModel) {
-    return state.totals
-      .map(t => ({
-        name: t.user.name,
-        value: t.total
-      }))
-      .sort((a, b) => b.value - a.value);
-  }
-  @Selector()
-  static sum(state: ExpensesStateModel) {
-    return calcTotal(state.totals);
-  }
-  @Selector()
-  static balance(
-    state: ExpensesStateModel
-  ): {
-    amount: number;
-    sign: 'positive' | 'negative' | 'balanced';
-  } {
-    return {
-      amount: Math.abs(state.balance),
-      sign:
-        state.balance > 0
-          ? 'positive'
-          : state.balance < 0
-          ? 'negative'
-          : 'balanced'
-    };
-  }
 
   @Selector()
   static isLoading({ isLoading }: ExpensesStateModel) {

@@ -8,8 +8,11 @@ import * as Components from './components';
 import * as Containers from './containers';
 import { ExpensesResolver } from './expenses.resolver';
 import * as pipes from './pipes';
-import { States } from './state';
+import { States, totalsFeatureKey, totalsReducer } from './state';
 import { ExpensesViewComponent } from './views/expenses.view';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { TotalsEffects } from './state/totals.effects';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,7 @@ import { ExpensesViewComponent } from './views/expenses.view';
     Components.ExpensesActionsComponent
   ],
   imports: [
-    SharedModule,
+SharedModule,
     ReactiveFormsModule,
     RouterModule.forChild([
       {
@@ -38,6 +41,8 @@ import { ExpensesViewComponent } from './views/expenses.view';
       }
     ]),
     NgxsModule.forFeature(States),
+    StoreModule.forFeature(totalsFeatureKey, totalsReducer),
+    EffectsModule.forFeature([TotalsEffects]),
     NgxChartsModule
   ],
 
