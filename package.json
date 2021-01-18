@@ -48,6 +48,8 @@
     "@nestjs/passport": "^6.1.1",
     "@nestjs/platform-express": "^7.0.0",
     "@nestjsplus/cookies": "^1.0.2",
+    "@ngrx/effects": "^10.1.2",
+    "@ngrx/store": "^10.1.2",
     "@ngxs/store": "^3.6.2",
     "@nrwl/angular": "^10.3.1",
     "@nrwl/nx": "^7.8.7",

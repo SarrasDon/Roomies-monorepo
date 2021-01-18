@@ -18,6 +18,8 @@ import {
   BaseInterceptorService,
   UnauthorizedInterceptorService
 } from './core/services';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 export const cloudinaryLib = {
   Cloudinary: CloudinaryCore
@@ -40,7 +42,9 @@ export const cloudinaryLib = {
       disabled: environment.production
     }),
     CloudinaryModule.forRoot(cloudinaryLib, { cloud_name: 'donatos' }),
-    LayoutModule
+    LayoutModule,
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot(),
   ],
   providers: [
     {
