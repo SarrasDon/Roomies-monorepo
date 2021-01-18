@@ -17,14 +17,14 @@ export class TotalsEffects {
     switchMap(() => this.expensesService.getTotals()
       .pipe(
         withLatestFrom(this.user$),
-        map(([totals,user]) => totalsLoaded({totals, userId: user._id})),
+        map(([totals, user]) => totalsLoaded({ totals, userId: user._id })),
         catchError(() => EMPTY)
       ))
-    )
+  )
   );
 
   constructor(
     private actions$: Actions,
     private expensesService: ExpensesService
-  ) {}
+  ) { }
 }

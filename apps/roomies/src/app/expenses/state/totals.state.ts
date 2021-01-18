@@ -5,19 +5,19 @@ import { calcTotal } from "./expenses.state";
 export const totalsFeatureKey = 'totals';
 
 export interface TotalState {
-    totals: Total[];
-    balance: number;
+  totals: Total[];
+  balance: number;
 }
 
-const initialState:TotalState = { totals: [], balance: 0 };
+const initialState: TotalState = { totals: [], balance: 0 };
 
 export const getTotals = createAction('[Totals] Get Totals per User');
-export const totalsLoaded = createAction('[Totals] Totals loaded', props<{totals: Total[], userId: string}>());
+export const totalsLoaded = createAction('[Totals] Totals loaded', props<{ totals: Total[], userId: string }>());
 
 
 const _totalsReducer = createReducer(
   initialState,
-  on(totalsLoaded, (state, {totals, userId}) => {
+  on(totalsLoaded, (state, { totals, userId }) => {
     const count = (totals[0] || { count: 0 }).count;
     if (!count) {
       return state;
@@ -46,14 +46,14 @@ export const selectBalance = createSelector(selectExpensesState, (state) => stat
 export const selectBalanceWithSign = createSelector(selectBalance, balance => ({
   amount: balance ? Math.abs(balance) : 0,
   sign: balance > 0
-          ? 'positive'
-          : balance < 0
-          ? 'negative'
-          : 'balanced'
+    ? 'positive'
+    : balance < 0
+      ? 'negative'
+      : 'balanced'
 }))
 
 export const selectTotalsWithNames = createSelector(selectTotals, totals => totals.map(t => ({
   name: t.user.name,
   value: t.total
 }))
-.sort((a, b) => b.value - a.value))
+  .sort((a, b) => b.value - a.value))

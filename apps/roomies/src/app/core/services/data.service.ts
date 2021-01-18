@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'apps/roomies/src/environments/environment';
 import { Entity } from '@roomies/shared.data';
-
+import { environment } from '../../../environments/environment'
 @Injectable({ providedIn: 'root' })
 export class DataService<T extends Entity> {
   private _featureUrl = '';
@@ -13,7 +12,7 @@ export class DataService<T extends Entity> {
     return this._featureUrl;
   }
 
-  constructor(public http: HttpClient) {}
+  constructor(public http: HttpClient) { }
 
   get() {
     return this.http.get<T[]>(this.featureUrl);

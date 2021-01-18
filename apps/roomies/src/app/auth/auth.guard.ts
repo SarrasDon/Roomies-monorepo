@@ -16,7 +16,7 @@ export class AuthGuard implements CanLoad {
     private router: Router,
     private store: Store,
     private authService: AuthService
-  ) {}
+  ) { }
 
   canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> {
     const isLoggedIn = this.store.selectSnapshot(AuthState.isLoggedIn);
@@ -24,12 +24,12 @@ export class AuthGuard implements CanLoad {
       return of(true);
     }
 
-    const user = this.store.selectSnapshot(AuthState.currentUser);
-    if (!user) {
+    const currentUser = this.store.selectSnapshot(AuthState.currentUser);
+    if (!currentUser) {
       this.navigateToAuth();
       return of(false);
     }
-    return this.authService.refresh(user).pipe(
+    return this.authService.refresh(currentUser).pipe(
       map(({ user, access_token }) => {
         this.store.dispatch(new RefreshedTokenSuccess(user, access_token));
         return true;

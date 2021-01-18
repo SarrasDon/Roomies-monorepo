@@ -1,6 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { environment } from 'apps/api/src/environments/environment';
+import { environment } from '../../../environments/environment';
 import { compare, hash } from 'bcryptjs';
 import { User } from '@roomies/user.contracts';
 import { UsersRepository } from '../../users/repositories';
@@ -12,7 +12,7 @@ export class AuthService {
     private usersRepository: UsersRepository,
     private refreshTokenRepository: RefreshTokensRepository,
     private jwtService: JwtService
-  ) {}
+  ) { }
 
   async login(email: string, password: string) {
     const user: Partial<User> = await this.usersRepository
