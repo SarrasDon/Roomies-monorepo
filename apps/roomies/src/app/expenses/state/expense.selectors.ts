@@ -1,5 +1,5 @@
 import { Selector } from '@ngxs/store';
-import { ExpensesState, ExpensesStateModel, calcTotal } from './expenses.state';
+import { ExpensesState, ExpensesStateModel } from './expenses.state';
 import { Expense } from '@roomies/expenses.contracts';
 
 export class ExpenseSelectors extends ExpensesState {
@@ -19,12 +19,12 @@ export class ExpenseSelectors extends ExpensesState {
     return state.sorted
       ? Object.values(state.expenseDictionary)
       : Object.values(state.expenseDictionary).sort((a, b) =>
-          new Date(a.spendAt).valueOf() > new Date(b.spendAt).valueOf()
-            ? -1
-            : new Date(a.spendAt).valueOf() < new Date(b.spendAt).valueOf()
+        new Date(a.spendAt).valueOf() > new Date(b.spendAt).valueOf()
+          ? -1
+          : new Date(a.spendAt).valueOf() < new Date(b.spendAt).valueOf()
             ? 1
             : 0
-        );
+      );
   }
   @Selector()
   public static reasons(state: ExpensesStateModel) {

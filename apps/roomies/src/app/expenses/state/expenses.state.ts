@@ -3,12 +3,10 @@ import { Store } from '@ngrx/store';
 import { Action, State, StateContext } from '@ngxs/store';
 import { Expense, ExpenseReason } from '@roomies/expenses.contracts';
 import { Dictionary } from '@roomies/shared.data';
-import { User } from '@roomies/user.contracts';
 import { map, tap } from 'rxjs/operators';
 import { getCurrentUser } from '../../auth/state';
 import { AuthState } from '../../auth/state/auth.state';
 import { SnackbarService } from '../../core/services';
-import { Total } from '../../shared/models';
 import { storeSnapshot, toDictionary } from '../../shared/utils';
 import { ExpensesService } from '../services';
 import {
@@ -130,31 +128,3 @@ export class ExpensesState {
       );
   }
 }
-
-export const calcTotal = (totals: Total[]) =>
-  totals.reduce((acc, cur) => acc + cur.total, 0);
-
-export const calcBalance = (totals: Total[], user: User) => {
-  const count = (totals[0] || { count: 0 }).count;
-  if (!count) {
-    return 0;
-  }
-  const sum = calcTotal(totals);
-  const userTotal = (
-    totals.find((t) => t.user._id === user._id) || { total: 0 }
-  ).total;
-  return sum / count - userTotal;
-};
-
-const incrementUserTotal = (
-  totals: Total[],
-  expense: Expense,
-  userId: string
-) => {
-  const cloned = JSON.parse(JSON.stringify(totals)) as Total[];
-  const userTotal = cloned.find((t) => t.user._id === userId);
-  if (userTotal) {
-    userTotal.total += expense.amount;
-  }
-  return cloned;
-};

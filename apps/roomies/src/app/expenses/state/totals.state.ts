@@ -1,6 +1,6 @@
 import { createAction, createFeatureSelector, createReducer, createSelector, on, props } from '@ngrx/store';
 import { Total } from "../../shared/models";
-import { calcTotal } from "./expenses.state";
+import { calcBalance, incrementUserTotal } from './utils';
 
 export const totalsFeatureKey = 'totals';
 
@@ -13,7 +13,7 @@ const initialState: TotalState = { totals: [], balance: 0 };
 
 export const getTotals = createAction('[Totals] Get Totals per User');
 export const totalsLoaded = createAction('[Totals] Totals loaded', props<{ totals: Total[], userId: string }>());
-
+export const incrementTotal = createAction('[Totals] Increment Total', props<{ amount: number, userId: string }>());
 
 const _totalsReducer = createReducer(
   initialState,
@@ -22,20 +22,21 @@ const _totalsReducer = createReducer(
     if (!count) {
       return state;
     }
-    const sum = calcTotal(totals);
-    const userTotal = (totals.find(t => t.user._id === userId) || { total: 0 })
-      .total;
-    const balance = sum / count - userTotal;
+
+    const balance = calcBalance(totals, userId);
 
     return {
       ...state,
       totals: totals.slice().sort((a, b) => (a.user._id === userId ? -1 : 1)),
       balance
     };
+  }),
+  on(incrementTotal, (state, { userId, amount }) => {
+    const totals = incrementUserTotal(state.totals, amount, userId)
+    const balance = calcBalance(totals, userId);
+    return { ...state, totals, balance };
   })
 )
-
-
 export function totalsReducer(state: TotalState, action: any) {
   return _totalsReducer(state, action)
 }
