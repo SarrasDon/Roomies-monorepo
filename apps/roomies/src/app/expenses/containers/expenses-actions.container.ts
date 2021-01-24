@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Select, Store as NgxsStore } from '@ngxs/store';
 import { ExpenseReason } from '@roomies/expenses.contracts';
-import { User } from '@roomies/user.contracts';
 import { Observable } from 'rxjs';
-import { AuthState } from '../../auth/state';
+import { getCurrentUser } from '../../auth/state';
+import { storeSnapshot } from '../../shared/utils';
 import { CreateExpense, ExpenseSelectors, incrementTotal } from '../state';
 
 @Component({
@@ -25,17 +25,17 @@ import { CreateExpense, ExpenseSelectors, incrementTotal } from '../state';
         z-index: 1;
         display: block;
       }
-    `
+    `,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExpensesActionsContainer implements OnInit {
   @Select(ExpenseSelectors.reasons) reasons: Observable<ExpenseReason[]>;
   @Select(ExpenseSelectors.isLoading) isLoading: Observable<boolean>;
 
-  constructor(private ngxsStore: NgxsStore, private store: Store) { }
+  constructor(private ngxsStore: NgxsStore, private store: Store) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   onFormSubmitted($event: {
     reason: ExpenseReason;
@@ -43,10 +43,9 @@ export class ExpensesActionsContainer implements OnInit {
     date: Date;
   }) {
     const { reason, amount, date } = $event;
+    const user = storeSnapshot(this.store, getCurrentUser);
     this.ngxsStore.dispatch(new CreateExpense(reason, amount, date));
-    const user = this.ngxsStore.selectSnapshot<User>(AuthState.currentUser);
-
     // update the store optimistically
-    this.store.dispatch(incrementTotal({ amount, userId: user._id }))
+    this.store.dispatch(incrementTotal({ amount, userId: user._id }));
   }
 }

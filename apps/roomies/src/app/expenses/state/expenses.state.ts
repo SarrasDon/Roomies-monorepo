@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import { createAction, createReducer, props, Store } from '@ngrx/store';
 import { Action, State, StateContext } from '@ngxs/store';
 import { Expense, ExpenseReason } from '@roomies/expenses.contracts';
 import { Dictionary } from '@roomies/shared.data';
@@ -16,6 +17,55 @@ import {
   SetExpensesReasons,
 } from './expenses.actions';
 
+export interface ExpensesState extends EntityState<Expense> {
+  selectedItem: Expense | null;
+  count: number;
+  reasons: ExpenseReason[];
+  sorted: boolean;
+  lastCall: boolean;
+  isLoading: boolean;
+}
+
+export const expensesAdapter = createEntityAdapter<Expense>({
+  selectId: (user) => user._id,
+  sortComparer: (a, b) =>
+    new Date(a.spendAt).valueOf() > new Date(b.spendAt).valueOf()
+      ? -1
+      : new Date(a.spendAt).valueOf() < new Date(b.spendAt).valueOf()
+      ? 1
+      : 0,
+});
+
+const initialState = expensesAdapter.getInitialState({
+  count: null,
+  selectedItem: null,
+  sorted: true,
+  reasons: [],
+  lastCall: false,
+  isLoading: false,
+});
+
+export const getExpenses = createAction(
+  '[Expenses] Get Expenses',
+  props<{ index: number; limit: number }>()
+);
+
+export const setExpensesCount = createAction(
+  '[Expenses Resolver] Set Expenses Count',
+  props<{ count: number }>()
+);
+
+export const setExpensesReasons = createAction(
+  '[Expenses Resolver] Set Expenses Reasons',
+  props<{ reasons: ExpenseReason[] }>()
+);
+
+export const createExpense = createAction(
+  '[Create Expense Form] Create new Expense',
+  props<{ reason: ExpenseReason; amount: number; date: Date }>()
+);
+
+const _expenseReducer = createReducer(initialState);
 export interface ExpensesStateModel {
   expenseDictionary: Dictionary<Expense> | null;
   count: number;
@@ -39,7 +89,7 @@ export interface ExpensesStateModel {
   },
 })
 @Injectable()
-export class ExpensesState {
+export class NgxsExpensesState {
   constructor(
     private store: Store<AuthState>,
     private expensesService: ExpensesService,
