@@ -1,44 +1,12 @@
-import { User } from '@roomies/user.contracts';
+import { createAction, props } from "@ngrx/store";
+import { User } from "@roomies/user.contracts";
 
-export class SetCurrentUser {
-  static readonly type = '[Auth] Set current user';
-  constructor(public payload: { user: User }) {}
-}
+export const login = createAction('[Auth] Login', props<{ email: string, password: string }>());
+export const loginSuccess = createAction('[Auth Effects] Login Success', props<{ user: User, access_token: string }>());
+export const loginFail = createAction('[Auth Effects] Login Failed', props<{ error: any }>());
+export const logout = createAction('[Auth] Logout');
 
-export class Login {
-  static readonly type = '[Auth] Login';
-  constructor(public email: string, public password: string) {}
-}
-
-export class SignUp {
-  static readonly type = '[Auth] SignUp';
-  constructor(public email: string, public password: string) {}
-}
-
-export class Logout {
-  static readonly type = '[Auth] Logout';
-  constructor() {}
-}
-
-export class UpdateUserAvatar {
-  static readonly type = '[Header] Update Avatar';
-  constructor(public avatarUrl: string) {}
-}
-
-export class UsersLoaded {
-  static readonly type = '[Expense Resolver] Users Loaded';
-  constructor(public users: User[]) {}
-}
-
-export class RefreshedTokenSuccess {
-  static readonly type = '[Auth guard] User Refreshed Token';
-  constructor(public user: User, public access_token: string) {}
-}
-
-export class RefreshedTokenFail {
-  static readonly type = '[Auth guard] Refresh Failed';
-}
-
-export class ClearUser {
-  static readonly type = 'Clear user!';
-}
+export const updateUserAvatar = createAction('[Header] Update User avatar', props<{ avatarUrl: string }>())
+export const usersLoaded = createAction('[Expense Resolver] Users Loaded', props<{ users: User[] }>())
+export const refreshTokenSuccess = createAction('[Auth guard] User Refreshed Token', props<{ user: User, access_token: string }>())
+export const refreshTokenFailed = createAction('[Auth guard] Refreshed Failed')

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { UsersService } from '../../core/services';
 import { User } from '@roomies/user.contracts';
+import { catchError, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class AuthService extends UsersService {
     }>(`${environment.API_URL}auth/login/`, {
       email,
       password
-    });
+    }).pipe(tap(console.log))
   }
 
   refresh(user: User) {
@@ -28,6 +29,6 @@ export class AuthService extends UsersService {
       access_token: string;
     }>(`${environment.API_URL}auth/refresh/`, {
       ...user
-    });
+    })
   }
 }

@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Select } from '@ngxs/store';
-import { User } from '@roomies/user.contracts';
-import { EMPTY, Observable } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+import { EMPTY } from 'rxjs';
 import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
-import { AuthState } from '../../auth/state';
+import { AuthState, getCurrentUser } from '../../auth/state';
 import { ExpensesService } from '../services/expenses.service';
 import { getTotals, totalsLoaded } from './totals.state';
 
 @Injectable()
 export class TotalsEffects {
-  @Select(AuthState.currentUser) user$: Observable<User>;
+  user$ = this.store.pipe(select(getCurrentUser))
 
   loadMovies$ = createEffect(() => this.actions$.pipe(
     ofType(getTotals),
@@ -24,6 +23,7 @@ export class TotalsEffects {
   );
 
   constructor(
+    private store: Store<AuthState>,
     private actions$: Actions,
     private expensesService: ExpensesService
   ) { }

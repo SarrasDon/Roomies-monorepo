@@ -1,11 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Select, Store } from '@ngxs/store';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { select, Store } from '@ngrx/store';
 import { from, Observable, of } from 'rxjs';
 import { filter, map, switchMap, take } from 'rxjs/operators';
-import { Logout, UpdateUserAvatar } from '../../../auth/state/auth.actions';
-import { AuthState } from '../../../auth/state/auth.state';
-import { User } from '@roomies/user.contracts';
-import { CloudinaryService } from '../../services/cloudinary.service';
+import { AuthState, getCurrentUser, getIsLoggenIn, logout, updateUserAvatar } from '../../../auth/state';
+import { CloudinaryService } from '../../services';
 
 @Component({
   selector: 'roomies-header-container',
@@ -21,17 +19,14 @@ import { CloudinaryService } from '../../services/cloudinary.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderContainerComponent implements OnInit {
-  @Select(AuthState.isLoggedIn) isLoggedIn$: Observable<boolean>;
-  @Select(AuthState.currentUser) user$: Observable<User>;
-
+  isLoggedIn$ = this.store.pipe(select(getIsLoggenIn))
+  user$ = this.store.pipe(select(getCurrentUser))
   avatar$: Observable<{ default: boolean; content: string }>;
-  userName$: Observable<string>;
+  userName$ = this.user$.pipe(map(user => (user ? user.name : null)));
 
-  constructor(private store: Store, private cloudinary: CloudinaryService) {}
+  constructor(private store: Store<AuthState>, private cloudinary: CloudinaryService) { }
 
   ngOnInit() {
-    this.userName$ = this.user$.pipe(map(user => (user ? user.name : null)));
-
     this.avatar$ = this.user$.pipe(
       map(user =>
         user && user.avatarUrl
@@ -51,7 +46,7 @@ export class HeaderContainerComponent implements OnInit {
   }
 
   onUserLoggedOut($event) {
-    this.store.dispatch(new Logout());
+    this.store.dispatch(logout());
   }
 
   onUploadImgStarted() {
@@ -61,7 +56,7 @@ export class HeaderContainerComponent implements OnInit {
         take(1)
       )
       .subscribe(({ info }) => {
-        this.store.dispatch(new UpdateUserAvatar(info.secure_url));
+        this.store.dispatch(updateUserAvatar({ avatarUrl: info.secure_url }));
       });
     this.cloudinary.openWidget();
   }

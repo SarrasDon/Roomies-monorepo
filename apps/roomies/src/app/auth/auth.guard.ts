@@ -1,41 +1,40 @@
 import { Injectable } from '@angular/core';
 import { CanLoad, Route, Router, UrlSegment } from '@angular/router';
-import { Store } from '@ngxs/store';
-import { AuthState } from './state/auth.state';
-import { AuthService } from './services';
+import { Store } from '@ngrx/store';
+import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { of, Observable } from 'rxjs';
-import {
-  RefreshedTokenFail,
-  RefreshedTokenSuccess
-} from './state/auth.actions';
+import { storeSnapshot } from '../shared/utils';
+import { AuthService } from './services';
+import { getCurrentUser, getIsLoggenIn } from './state';
+import { refreshTokenFailed, refreshTokenSuccess } from './state/auth.actions';
+import { AuthState } from './state/auth.state';
 
 @Injectable()
 export class AuthGuard implements CanLoad {
   constructor(
     private router: Router,
-    private store: Store,
+    private store: Store<AuthState>,
     private authService: AuthService
   ) { }
 
   canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> {
-    const isLoggedIn = this.store.selectSnapshot(AuthState.isLoggedIn);
+    const isLoggedIn = storeSnapshot(this.store, getIsLoggenIn);
     if (isLoggedIn) {
       return of(true);
     }
 
-    const currentUser = this.store.selectSnapshot(AuthState.currentUser);
+    const currentUser = storeSnapshot(this.store, getCurrentUser);
     if (!currentUser) {
       this.navigateToAuth();
       return of(false);
     }
     return this.authService.refresh(currentUser).pipe(
       map(({ user, access_token }) => {
-        this.store.dispatch(new RefreshedTokenSuccess(user, access_token));
+        this.store.dispatch(refreshTokenSuccess({ user, access_token }));
         return true;
       }),
       catchError(error => {
-        this.store.dispatch(new RefreshedTokenFail());
+        this.store.dispatch(refreshTokenFailed());
         this.navigateToAuth();
         return of(false);
       })

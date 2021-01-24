@@ -1,21 +1,23 @@
 import { Injectable } from '@angular/core';
-import { Action, State, StateContext, Store } from '@ngxs/store';
+import { Store } from '@ngrx/store';
+import { Action, State, StateContext } from '@ngxs/store';
+import { Expense, ExpenseReason } from '@roomies/expenses.contracts';
+import { Dictionary } from '@roomies/shared.data';
+import { User } from '@roomies/user.contracts';
 import { map, tap } from 'rxjs/operators';
+import { getCurrentUser } from '../../auth/state';
 import { AuthState } from '../../auth/state/auth.state';
 import { SnackbarService } from '../../core/services';
-import { Dictionary } from '@roomies/shared.data';
+import { Total } from '../../shared/models';
+import { storeSnapshot, toDictionary } from '../../shared/utils';
 import { ExpensesService } from '../services';
 import {
   CreateExpense,
   GetExpenses,
-  GetTotals,
+
   SetExpensesCount,
   SetExpensesReasons as SetExpenseReasons
 } from './expenses.actions';
-import { toDictionary } from '../../shared/utils';
-import { Expense, ExpenseReason } from '@roomies/expenses.contracts';
-import { User } from '@roomies/user.contracts';
-import { Total } from '../../shared/models';
 
 export interface ExpensesStateModel {
   expenseDictionary: Dictionary<Expense> | null;
@@ -42,18 +44,22 @@ export interface ExpensesStateModel {
 @Injectable()
 export class ExpensesState {
   constructor(
-    private store: Store,
+    private store: Store<AuthState>,
     private expensesService: ExpensesService,
     private snackbarService: SnackbarService
-  ) {}
+  ) { }
+
+  get user() {
+    return storeSnapshot(this.store, getCurrentUser)
+  }
 
   @Action(GetExpenses)
   getExpenses(
     ctx: StateContext<ExpensesStateModel>,
     { index, limit }: GetExpenses
   ) {
-    const user = this.store.selectSnapshot(AuthState.currentUser);
-    if (!user) {
+
+    if (!this.user) {
       return;
     }
     const { expenseDictionary, count, lastCall } = ctx.getState();
@@ -98,17 +104,16 @@ export class ExpensesState {
     ctx: StateContext<ExpensesStateModel>,
     { reason, amount, date }: CreateExpense
   ) {
-    const person = this.store.selectSnapshot(AuthState.currentUser);
 
-    if (!person) {
+    if (!this.user) {
       return;
     }
-    const { _id } = person;
+    const { _id } = this.user;
     return this.expensesService
       .create({ reason: reason._id, amount, spendAt: date, person: _id })
       .pipe(
         map((exp: Expense) => ({
-          exp: { [exp._id]: { ...exp, person, reason } } as Dictionary<Expense>,
+          exp: { [exp._id]: { ...exp, person: this.user, reason } } as Dictionary<Expense>,
         })),
         tap(
           () => this.snackbarService.success('Record added!'),

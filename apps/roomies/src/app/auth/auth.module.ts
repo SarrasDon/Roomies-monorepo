@@ -1,16 +1,18 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NgxsModule } from '@ngxs/store';
 import { SharedModule } from '../shared/shared.module';
 import { AuthComponent } from './components/auth.component';
-import { AuthState } from './state/auth.state';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects, authFeatureKey, authReducer } from './state';
 
 @NgModule({
   declarations: [AuthComponent],
   imports: [
     ReactiveFormsModule,
     SharedModule,
-    NgxsModule.forFeature([AuthState])
+    StoreModule.forFeature(authFeatureKey, authReducer),
+    EffectsModule.forFeature([AuthEffects]),
   ]
 })
-export class AuthModule {}
+export class AuthModule { }

@@ -31,9 +31,12 @@
         </mat-error>
       </mat-form-field>
     </section>
-    <mat-error style="font-size:13px; margin-top:15px" *ngIf="errorMsg">{{
-      errorMsg
-    }}</mat-error>
+
+    <mat-error
+      style="font-size: 13px; margin-bottom: 10px"
+      *ngIf="errorMsg$ | async as error"
+      >{{ error }}</mat-error
+    >
     <mat-card-actions>
       <button mat-raised-button color="primary" type="submit">
         <!-- (click)="onSignIn()" -->

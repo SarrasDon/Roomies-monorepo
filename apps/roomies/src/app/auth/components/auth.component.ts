@@ -1,16 +1,14 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import {
   ChangeDetectionStrategy,
   Component,
-  OnDestroy,
+
   OnInit
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Store } from '@ngxs/store';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { Login } from '../state/auth.actions';
+import { select, Store } from '@ngrx/store';
+import { AuthService } from '../services';
+import { getLoginError, login } from '../state';
 
 @Component({
   selector: 'roomies-auth',
@@ -18,18 +16,17 @@ import { Login } from '../state/auth.actions';
   styleUrls: ['./auth.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AuthComponent implements OnInit, OnDestroy {
-  private unSubscribe = new Subject();
+export class AuthComponent implements OnInit {
   form!: FormGroup;
-  errorMsg: string;
+  errorMsg$ = this.store.pipe(select(getLoginError))
   email = this.fb.control('', [Validators.required, Validators.email]);
   password = this.fb.control('', [Validators.required]);
 
   constructor(
     private store: Store,
     private fb: FormBuilder,
-    private router: Router
-  ) {}
+    private router: Router, private auth: AuthService
+  ) { }
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -43,35 +40,6 @@ export class AuthComponent implements OnInit, OnDestroy {
       return;
     }
     const { email, password } = this.form.value;
-    this.store
-      .dispatch(new Login(email, password))
-      .pipe(takeUntil(this.unSubscribe))
-      .subscribe(
-        () => this.handleLoginSuccess(),
-        error => this.handleLoginFail(error)
-      );
-  }
-
-  handleLoginSuccess() {
-    this.router.navigate(['/expenses']);
-  }
-
-  handleLoginFail(error: HttpErrorResponse) {
-    switch (error.error.statusCode) {
-      case 400: {
-        this.errorMsg = 'Invalid username or password!';
-        setTimeout(() => (this.errorMsg = ''), 3000);
-        break;
-      }
-      default: {
-        this.errorMsg = 'Invalid username or password!';
-        setTimeout(() => (this.errorMsg = ''), 3000);
-      }
-    }
-  }
-
-  ngOnDestroy(): void {
-    this.unSubscribe.next();
-    this.unSubscribe.complete();
+    this.store.dispatch(login({ email, password }));
   }
 }

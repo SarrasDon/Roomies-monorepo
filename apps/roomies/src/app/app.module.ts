@@ -20,6 +20,7 @@ import {
 } from './core/services';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 export const cloudinaryLib = {
   Cloudinary: CloudinaryCore
@@ -38,13 +39,17 @@ export const cloudinaryLib = {
     NgxsModule.forRoot([], {
       developmentMode: !environment.production
     }),
-    NgxsReduxDevtoolsPluginModule.forRoot({
-      disabled: environment.production
-    }),
+    // NgxsReduxDevtoolsPluginModule.forRoot({
+    //   disabled: environment.production
+    // }),
     CloudinaryModule.forRoot(cloudinaryLib, { cloud_name: 'donatos' }),
     LayoutModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot(),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+    }),
   ],
   providers: [
     {
@@ -65,4 +70,4 @@ export const cloudinaryLib = {
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
