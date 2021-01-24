@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-
-  OnInit
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
@@ -14,24 +9,25 @@ import { getLoginError, login } from '../state';
   selector: 'roomies-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AuthComponent implements OnInit {
   form!: FormGroup;
-  errorMsg$ = this.store.pipe(select(getLoginError))
+  errorMsg$ = this.store.pipe(select(getLoginError));
   email = this.fb.control('', [Validators.required, Validators.email]);
   password = this.fb.control('', [Validators.required]);
 
   constructor(
     private store: Store,
     private fb: FormBuilder,
-    private router: Router, private auth: AuthService
-  ) { }
+    private router: Router,
+    private auth: AuthService
+  ) {}
 
   ngOnInit() {
     this.form = this.fb.group({
       email: this.email,
-      password: this.password
+      password: this.password,
     });
   }
 

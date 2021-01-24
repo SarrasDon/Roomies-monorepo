@@ -3,7 +3,7 @@ import {
   HttpHandler,
   HttpInterceptor,
   HttpRequest,
-  HttpErrorResponse
+  HttpErrorResponse,
 } from '@angular/common/http';
 import { Injectable, NgZone } from '@angular/core';
 import { Observable, of } from 'rxjs';
@@ -14,7 +14,11 @@ import { Store } from '@ngrx/store';
 import { loginFail } from '../../auth/state/auth.actions';
 @Injectable()
 export class UnauthorizedInterceptorService implements HttpInterceptor {
-  constructor(private router: Router, private ngZone: NgZone, private store: Store<AuthState>) { }
+  constructor(
+    private router: Router,
+    private ngZone: NgZone,
+    private store: Store<AuthState>
+  ) {}
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
@@ -26,7 +30,9 @@ export class UnauthorizedInterceptorService implements HttpInterceptor {
       source.pipe(
         catchError((error: HttpErrorResponse) => {
           if (req.url.toLowerCase().includes('login')) {
-            this.store.dispatch(loginFail({ error: { message: 'Wrong username or password!' } }));
+            this.store.dispatch(
+              loginFail({ error: { message: 'Wrong username or password!' } })
+            );
             return of(error as any);
           }
           if (error.status === 401) {

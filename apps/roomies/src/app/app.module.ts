@@ -16,14 +16,14 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { AuthInterceptorService } from './auth/services';
 import {
   BaseInterceptorService,
-  UnauthorizedInterceptorService
+  UnauthorizedInterceptorService,
 } from './core/services';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 export const cloudinaryLib = {
-  Cloudinary: CloudinaryCore
+  Cloudinary: CloudinaryCore,
 };
 
 @NgModule({
@@ -37,7 +37,7 @@ export const cloudinaryLib = {
     BrowserAnimationsModule,
     AppRoutingModule,
     NgxsModule.forRoot([], {
-      developmentMode: !environment.production
+      developmentMode: !environment.production,
     }),
     // NgxsReduxDevtoolsPluginModule.forRoot({
     //   disabled: environment.production
@@ -55,19 +55,19 @@ export const cloudinaryLib = {
     {
       provide: HTTP_INTERCEPTORS,
       useClass: BaseInterceptorService,
-      multi: true
+      multi: true,
     },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
-      multi: true
+      multi: true,
     },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UnauthorizedInterceptorService,
-      multi: true
-    }
+      multi: true,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -15,7 +15,7 @@ export class AuthGuard implements CanLoad {
     private router: Router,
     private store: Store<AuthState>,
     private authService: AuthService
-  ) { }
+  ) {}
 
   canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> {
     const isLoggedIn = storeSnapshot(this.store, getIsLoggenIn);
@@ -33,7 +33,7 @@ export class AuthGuard implements CanLoad {
         this.store.dispatch(refreshTokenSuccess({ user, access_token }));
         return true;
       }),
-      catchError(error => {
+      catchError((error) => {
         this.store.dispatch(refreshTokenFailed());
         this.navigateToAuth();
         return of(false);

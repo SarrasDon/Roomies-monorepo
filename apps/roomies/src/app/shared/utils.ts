@@ -1,5 +1,5 @@
-import { select, Selector, Store } from "@ngrx/store";
-import { first } from "rxjs/operators";
+import { select, Selector, Store } from '@ngrx/store';
+import { first } from 'rxjs/operators';
 
 export function toDictionary<T extends { _id: string }>(
   array: Array<T>
@@ -9,6 +9,8 @@ export function toDictionary<T extends { _id: string }>(
 
 export function storeSnapshot<T, V>(store: Store<T>, selector: Selector<T, V>) {
   let storeSlice: V;
-  store.pipe(select(selector), first()).subscribe(slice => storeSlice = slice);
+  store
+    .pipe(select(selector), first())
+    .subscribe((slice) => (storeSlice = slice));
   return storeSlice;
 }

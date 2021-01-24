@@ -1,66 +1,76 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { Dictionary } from '@roomies/shared.data';
 import { User } from '@roomies/user.contracts';
-import { loginSuccess, logout, updateUserAvatar, usersLoaded, refreshTokenSuccess, loginFail } from './auth.actions';
+import {
+  loginSuccess,
+  logout,
+  updateUserAvatar,
+  usersLoaded,
+  refreshTokenSuccess,
+  loginFail,
+} from './auth.actions';
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
 export const authFeatureKey = 'auth';
 
-export interface UserEntityState extends EntityState<User> { }
+export interface UserEntityState extends EntityState<User> {}
 export interface AuthState {
   currentUser: User | null;
   isLoggedIn: boolean;
   userDictionary: UserEntityState;
   access_token: string;
-  loginError: string
+  loginError: string;
 }
 
 export const usersAdapter: EntityAdapter<User> = createEntityAdapter<User>({
-  selectId: user => user._id,
-})
+  selectId: (user) => user._id,
+});
 
 const initialState: AuthState = {
-  currentUser: (JSON.parse(localStorage.getItem('user') as string) as User) || null,
+  currentUser:
+    (JSON.parse(localStorage.getItem('user') as string) as User) || null,
   isLoggedIn: false,
   userDictionary: usersAdapter.getInitialState(),
   access_token: null,
-  loginError: null
+  loginError: null,
 };
 
-const _authReducer = createReducer<AuthState>(initialState,
+const _authReducer = createReducer<AuthState>(
+  initialState,
   on(loginSuccess, (state, { user, access_token }) => ({
     ...state,
     currentUser: user,
     isLoggedIn: true,
-    access_token
+    access_token,
   })),
   on(loginFail, (state, { error }) => {
-    return { ...state, loginError: error.message }
+    return { ...state, loginError: error.message };
   }),
   on(logout, (state) => ({
     ...state,
     currentUser: null,
     access_token: null,
-    isLoggedIn: false
+    isLoggedIn: false,
   })),
   on(updateUserAvatar, (state, { avatarUrl }) => ({
     ...state,
-    currentUser: { ...state.currentUser, avatarUrl }
+    currentUser: { ...state.currentUser, avatarUrl },
   })),
   on(usersLoaded, (state, { users }) => ({
-    ...state, userDictionary: usersAdapter.addMany(users, state.userDictionary)
+    ...state,
+    userDictionary: usersAdapter.addMany(users, state.userDictionary),
   })),
   on(refreshTokenSuccess, (state, { user, access_token }) => ({
     ...state,
     currentUser: user,
     access_token,
-    isLoggedIn: true
+    isLoggedIn: true,
   }))
 );
 
 export const authReducer = function (state: AuthState, action: Action) {
   return _authReducer(state, action);
-}
+};
 // @Injectable()
 // export class AuthState {
 //   @Selector()

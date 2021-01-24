@@ -14,9 +14,8 @@ import { ExpensesService } from '../services';
 import {
   CreateExpense,
   GetExpenses,
-
   SetExpensesCount,
-  SetExpensesReasons as SetExpenseReasons
+  SetExpensesReasons,
 } from './expenses.actions';
 
 export interface ExpensesStateModel {
@@ -38,8 +37,8 @@ export interface ExpensesStateModel {
     sorted: true,
     reasons: [],
     lastCall: false,
-    isLoading: true
-  }
+    isLoading: true,
+  },
 })
 @Injectable()
 export class ExpensesState {
@@ -47,10 +46,10 @@ export class ExpensesState {
     private store: Store<AuthState>,
     private expensesService: ExpensesService,
     private snackbarService: SnackbarService
-  ) { }
+  ) {}
 
   get user() {
-    return storeSnapshot(this.store, getCurrentUser)
+    return storeSnapshot(this.store, getCurrentUser);
   }
 
   @Action(GetExpenses)
@@ -58,7 +57,6 @@ export class ExpensesState {
     ctx: StateContext<ExpensesStateModel>,
     { index, limit }: GetExpenses
   ) {
-
     if (!this.user) {
       return;
     }
@@ -70,14 +68,14 @@ export class ExpensesState {
     ctx.patchState({ lastCall: count !== null && index + limit >= count });
 
     return this.expensesService.getExpenses(index, limit).pipe(
-      tap(expenses =>
+      tap((expenses) =>
         ctx.patchState({
           expenseDictionary: {
             ...expenseDictionary,
-            ...toDictionary(expenses)
+            ...toDictionary(expenses),
           },
           sorted: true,
-          isLoading: false
+          isLoading: false,
         })
       )
     );
@@ -91,10 +89,10 @@ export class ExpensesState {
     ctx.patchState({ count });
   }
 
-  @Action(SetExpenseReasons)
+  @Action(SetExpensesReasons)
   setExpenseReasons(
     ctx: StateContext<ExpensesStateModel>,
-    { reasons }: SetExpenseReasons
+    { reasons }: SetExpensesReasons
   ) {
     ctx.patchState({ reasons });
   }
@@ -104,7 +102,6 @@ export class ExpensesState {
     ctx: StateContext<ExpensesStateModel>,
     { reason, amount, date }: CreateExpense
   ) {
-
     if (!this.user) {
       return;
     }
@@ -113,7 +110,9 @@ export class ExpensesState {
       .create({ reason: reason._id, amount, spendAt: date, person: _id })
       .pipe(
         map((exp: Expense) => ({
-          exp: { [exp._id]: { ...exp, person: this.user, reason } } as Dictionary<Expense>,
+          exp: {
+            [exp._id]: { ...exp, person: this.user, reason },
+          } as Dictionary<Expense>,
         })),
         tap(
           () => this.snackbarService.success('Record added!'),
@@ -124,7 +123,7 @@ export class ExpensesState {
             sorted: false,
             expenseDictionary: {
               ...ctx.getState().expenseDictionary,
-              ...exp
+              ...exp,
             },
           })
         )
@@ -141,8 +140,9 @@ export const calcBalance = (totals: Total[], user: User) => {
     return 0;
   }
   const sum = calcTotal(totals);
-  const userTotal = (totals.find(t => t.user._id === user._id) || { total: 0 })
-    .total;
+  const userTotal = (
+    totals.find((t) => t.user._id === user._id) || { total: 0 }
+  ).total;
   return sum / count - userTotal;
 };
 
@@ -152,7 +152,7 @@ const incrementUserTotal = (
   userId: string
 ) => {
   const cloned = JSON.parse(JSON.stringify(totals)) as Total[];
-  const userTotal = cloned.find(t => t.user._id === userId);
+  const userTotal = cloned.find((t) => t.user._id === userId);
   if (userTotal) {
     userTotal.total += expense.amount;
   }

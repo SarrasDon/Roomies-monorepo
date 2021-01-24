@@ -6,7 +6,7 @@ import { User } from '@roomies/user.contracts';
 import { catchError, tap } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService extends UsersService {
   constructor(public http: HttpClient) {
@@ -14,13 +14,15 @@ export class AuthService extends UsersService {
   }
 
   login(email: string, password: string) {
-    return this.http.post<{
-      user: User;
-      access_token: string;
-    }>(`${environment.API_URL}auth/login/`, {
-      email,
-      password
-    }).pipe(tap(console.log))
+    return this.http
+      .post<{
+        user: User;
+        access_token: string;
+      }>(`${environment.API_URL}auth/login/`, {
+        email,
+        password,
+      })
+      .pipe(tap(console.log));
   }
 
   refresh(user: User) {
@@ -28,7 +30,7 @@ export class AuthService extends UsersService {
       user: User;
       access_token: string;
     }>(`${environment.API_URL}auth/refresh/`, {
-      ...user
-    })
+      ...user,
+    });
   }
 }

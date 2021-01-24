@@ -9,22 +9,24 @@ import { getTotals, totalsLoaded } from './totals.state';
 
 @Injectable()
 export class TotalsEffects {
-  user$ = this.store.pipe(select(getCurrentUser))
+  user$ = this.store.pipe(select(getCurrentUser));
 
-  loadMovies$ = createEffect(() => this.actions$.pipe(
-    ofType(getTotals),
-    switchMap(() => this.expensesService.getTotals()
-      .pipe(
-        withLatestFrom(this.user$),
-        map(([totals, user]) => totalsLoaded({ totals, userId: user._id })),
-        catchError(() => EMPTY)
-      ))
-  )
+  loadMovies$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getTotals),
+      switchMap(() =>
+        this.expensesService.getTotals().pipe(
+          withLatestFrom(this.user$),
+          map(([totals, user]) => totalsLoaded({ totals, userId: user._id })),
+          catchError(() => EMPTY)
+        )
+      )
+    )
   );
 
   constructor(
     private store: Store<AuthState>,
     private actions$: Actions,
     private expensesService: ExpensesService
-  ) { }
+  ) {}
 }

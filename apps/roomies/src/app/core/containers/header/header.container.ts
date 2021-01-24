@@ -2,7 +2,13 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { from, Observable, of } from 'rxjs';
 import { filter, map, switchMap, take } from 'rxjs/operators';
-import { AuthState, getCurrentUser, getIsLoggenIn, logout, updateUserAvatar } from '../../../auth/state';
+import {
+  AuthState,
+  getCurrentUser,
+  getIsLoggenIn,
+  logout,
+  updateUserAvatar,
+} from '../../../auth/state';
 import { CloudinaryService } from '../../services';
 
 @Component({
@@ -16,24 +22,27 @@ import { CloudinaryService } from '../../services';
       (uploadImgStarted)="onUploadImgStarted()"
     ></roomies-header>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderContainerComponent implements OnInit {
-  isLoggedIn$ = this.store.pipe(select(getIsLoggenIn))
-  user$ = this.store.pipe(select(getCurrentUser))
+  isLoggedIn$ = this.store.pipe(select(getIsLoggenIn));
+  user$ = this.store.pipe(select(getCurrentUser));
   avatar$: Observable<{ default: boolean; content: string }>;
-  userName$ = this.user$.pipe(map(user => (user ? user.name : null)));
+  userName$ = this.user$.pipe(map((user) => (user ? user.name : null)));
 
-  constructor(private store: Store<AuthState>, private cloudinary: CloudinaryService) { }
+  constructor(
+    private store: Store<AuthState>,
+    private cloudinary: CloudinaryService
+  ) {}
 
   ngOnInit() {
     this.avatar$ = this.user$.pipe(
-      map(user =>
+      map((user) =>
         user && user.avatarUrl
           ? { content: user.avatarUrl, default: false }
           : { content: '/assets/images/default-avatar.png', default: true }
       ),
-      switchMap(item =>
+      switchMap((item) =>
         item.default ? of(item) : this.getAvatar(item.content)
       )
     );
@@ -41,7 +50,7 @@ export class HeaderContainerComponent implements OnInit {
 
   getAvatar(url: string) {
     return from(this.cloudinary.getAvatarImg(url)).pipe(
-      map(content => ({ default: false, content }))
+      map((content) => ({ default: false, content }))
     );
   }
 
@@ -52,7 +61,7 @@ export class HeaderContainerComponent implements OnInit {
   onUploadImgStarted() {
     this.cloudinary.uploadResult
       .pipe(
-        filter(res => res.event && res.event === 'success'),
+        filter((res) => res.event && res.event === 'success'),
         take(1)
       )
       .subscribe(({ info }) => {
