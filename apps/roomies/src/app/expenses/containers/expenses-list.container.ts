@@ -3,14 +3,13 @@ import {
   ChangeDetectionStrategy,
   Component,
   OnDestroy,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
-import { Select, Store } from '@ngxs/store';
-import { Observable, Subscription } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { ExpensesListComponent } from '../components';
-import { ExpenseSelectors, GetExpenses } from '../state';
-import { Expense } from '@roomies/expenses.contracts';
+import { ExpensesState, loadExpenses, selectExpenses } from '../state';
 
 @Component({
   selector: 'roomies-expenses-list-container',
@@ -18,18 +17,17 @@ import { Expense } from '@roomies/expenses.contracts';
     <roomies-expenses-list #list [expenses]="expenses$ | async">
     </roomies-expenses-list>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExpensesListContainer implements AfterViewInit, OnDestroy {
   @ViewChild(ExpensesListComponent, { static: false })
   list: ExpensesListComponent;
 
-  @Select(ExpenseSelectors.expenses)
-  expenses$: Observable<Expense[]>;
+  expenses$ = this.store.pipe(select(selectExpenses));
 
   sub: Subscription;
 
-  constructor(private store: Store) {}
+  constructor(private store: Store<ExpensesState>) {}
 
   ngAfterViewInit(): void {
     this.list.paging
@@ -40,7 +38,7 @@ export class ExpensesListContainer implements AfterViewInit, OnDestroy {
         })
       )
       .subscribe(({ first, rows }) =>
-        this.store.dispatch(new GetExpenses(first, rows))
+        this.store.dispatch(loadExpenses({ index: first, limit: rows }))
       );
   }
 

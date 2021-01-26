@@ -8,11 +8,17 @@ import * as Components from './components';
 import * as Containers from './containers';
 import { ExpensesResolver } from './expenses.resolver';
 import * as pipes from './pipes';
-import { States, totalsFeatureKey, totalsReducer } from './state';
+import {
+  expensesFeatureKey,
+  expensesReducer,
+  totalsFeatureKey,
+  totalsReducer,
+} from './state';
 import { ExpensesViewComponent } from './views/expenses.view';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { TotalsEffects } from './state/totals.effects';
+import { ExpensesEffects } from './state/expenses.effects';
 
 @NgModule({
   declarations: [
@@ -28,24 +34,24 @@ import { TotalsEffects } from './state/totals.effects';
     pipes.BalancePipe,
     pipes.ExpenseAmountPipe,
     Components.CreateExpenseDialogComponent,
-    Components.ExpensesActionsComponent
+    Components.ExpensesActionsComponent,
   ],
   imports: [
-SharedModule,
+    SharedModule,
     ReactiveFormsModule,
     RouterModule.forChild([
       {
         path: '',
         component: ExpensesViewComponent,
-        resolve: { message: ExpensesResolver }
-      }
+        resolve: { message: ExpensesResolver },
+      },
     ]),
-    NgxsModule.forFeature(States),
     StoreModule.forFeature(totalsFeatureKey, totalsReducer),
-    EffectsModule.forFeature([TotalsEffects]),
-    NgxChartsModule
+    StoreModule.forFeature(expensesFeatureKey, expensesReducer),
+    EffectsModule.forFeature([TotalsEffects, ExpensesEffects]),
+    NgxChartsModule,
   ],
 
-  entryComponents: [Components.CreateExpenseDialogComponent]
+  entryComponents: [Components.CreateExpenseDialogComponent],
 })
 export class ExpensesModule {}

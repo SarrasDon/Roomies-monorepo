@@ -10,6 +10,7 @@ import {
   setExpensesReasons,
 } from './expenses.actions';
 
+export const expensesFeatureKey = 'expenses';
 export interface ExpensesState extends EntityState<Expense> {
   selectedItem: Expense | null;
   count: number;
