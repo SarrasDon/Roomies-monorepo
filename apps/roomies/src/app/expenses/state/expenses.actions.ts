@@ -1,41 +1,38 @@
-import { ExpenseReason } from '@roomies/expenses.contracts';
+import { createAction, props } from "@ngrx/store";
+import { Expense, ExpenseReason } from "@roomies/expenses.contracts";
+import { User } from "@roomies/user.contracts";
 
-export class GetExpenses {
-  static readonly type = '[Expenses] Get Expenses';
+export const loadExpenses = createAction(
+  '[Expenses] Load Expenses',
+  props<{ index: number; limit: number }>()
+);
 
-  constructor(public index: number, public limit: number) {}
-}
+export const loadExpensesSuccess = createAction(
+  '[Expenses] Load Expenses Success',
+  props<{ expenses: Expense[] }>()
+);
 
-export class SetExpensesCount {
-  static readonly type = '[Expenses Resolver] Set Expenses Count';
+export const setExpensesCount = createAction(
+  '[Expenses Resolver] Set Expenses Count',
+  props<{ count: number }>()
+);
 
-  constructor(public count: number) {}
-}
+export const setExpensesReasons = createAction(
+  '[Expenses Resolver] Set Expenses Reasons',
+  props<{ reasons: ExpenseReason[] }>()
+);
 
-export class GetExpenseReasons {
-  static readonly type = '[Create Expense Form] Get Expense Reasons';
+export const createExpense = createAction(
+  '[Create Expense Form] Create new Expense',
+  props<{ reason: ExpenseReason; amount: number; date: Date, user: User, clientId: string }>()
+);
 
-  constructor() {}
-}
+export const createExpenseSuccess = createAction(
+  '[Create Expense Form] Create new Expense Success',
+  props<{ expense: Expense, clientId: string }>()
+);
 
-export class SetExpensesReasons {
-  static readonly type = '[Expenses Resolver] Set Expense Reasons';
-
-  constructor(public reasons: ExpenseReason[]) {}
-}
-
-export class CreateExpense {
-  static readonly type = '[Create Expense Form] Create new Expense';
-
-  constructor(
-    public reason: ExpenseReason,
-    public amount: number,
-    public date: Date
-  ) {}
-}
-
-export class GetTotals {
-  static readonly type = '[Totals] Get Expense Totals per User';
-
-  constructor() {}
-}
+export const createExpenseFail = createAction(
+  '[Create Expense Form] Create new Expense Failed',
+  props<{ clientId: string }>()
+);
