@@ -32,7 +32,7 @@ export class ExpensesActionsContainer {
   reasons: Observable<ExpenseReason[]>;
   isLoading: Observable<boolean>;
 
-  constructor(private store: Store) { }
+  constructor(private store: Store) {}
 
   onFormSubmitted($event: {
     reason: ExpenseReason;
@@ -43,7 +43,9 @@ export class ExpensesActionsContainer {
     const user = storeSnapshot(this.store, getCurrentUser);
     // update the store optimistically
     const clientId = (Math.random() * 10000).toString();
-    this.store.dispatch(createExpense({ reason, amount, date, clientId, user }));
+    this.store.dispatch(
+      createExpense({ reason, amount, date, clientId, user })
+    );
     this.store.dispatch(incrementTotal({ amount, userId: user._id }));
   }
 }
