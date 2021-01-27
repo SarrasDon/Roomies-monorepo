@@ -1,17 +1,18 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { ExpenseReason } from '@roomies/expenses.contracts';
-import { Observable } from 'rxjs';
 import { getCurrentUser } from '../../auth/state';
 import { storeSnapshot } from '../../shared/utils';
 import { createExpense, incrementTotal } from '../state';
+import { selectExpenseReasons, selectIsLoading } from '../state/expense.selectors';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'roomies-expenses-actions-container',
   template: `
     <roomies-expenses-actions
-      [reasons]="reasons | async"
-      [isLoading]="isLoading | async"
+      [reasons]="reasons$ | async"
+      [isLoading]="isLoading$ | async"
       (formSubmitted)="onFormSubmitted($event)"
     ></roomies-expenses-actions>
   `,
@@ -29,10 +30,10 @@ import { createExpense, incrementTotal } from '../state';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExpensesActionsContainer {
-  reasons: Observable<ExpenseReason[]>;
-  isLoading: Observable<boolean>;
+  reasons$ = this.store.pipe(select(selectExpenseReasons));
+  isLoading$: Observable<boolean>;
 
-  constructor(private store: Store) {}
+  constructor(private store: Store) { }
 
   onFormSubmitted($event: {
     reason: ExpenseReason;

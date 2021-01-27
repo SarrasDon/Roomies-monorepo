@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { NgxsModule } from '@ngxs/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { SharedModule } from '../shared/shared.module';
 import * as Components from './components';
@@ -12,13 +13,11 @@ import {
   expensesFeatureKey,
   expensesReducer,
   totalsFeatureKey,
-  totalsReducer,
+  totalsReducer
 } from './state';
-import { ExpensesViewComponent } from './views/expenses.view';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { TotalsEffects } from './state/totals.effects';
 import { ExpensesEffects } from './state/expenses.effects';
+import { TotalsEffects } from './state/totals.effects';
+import { ExpensesViewComponent } from './views/expenses.view';
 
 @NgModule({
   declarations: [
@@ -54,4 +53,4 @@ import { ExpensesEffects } from './state/expenses.effects';
 
   entryComponents: [Components.CreateExpenseDialogComponent],
 })
-export class ExpensesModule {}
+export class ExpensesModule { }

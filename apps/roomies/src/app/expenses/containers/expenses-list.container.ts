@@ -27,10 +27,10 @@ export class ExpensesListContainer implements AfterViewInit, OnDestroy {
 
   sub: Subscription;
 
-  constructor(private store: Store<ExpensesState>) {}
+  constructor(private store: Store<ExpensesState>) { }
 
   ngAfterViewInit(): void {
-    this.list.paging
+    this.sub = this.list.paging
       .pipe(
         // debounceTime(100),
         distinctUntilChanged((x, y) => {

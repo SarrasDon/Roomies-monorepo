@@ -12,8 +12,8 @@ import {
   Renderer2,
   ViewChild
 } from '@angular/core';
-import { Subject } from 'rxjs';
-import { map, takeUntil, throttleTime } from 'rxjs/operators';
+import { merge, Subject, timer } from 'rxjs';
+import { map, takeUntil, throttleTime, switchMap, mapTo } from 'rxjs/operators';
 import { UiService } from '../../../core/services';
 import { Expense } from '@roomies/expenses.contracts';
 
@@ -37,11 +37,19 @@ export class ExpensesListComponent implements OnInit, AfterViewInit, OnDestroy {
   itemSize = 76;
   destroy$ = new Subject();
 
-  constructor(private render: Renderer2, private uiService: UiService) {}
+  constructor(private render: Renderer2, private uiService: UiService) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   ngAfterViewInit(): void {
+    const scrolled$ = this.virtualScroll.elementScrolled();
+    const startScrolling$ = scrolled$.pipe(mapTo(true))
+    const stoppedScrolling$ = scrolled$.pipe(switchMap(() => timer(300)), mapTo(false))
+
+    merge(startScrolling$, stoppedScrolling$)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(isScrolling => this.uiService.expensesListScrolled(isScrolling));
+
     this.render.setStyle(
       this.virtualScroll.elementRef.nativeElement,
       'height',

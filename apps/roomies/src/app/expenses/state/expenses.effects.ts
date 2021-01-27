@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
-import { catchError, concatMap, map, switchMap, tap } from 'rxjs/operators';
+import { catchError, concatMap, map, mergeMap, tap } from 'rxjs/operators';
 import {
   createExpense,
   createExpenseFail,
@@ -24,11 +24,10 @@ export class ExpensesEffects {
   loadExpenses$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadExpenses),
-      switchMap(
+      mergeMap(
         ({ limit, index }) =>
           this.expensesService.getExpenses(index, limit).pipe(
             map((expenses) => loadExpensesSuccess({ expenses }))
-            // TODO: test scrolling
           ) //TODO: handle error
       )
     )
@@ -46,9 +45,11 @@ export class ExpensesEffects {
             person: this.user._id,
           })
           .pipe(
-            map((expense) =>
-              createExpenseSuccess({ expense, clientId: 'dasdad' })
-            ),
+            map((expense) => {
+              expense.reason = reason;
+              expense.person = this.user;
+              return createExpenseSuccess({ expense, clientId })
+            }),
             catchError(() => of(createExpenseFail({ clientId })))
           )
       )
@@ -82,5 +83,5 @@ export class ExpensesEffects {
     private actions$: Actions,
     private expensesService: ExpensesService,
     private snackBarService: SnackbarService
-  ) {}
+  ) { }
 }

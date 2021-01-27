@@ -18,7 +18,7 @@ import { ExpenseReason } from '@roomies/expenses.contracts';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExpensesActionsComponent {
-  @Input() isLoading = true;
+  @Input() isLoading = false;
   @Input() reasons: ExpenseReason[] = [];
   @Output() formSubmitted = new EventEmitter<{
     reason: ExpenseReason;
@@ -26,7 +26,7 @@ export class ExpensesActionsComponent {
     date: Date;
   }>();
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog) { }
 
   onPopModal() {
     const config: MatDialogConfig<CreateExpenseConfig> = {

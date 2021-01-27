@@ -1,12 +1,17 @@
 import { Injectable } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map, first } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UiService {
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  private _isExpensesListScrolling = new BehaviorSubject(false);
+
+  isExpensesListScrolling = this._isExpensesListScrolling.asObservable();
+
+  constructor(private breakpointObserver: BreakpointObserver) { }
 
   observe$(...breakPoints: string[]) {
     return this.breakpointObserver.observe(breakPoints);
@@ -22,5 +27,9 @@ export class UiService {
       )
       .subscribe(o => (res = o));
     return res;
+  }
+
+  expensesListScrolled(isScrolling: boolean) {
+    this._isExpensesListScrolling.next(isScrolling);
   }
 }
