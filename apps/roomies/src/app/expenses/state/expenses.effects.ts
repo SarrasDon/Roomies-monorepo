@@ -26,9 +26,9 @@ export class ExpensesEffects {
       ofType(loadExpenses),
       mergeMap(
         ({ limit, index }) =>
-          this.expensesService.getExpenses(index, limit).pipe(
-            map((expenses) => loadExpensesSuccess({ expenses }))
-          ) //TODO: handle error
+          this.expensesService
+            .getExpenses(index, limit)
+            .pipe(map((expenses) => loadExpensesSuccess({ expenses }))) //TODO: handle error
       )
     )
   );
@@ -48,7 +48,7 @@ export class ExpensesEffects {
             map((expense) => {
               expense.reason = reason;
               expense.person = this.user;
-              return createExpenseSuccess({ expense, clientId })
+              return createExpenseSuccess({ expense, clientId });
             }),
             catchError(() => of(createExpenseFail({ clientId })))
           )
@@ -83,5 +83,5 @@ export class ExpensesEffects {
     private actions$: Actions,
     private expensesService: ExpensesService,
     private snackBarService: SnackbarService
-  ) { }
+  ) {}
 }

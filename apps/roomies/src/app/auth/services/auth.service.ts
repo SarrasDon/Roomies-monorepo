@@ -1,9 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { User } from '@roomies/user.contracts';
 import { environment } from '../../../environments/environment';
 import { UsersService } from '../../core/services';
-import { User } from '@roomies/user.contracts';
-import { catchError, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -14,15 +13,13 @@ export class AuthService extends UsersService {
   }
 
   login(email: string, password: string) {
-    return this.http
-      .post<{
-        user: User;
-        access_token: string;
-      }>(`${environment.API_URL}auth/login/`, {
-        email,
-        password,
-      })
-      .pipe(tap(console.log));
+    return this.http.post<{
+      user: User;
+      access_token: string;
+    }>(`${environment.API_URL}auth/login/`, {
+      email,
+      password,
+    });
   }
 
   refresh(user: User) {
