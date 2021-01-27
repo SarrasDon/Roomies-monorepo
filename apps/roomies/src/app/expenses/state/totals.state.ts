@@ -13,10 +13,9 @@ export const totalsFeatureKey = 'totals';
 
 export interface TotalState {
   totals: Total[];
-  balance: number;
 }
 
-const initialState: TotalState = { totals: [], balance: 0 };
+const initialState: TotalState = { totals: [] };
 
 export const getTotals = createAction('[Totals] Get Totals per User');
 export const totalsLoaded = createAction(
@@ -36,18 +35,14 @@ const _totalsReducer = createReducer(
       return state;
     }
 
-    const balance = calcBalance(totals, userId);
-
     return {
       ...state,
       totals: totals.slice().sort((a, b) => (a.user._id === userId ? -1 : 1)),
-      balance,
     };
   }),
   on(incrementTotal, (state, { userId, amount }) => {
     const totals = incrementUserTotal(state.totals, amount, userId);
-    const balance = calcBalance(totals, userId);
-    return { ...state, totals, balance };
+    return { ...state, totals };
   })
 );
 export function totalsReducer(state: TotalState, action: any) {
@@ -60,17 +55,6 @@ export const selectTotalsState = createFeatureSelector<TotalState>(
 export const selectTotals = createSelector(
   selectTotalsState,
   (state) => state.totals
-);
-export const selectBalance = createSelector(
-  selectTotalsState,
-  (state) => state.balance
-);
-export const selectBalanceWithSign = createSelector(
-  selectBalance,
-  (balance) => ({
-    amount: balance ? Math.abs(balance) : 0,
-    sign: balance > 0 ? 'positive' : balance < 0 ? 'negative' : 'balanced',
-  })
 );
 
 export const selectTotalsWithNames = createSelector(selectTotals, (totals) =>

@@ -5,8 +5,8 @@ import {
   getTotals,
   selectBalanceWithSign,
   selectTotalsWithNames,
-  TotalState
-} from '../state/totals.state';
+  TotalState,
+} from '../state';
 
 @Component({
   selector: 'roomies-totals-container',
@@ -24,7 +24,7 @@ export class TotalsContainerComponent implements OnInit {
   balance$ = this.store.select(selectBalanceWithSign);
   userImagesDict$ = this.store.select(getUserImageDict);
 
-  constructor(private store: Store<TotalState>) { }
+  constructor(private store: Store<TotalState>) {}
 
   ngOnInit() {
     this.store.dispatch(getTotals());
