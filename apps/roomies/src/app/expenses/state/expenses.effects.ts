@@ -14,6 +14,7 @@ import { AuthState, getCurrentUser } from '../../auth/state';
 import { SnackbarService } from '../../core/services/snackbar.service';
 import { storeSnapshot } from '../../shared/utils';
 import { ExpensesService } from '../services/expenses.service';
+import { expensesReducer } from './expenses.state';
 
 @Injectable()
 export class ExpensesEffects {
@@ -50,7 +51,9 @@ export class ExpensesEffects {
               expense.person = this.user;
               return createExpenseSuccess({ expense, clientId });
             }),
-            catchError(() => of(createExpenseFail({ clientId })))
+            catchError(() =>
+              of(createExpenseFail({ clientId, amount, userId: this.user._id }))
+            )
           )
       )
     )

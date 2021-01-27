@@ -1,4 +1,5 @@
 import {
+  Action,
   createAction,
   createFeatureSelector,
   createReducer,
@@ -7,7 +8,8 @@ import {
   props,
 } from '@ngrx/store';
 import { Total } from '../../shared/models';
-import { calcBalance, incrementUserTotal } from './utils';
+import { createExpenseFail } from './expenses.actions';
+import { decrementUserTotal, incrementUserTotal } from './utils';
 
 export const totalsFeatureKey = 'totals';
 
@@ -43,9 +45,13 @@ const _totalsReducer = createReducer(
   on(incrementTotal, (state, { userId, amount }) => {
     const totals = incrementUserTotal(state.totals, amount, userId);
     return { ...state, totals };
+  }),
+  on(createExpenseFail, (state, { userId, amount }) => {
+    const totals = decrementUserTotal(state.totals, amount, userId);
+    return { ...state, totals };
   })
 );
-export function totalsReducer(state: TotalState, action: any) {
+export function totalsReducer(state: TotalState, action: Action) {
   return _totalsReducer(state, action);
 }
 
