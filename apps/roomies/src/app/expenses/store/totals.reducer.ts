@@ -3,8 +3,8 @@ import {
   on
 } from '@ngrx/store';
 import { Total } from '../../shared/models';
+import { createExpense, createExpenseFail } from './expenses.actions';
 import {
-  incrementTotal,
   totalsLoaded
 } from './totals.actions';
 import { calcBalance, incrementUserTotal } from './utils';
@@ -35,12 +35,18 @@ const _totalsReducer = createReducer(
       balance,
     };
   }),
-  on(incrementTotal, (state, { userId, amount }) => {
-    const totals = incrementUserTotal(state.totals, amount, userId);
-    const balance = calcBalance(totals, userId);
+  on(createExpense, (state, { user, amount }) => {
+    const totals = incrementUserTotal(state.totals, amount, user._id);
+    const balance = calcBalance(totals, user._id);
     return { ...state, totals, balance };
-  })
+  }),
+  on(createExpenseFail, (state, { user, amount }) => {
+    const totals = incrementUserTotal(state.totals, amount, user._id);
+    const balance = calcBalance(totals, user._id);
+    return { ...state, totals, balance };
+  }),
 );
+
 export function totalsReducer(state: TotalState, action: any) {
   return _totalsReducer(state, action);
 }

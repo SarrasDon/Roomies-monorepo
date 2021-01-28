@@ -25,3 +25,16 @@ export const incrementUserTotal = (
   }
   return cloned;
 };
+
+export const decrementUserTotal = (
+  totals: Total[],
+  amount: number,
+  userId: string
+) => {
+  const cloned = JSON.parse(JSON.stringify(totals)) as Total[];
+  const userTotal = cloned.find(t => t.user._id === userId);
+  if (userTotal) {
+    userTotal.total -= amount;
+  }
+  return cloned;
+};

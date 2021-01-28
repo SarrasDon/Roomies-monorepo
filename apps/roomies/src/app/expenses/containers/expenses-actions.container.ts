@@ -4,7 +4,7 @@ import { ExpenseReason } from '@roomies/expenses.contracts';
 import { Observable } from 'rxjs';
 import { getCurrentUser } from '../../auth/store';
 import { storeSnapshot } from '../../shared/utils';
-import { createExpense, incrementTotal, selectExpenseReasons } from '../store';
+import { createExpense, selectExpenseReasons } from '../store';
 
 
 @Component({
@@ -47,6 +47,5 @@ export class ExpensesActionsContainer {
     this.store.dispatch(
       createExpense({ reason, amount, date, clientId, user })
     );
-    this.store.dispatch(incrementTotal({ amount, userId: user._id }));
   }
 }
