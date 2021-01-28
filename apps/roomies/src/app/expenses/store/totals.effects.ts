@@ -5,7 +5,7 @@ import { EMPTY } from 'rxjs';
 import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { AuthState, getCurrentUser } from '../../auth/store';
 import { ExpensesService } from '../services/expenses.service';
-import { getTotals, totalsLoaded } from './totals.state';
+import { getTotals, totalsLoaded } from './totals.actions';
 
 @Injectable()
 export class TotalsEffects {

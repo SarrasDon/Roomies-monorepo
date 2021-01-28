@@ -9,14 +9,8 @@ import * as Components from './components';
 import * as Containers from './containers';
 import { ExpensesResolver } from './expenses.resolver';
 import * as pipes from './pipes';
-import {
-  expensesFeatureKey,
-  expensesReducer,
-  totalsFeatureKey,
-  totalsReducer
-} from './state';
-import { ExpensesEffects } from './state/expenses.effects';
-import { TotalsEffects } from './state/totals.effects';
+import { totalsFeatureKey, totalsReducer, expensesFeatureKey, expensesReducer, TotalsEffects, ExpensesEffects } from './store';
+
 import { ExpensesViewComponent } from './views/expenses.view';
 
 @NgModule({

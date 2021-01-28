@@ -8,7 +8,7 @@ import { tap } from 'rxjs/operators';
 import { usersLoaded } from '../auth/store';
 import { UsersService } from '../core/services/users.service';
 import { ExpensesReasonsService, ExpensesService } from './services';
-import { setExpensesCount, setExpensesReasons } from './state';
+import { setExpensesCount, setExpensesReasons } from './store';
 
 @Injectable({ providedIn: 'root' })
 export class ExpensesResolver

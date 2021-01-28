@@ -1,10 +1,12 @@
-import { createSelector } from '@ngrx/store';
 import {
-  ExpensesState,
-  expensesFeatureKey,
+  createFeatureSelector,
+  createSelector
+} from '@ngrx/store';
+import {
   expensesAdapter,
-} from './expenses.state';
-import { createFeatureSelector } from '@ngrx/store';
+  expensesFeatureKey,
+  ExpensesState
+} from './expenses.reducer';
 
 export const selectExpensesState = createFeatureSelector<ExpensesState>(
   expensesFeatureKey

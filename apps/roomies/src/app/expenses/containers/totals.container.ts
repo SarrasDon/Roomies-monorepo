@@ -1,12 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { getUserImageDict } from '../../auth/store';
-import {
-  getTotals,
-  selectBalanceWithSign,
-  selectTotalsWithNames,
-  TotalState
-} from '../state/totals.state';
+import { TotalState, getTotals } from '../store';
+import { selectTotalsWithNames, selectBalanceWithSign } from '../store/totals.selectors';
+
 
 @Component({
   selector: 'roomies-totals-container',
