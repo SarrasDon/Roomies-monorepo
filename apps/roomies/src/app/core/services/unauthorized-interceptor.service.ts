@@ -1,24 +1,23 @@
 import {
-  HttpEvent,
+  HttpErrorResponse, HttpEvent,
   HttpHandler,
   HttpInterceptor,
-  HttpRequest,
-  HttpErrorResponse,
+  HttpRequest
 } from '@angular/common/http';
 import { Injectable, NgZone } from '@angular/core';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Router } from '@angular/router';
-import { AuthState } from '../../auth/state';
-import { Store } from '@ngrx/store';
-import { loginFail } from '../../auth/state/auth.actions';
+import { loginFail } from '../../auth/store/auth.actions';
+import { AuthState } from '../../auth/store/auth.reducer';
 @Injectable()
 export class UnauthorizedInterceptorService implements HttpInterceptor {
   constructor(
     private router: Router,
     private ngZone: NgZone,
     private store: Store<AuthState>
-  ) {}
+  ) { }
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler

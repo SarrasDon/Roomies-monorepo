@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, map, mergeMap, switchMap, tap } from 'rxjs/operators';
-import { AuthService } from '../services';
+import { catchError, map, mergeMap, tap } from 'rxjs/operators';
+import { AuthService } from '../services/auth.service';
 import {
   login,
   loginFail,
   loginSuccess,
   logout,
-  refreshTokenSuccess,
+  refreshTokenSuccess
 } from './auth.actions';
 
 @Injectable()
@@ -64,5 +64,5 @@ export class AuthEffects {
     private actions$: Actions,
     private authService: AuthService,
     private router: Router
-  ) {}
+  ) { }
 }

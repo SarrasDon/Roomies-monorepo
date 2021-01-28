@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { ExpenseReason } from '@roomies/expenses.contracts';
-import { getCurrentUser } from '../../auth/state';
+import { Observable } from 'rxjs';
+import { getCurrentUser } from '../../auth/store';
 import { storeSnapshot } from '../../shared/utils';
 import { createExpense, incrementTotal } from '../state';
-import { selectExpenseReasons, selectIsLoading } from '../state/expense.selectors';
-import { Observable } from 'rxjs';
+import { selectExpenseReasons } from '../state/expense.selectors';
 
 @Component({
   selector: 'roomies-expenses-actions-container',

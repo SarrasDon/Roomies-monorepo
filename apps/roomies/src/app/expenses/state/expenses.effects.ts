@@ -10,7 +10,7 @@ import {
   loadExpenses,
   loadExpensesSuccess,
 } from './expenses.actions';
-import { AuthState, getCurrentUser } from '../../auth/state';
+import { AuthState, getCurrentUser } from '../../auth/store';
 import { SnackbarService } from '../../core/services/snackbar.service';
 import { storeSnapshot } from '../../shared/utils';
 import { ExpensesService } from '../services/expenses.service';

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { AuthService } from '../services';
-import { getLoginError, login } from '../state';
+import { getLoginError, login } from '../store';
 
 @Component({
   selector: 'roomies-auth',
@@ -22,7 +22,7 @@ export class AuthComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private auth: AuthService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.form = this.fb.group({

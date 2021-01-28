@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { getUserImageDict } from '../../auth/state';
+import { getUserImageDict } from '../../auth/store';
 import {
   getTotals,
   selectBalanceWithSign,

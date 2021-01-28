@@ -1,19 +1,22 @@
+import {
+  createEntityAdapter,
+  EntityAdapter,
+  EntityState
+} from '@ngrx/entity';
 import { Action, createReducer, on } from '@ngrx/store';
-import { Dictionary } from '@roomies/shared.data';
 import { User } from '@roomies/user.contracts';
 import {
+  loginFail,
   loginSuccess,
   logout,
-  updateUserAvatar,
-  usersLoaded,
   refreshTokenSuccess,
-  loginFail,
+  updateUserAvatar,
+  usersLoaded
 } from './auth.actions';
-import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
 export const authFeatureKey = 'auth';
 
-export interface UserEntityState extends EntityState<User> {}
+export interface UserEntityState extends EntityState<User> { }
 export interface AuthState {
   currentUser: User | null;
   isLoggedIn: boolean;

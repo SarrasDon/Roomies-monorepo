@@ -8,7 +8,7 @@ import {
   getIsLoggenIn,
   logout,
   updateUserAvatar,
-} from '../../../auth/state';
+} from '../../../auth/store';
 import { CloudinaryService } from '../../services';
 
 @Component({
@@ -33,7 +33,7 @@ export class HeaderContainerComponent implements OnInit {
   constructor(
     private store: Store<AuthState>,
     private cloudinary: CloudinaryService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.avatar$ = this.user$.pipe(
