@@ -10,11 +10,10 @@ import {
   loadExpenses,
   loadExpensesSuccess,
 } from './expenses.actions';
-import { AuthState, getCurrentUser } from '../../auth/state';
+import { AuthState, getCurrentUser } from '../../auth/store';
 import { SnackbarService } from '../../core/services/snackbar.service';
 import { storeSnapshot } from '../../shared/utils';
 import { ExpensesService } from '../services/expenses.service';
-import { expensesReducer } from './expenses.state';
 
 @Injectable()
 export class ExpensesEffects {
@@ -52,7 +51,7 @@ export class ExpensesEffects {
               return createExpenseSuccess({ expense, clientId });
             }),
             catchError(() =>
-              of(createExpenseFail({ clientId, amount, userId: this.user._id }))
+              of(createExpenseFail({ clientId, user: this.user, amount }))
             )
           )
       )

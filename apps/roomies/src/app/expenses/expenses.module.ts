@@ -10,13 +10,14 @@ import * as Containers from './containers';
 import { ExpensesResolver } from './expenses.resolver';
 import * as pipes from './pipes';
 import {
+  totalsFeatureKey,
+  totalsReducer,
   expensesFeatureKey,
   expensesReducer,
-  totalsFeatureKey,
-  totalsReducer
-} from './state';
-import { ExpensesEffects } from './state/expenses.effects';
-import { TotalsEffects } from './state/totals.effects';
+  TotalsEffects,
+  ExpensesEffects,
+} from './store';
+
 import { ExpensesViewComponent } from './views/expenses.view';
 
 @NgModule({
@@ -53,4 +54,4 @@ import { ExpensesViewComponent } from './views/expenses.view';
 
   entryComponents: [Components.CreateExpenseDialogComponent],
 })
-export class ExpensesModule { }
+export class ExpensesModule {}

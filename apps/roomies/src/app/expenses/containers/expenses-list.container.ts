@@ -9,7 +9,7 @@ import { select, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { ExpensesListComponent } from '../components';
-import { ExpensesState, loadExpenses, selectExpenses } from '../state';
+import { ExpensesState, loadExpenses, selectExpenses } from '../store';
 
 @Component({
   selector: 'roomies-expenses-list-container',

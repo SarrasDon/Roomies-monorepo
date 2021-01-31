@@ -5,10 +5,10 @@ import { ExpenseReason } from '@roomies/expenses.contracts';
 import { User } from '@roomies/user.contracts';
 import { forkJoin, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { usersLoaded } from '../auth/state';
+import { usersLoaded } from '../auth/store';
 import { UsersService } from '../core/services/users.service';
 import { ExpensesReasonsService, ExpensesService } from './services';
-import { setExpensesCount, setExpensesReasons } from './state';
+import { setExpensesCount, setExpensesReasons } from './store';
 
 @Injectable({ providedIn: 'root' })
 export class ExpensesResolver
@@ -18,7 +18,7 @@ export class ExpensesResolver
     private expenseReasonsService: ExpensesReasonsService,
     private usersService: UsersService,
     private store: Store
-  ) {}
+  ) { }
 
   resolve() {
     const count$ = this.expensesService

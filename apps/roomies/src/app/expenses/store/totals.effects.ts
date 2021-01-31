@@ -3,9 +3,9 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { EMPTY } from 'rxjs';
 import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
-import { AuthState, getCurrentUser } from '../../auth/state';
+import { AuthState, getCurrentUser } from '../../auth/store';
 import { ExpensesService } from '../services/expenses.service';
-import { getTotals, totalsLoaded } from './totals.state';
+import { getTotals, totalsLoaded } from './totals.actions';
 
 @Injectable()
 export class TotalsEffects {
@@ -28,5 +28,5 @@ export class TotalsEffects {
     private store: Store<AuthState>,
     private actions$: Actions,
     private expensesService: ExpensesService
-  ) {}
+  ) { }
 }

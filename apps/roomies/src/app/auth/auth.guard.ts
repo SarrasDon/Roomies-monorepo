@@ -5,9 +5,8 @@ import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { storeSnapshot } from '../shared/utils';
 import { AuthService } from './services';
-import { getCurrentUser, getIsLoggenIn } from './state';
-import { refreshTokenFailed, refreshTokenSuccess } from './state/auth.actions';
-import { AuthState } from './state/auth.state';
+import { AuthState, getCurrentUser, getIsLoggenIn, refreshTokenFailed, refreshTokenSuccess } from './store';
+
 
 @Injectable()
 export class AuthGuard implements CanLoad {
@@ -15,7 +14,7 @@ export class AuthGuard implements CanLoad {
     private router: Router,
     private store: Store<AuthState>,
     private authService: AuthService
-  ) {}
+  ) { }
 
   canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> {
     const isLoggedIn = storeSnapshot(this.store, getIsLoggenIn);
