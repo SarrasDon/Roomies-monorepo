@@ -24,8 +24,8 @@ export const expensesAdapter = createEntityAdapter<Expense>({
     new Date(a.spendAt).valueOf() > new Date(b.spendAt).valueOf()
       ? -1
       : new Date(a.spendAt).valueOf() < new Date(b.spendAt).valueOf()
-        ? 1
-        : 0,
+      ? 1
+      : 0,
 });
 
 const initialState = expensesAdapter.getInitialState({
@@ -36,7 +36,7 @@ const initialState = expensesAdapter.getInitialState({
 
 const _expenseReducer = createReducer<ExpensesState>(
   initialState,
-  on(loadExpenses, (state, { }) => ({ ...state, isLoading: true })),
+  on(loadExpenses, (state, {}) => ({ ...state, isLoading: true })),
   on(loadExpensesSuccess, (state, { expenses }) =>
     expensesAdapter.upsertMany(expenses, { ...state, isLoading: false })
   ),
