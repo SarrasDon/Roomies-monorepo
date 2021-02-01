@@ -6,27 +6,21 @@ import { StoreModule } from '@ngrx/store';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { SharedModule } from '../shared/shared.module';
 import * as Components from './components';
-import * as Containers from './containers';
 import { ExpensesResolver } from './expenses.resolver';
 import * as pipes from './pipes';
 import {
-  totalsFeatureKey,
-  totalsReducer,
-  expensesFeatureKey,
+  ExpensesEffects, expensesFeatureKey,
   expensesReducer,
-  TotalsEffects,
-  ExpensesEffects,
+  TotalsEffects, totalsFeatureKey,
+  totalsReducer
 } from './store';
-
 import { ExpensesViewComponent } from './views/expenses.view';
+
 
 @NgModule({
   declarations: [
-    Containers.ExpensesListContainer,
-    Containers.TotalsContainerComponent,
     Components.ExpensesListComponent,
     Components.ExpenseItemComponent,
-    Containers.ExpensesActionsContainer,
     Components.TotalsComponent,
     ExpensesViewComponent,
     pipes.ExpenseDatePipe,
@@ -54,4 +48,4 @@ import { ExpensesViewComponent } from './views/expenses.view';
 
   entryComponents: [Components.CreateExpenseDialogComponent],
 })
-export class ExpensesModule {}
+export class ExpensesModule { }

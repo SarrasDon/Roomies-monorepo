@@ -1,5 +1,7 @@
 :host {
-  width: 100%;
-  display: flex;
-  justify-content: center;
+  display: block;
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 1;
 }

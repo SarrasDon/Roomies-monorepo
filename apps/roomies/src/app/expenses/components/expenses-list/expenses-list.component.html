@@ -1,6 +1,6 @@
 <cdk-virtual-scroll-viewport [itemSize]="itemSize">
   <roomies-expense-item
-    *cdkVirtualFor="let expense of expenses"
+    *cdkVirtualFor="let expense of expenses$ | async"
     (cdkVirtualForTrackBy)="(trackByFn)"
     [expense]="expense"
   ></roomies-expense-item>

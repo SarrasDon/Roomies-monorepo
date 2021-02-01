@@ -5,17 +5,18 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  Input,
   OnDestroy,
   OnInit,
   Output,
   Renderer2,
   ViewChild
 } from '@angular/core';
-import { merge, Subject, timer } from 'rxjs';
-import { map, takeUntil, throttleTime, switchMap, mapTo } from 'rxjs/operators';
-import { UiService } from '../../../core/services';
+import { select, Store } from '@ngrx/store';
 import { Expense } from '@roomies/expenses.contracts';
+import { merge, Subject, timer } from 'rxjs';
+import { distinctUntilChanged, map, mapTo, switchMap, takeUntil, throttleTime } from 'rxjs/operators';
+import { UiService } from '../../../core/services';
+import { ExpensesState, loadExpenses, selectExpenses } from '../../store';
 
 @Component({
   selector: 'roomies-expenses-list',
@@ -30,14 +31,14 @@ export class ExpensesListComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('wrapper')
   wrapper: ElementRef;
 
-  @Input() expenses: Expense[] = [];
-
   @Output() paging = new EventEmitter<{ first: number; rows: number }>();
 
   itemSize = 76;
   destroy$ = new Subject();
+  expenses$ = this.store.pipe(select(selectExpenses));
 
-  constructor(private render: Renderer2, private uiService: UiService) { }
+
+  constructor(private render: Renderer2, private uiService: UiService, private store: Store<ExpensesState>) { }
 
   ngOnInit() { }
 
@@ -59,12 +60,17 @@ export class ExpensesListComponent implements OnInit, AfterViewInit, OnDestroy {
       .pipe(
         throttleTime(100),
         map((e: number) => ({
-          first: e > 0 ? e + 20 : 0,
-          rows: 30
+          index: e > 0 ? e + 20 : 0,
+          limit: 30
         })),
+        distinctUntilChanged((x, y) => {
+          return y.index - x.index <= 10;
+        }),
         takeUntil(this.destroy$)
       )
-      .subscribe(this.paging);
+      .subscribe((paging) => {
+        this.store.dispatch(loadExpenses(paging))
+      });
   }
 
   trackByFn(index: number, item: Expense) {

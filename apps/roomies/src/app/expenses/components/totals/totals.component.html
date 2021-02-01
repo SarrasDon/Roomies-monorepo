@@ -1,32 +1,35 @@
 <mat-card class="mat-elevation-z4">
   <div class="flex-row totals-wrapper">
-    <div class="images-wrapper">
-      <img
-        [src]="userImagesDict[total.name]"
-        *ngFor="let total of totals; let i = index"
-        class="chart-img"
-        [style.width.px]="imageSize"
-        [style.height.px]="imageSize"
-        [style.top.px]="imagesTop[i]"
-        [style.border]="imageBorders[i]"
-      />
-    </div>
-    <div class="totals-chart">
-      <ngx-charts-bar-horizontal
-        [scheme]="colorScheme"
-        [results]="totals"
-        [gradient]="false"
-        [xAxis]="false"
-        [yAxis]="false"
-        [legend]="false"
-        [showGridLines]="false"
-        [showDataLabel]="showDataLabel$ | async"
-        [barPadding]="barPadding"
-      >
-      </ngx-charts-bar-horizontal>
-    </div>
-    <div class="amount-wrapper" [style.color]="balanceColor">
-      {{ myBalance?.amount | balance }}
+    <ng-container *ngIf="totals$ | async as totals">
+      <div class="images-wrapper">
+        <img
+          *ngFor="let total of totals; let i = index"
+          [src]="(userImagesDict$ | async)[total.name]"
+          class="chart-img"
+          [style.width.px]="imageSize"
+          [style.height.px]="imageSize"
+          [style.top.px]="imagesTop[i]"
+          [style.border]="imageBorders[i]"
+        />
+      </div>
+      <div class="totals-chart">
+        <ngx-charts-bar-horizontal
+          [scheme]="colorScheme"
+          [results]="totals"
+          [gradient]="false"
+          [xAxis]="false"
+          [yAxis]="false"
+          [legend]="false"
+          [showGridLines]="false"
+          [showDataLabel]="showDataLabel$ | async"
+          [barPadding]="barPadding"
+        >
+        </ngx-charts-bar-horizontal>
+      </div>
+    </ng-container>
+
+    <div class="amount-wrapper" [style.color]="balanceColor$ | async">
+      {{ (myBalance$ | async)?.amount | balance }}
     </div>
   </div>
 </mat-card>

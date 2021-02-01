@@ -1,18 +1,16 @@
 import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-  ViewChild
-} from '@angular/core';
-import {
   BreakpointObserver,
-  BreakpointState,
   Breakpoints
 } from '@angular/cdk/layout';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit
+} from '@angular/core';
+import { select, Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { Dictionary } from '@roomies/shared.data';
-import { User } from '@roomies/user.contracts';
+import { getUserImageDict } from '../../../auth/store';
+import { getTotals, selectBalanceWithSign, selectTotalsWithNames, TotalState } from '../../store';
 import {
   BAR_PADDING,
   IMAGES_TOP,
@@ -27,20 +25,14 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TotalsComponent implements OnInit {
-  @Input() totals: { value: number; name: string }[] = [];
-  @Input() userImagesDict: {
-    name: string;
-    avatarUrl: string;
-  }[];
+  totals$ = this.store.pipe(select(selectTotalsWithNames));
+  myBalance$ = this.store.pipe(select(selectBalanceWithSign));
+  balanceColor$ = this.store.pipe(select(selectBalanceWithSign), map(balance => this.calculatebalanceColor(balance)))
+  userImagesDict$ = this.store.pipe(select(getUserImageDict));
 
-  _myBalance: {
-    amount: number;
-    sign: 'positive' | 'negative' | 'balanced';
-  } = null;
-
-  get myBalance() {
-    return this._myBalance;
-  }
+  showDataLabel$ = this.breakpointObserver
+    .observe([Breakpoints.XSmall, Breakpoints.HandsetPortrait])
+    .pipe(map(state => !state.matches));
 
   imagesTop = IMAGES_TOP;
   imageSize = 2 * IMAGE_RADIUS;
@@ -53,32 +45,24 @@ export class TotalsComponent implements OnInit {
     `${IMAGE_BORDER_WIDTH}px solid ${this.colorScheme.domain[1]}`
   ];
 
-  @Input('myBalance') set setBalance(balance: {
-    amount: number;
-    sign: 'positive' | 'negative' | 'balanced';
-  }) {
-    this._myBalance = balance;
-    this.calculatebalanceColor();
-  }
-
   balanceColor = 'orange';
 
-  showDataLabel$ = this.breakpointObserver
-    .observe([Breakpoints.XSmall, Breakpoints.HandsetPortrait])
-    .pipe(map(state => !state.matches));
+  constructor(public breakpointObserver: BreakpointObserver, private store: Store<TotalState>) { }
 
-  constructor(public breakpointObserver: BreakpointObserver) {}
+  ngOnInit() {
+    this.store.dispatch(getTotals());
+  }
 
-  ngOnInit() {}
-
-  calculatebalanceColor() {
-    if (!this.myBalance) {
-      this.balanceColor = 'orange';
+  calculatebalanceColor(balance: {
+    amount: number;
+    sign: string
+  }) {
+    if (!balance) {
+      return 'orange';
     }
-    this.balanceColor =
-      this.myBalance.sign === 'positive'
-        ? 'red'
-        : this.myBalance.sign === 'negative'
+    return balance.sign === 'positive'
+      ? 'red'
+      : balance.sign === 'negative'
         ? 'green'
         : 'orange';
   }
