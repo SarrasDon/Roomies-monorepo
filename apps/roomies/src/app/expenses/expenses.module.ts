@@ -4,18 +4,20 @@ import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { AuthGuard } from '../auth/auth.guard';
 import { SharedModule } from '../shared/shared.module';
 import * as Components from './components';
 import { ExpensesResolver } from './expenses.resolver';
 import * as pipes from './pipes';
 import {
-  ExpensesEffects, expensesFeatureKey,
+  ExpensesEffects,
+  expensesFeatureKey,
   expensesReducer,
-  TotalsEffects, totalsFeatureKey,
-  totalsReducer
+  TotalsEffects,
+  totalsFeatureKey,
+  totalsReducer,
 } from './store';
 import { ExpensesViewComponent } from './views/expenses.view';
-
 
 @NgModule({
   declarations: [
@@ -38,6 +40,7 @@ import { ExpensesViewComponent } from './views/expenses.view';
         path: '',
         component: ExpensesViewComponent,
         resolve: { message: ExpensesResolver },
+        canActivate: [AuthGuard],
       },
     ]),
     StoreModule.forFeature(totalsFeatureKey, totalsReducer),
@@ -48,4 +51,4 @@ import { ExpensesViewComponent } from './views/expenses.view';
 
   entryComponents: [Components.CreateExpenseDialogComponent],
 })
-export class ExpensesModule { }
+export class ExpensesModule {}

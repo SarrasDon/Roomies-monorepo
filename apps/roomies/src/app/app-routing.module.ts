@@ -7,15 +7,16 @@ const routes: Routes = [
   { path: '', redirectTo: '/expenses', pathMatch: 'full' },
   {
     path: 'expenses',
-    loadChildren: () => import('./expenses/expenses.module').then(m => m.ExpensesModule),
-    canLoad: [AuthGuard]
+    loadChildren: () =>
+      import('./expenses/expenses.module').then((m) => m.ExpensesModule),
+    canLoad: [AuthGuard],
   },
-  { path: 'auth', component: AuthComponent }
+  { path: 'auth', component: AuthComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [AuthGuard]
+  providers: [],
 })
 export class AppRoutingModule {}
