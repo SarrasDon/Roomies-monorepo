@@ -1,11 +1,12 @@
-import { Document, Query, DocumentQuery, Model } from 'mongoose';
+import { Document, Query, Model } from 'mongoose';
 import {
   SortingBuilder,
   PagingBuilder,
   SelectBuilder,
   PopulateBuilder,
   ConditionalBuilder,
-  BaseBuilder
+  BaseBuilder,
+  DocType,
 } from '../interfaces';
 
 export class QueryBuilder<T extends Document>
@@ -16,7 +17,7 @@ export class QueryBuilder<T extends Document>
     SelectBuilder<T>,
     PopulateBuilder<T>,
     ConditionalBuilder<T> {
-  private query: Query<any> | DocumentQuery<T[], T, {}>;
+  private query: any;
   private _model: Model<T>;
 
   constructor(model: Model<T>) {
@@ -38,7 +39,7 @@ export class QueryBuilder<T extends Document>
   }
 
   select(...keys: (keyof T)[]) {
-    const joined = keys.map(k => k.toString()).join(' ');
+    const joined = keys.map((k) => k.toString()).join(' ');
     this.query = this.query.select(joined);
     return this;
   }

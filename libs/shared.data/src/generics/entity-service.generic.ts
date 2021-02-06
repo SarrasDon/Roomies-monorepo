@@ -1,3 +1,4 @@
+import { FilterQuery } from 'mongoose';
 import { EntityService, DocType, Entity } from '../interfaces';
 import { EntityRepository } from './entity-repository.generic';
 
@@ -13,8 +14,8 @@ export class GenericService<T extends Entity, Resource extends Partial<T>>
     return await this.repository.findById(id).exec();
   }
 
-  async getOneBy(conditions: Partial<DocType<T>>): Promise<T> {
-    return await this.repository.findOneBy(conditions).then(result => result);
+  async getOneBy(conditions: FilterQuery<DocType<T>>): Promise<T> {
+    return await this.repository.findOneBy(conditions).then((result) => result);
   }
 
   async getCount(): Promise<number> {
@@ -29,7 +30,7 @@ export class GenericService<T extends Entity, Resource extends Partial<T>>
     return await this.repository.deleteById(id).exec();
   }
 
-  async update(id: string, update: Partial<DocType<T>>): Promise<T> {
-    return await (await this.repository.updateOne(id, update)).save();
+  async update(id: string, update: Partial<DocType<T>>): Promise<any> {
+    return await this.repository.updateOne(id, update).exec();
   }
 }
