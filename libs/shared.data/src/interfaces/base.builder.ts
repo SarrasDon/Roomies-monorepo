@@ -1,5 +1,6 @@
-import { Document, Query, DocumentQuery } from 'mongoose';
+import { Document, Query } from 'mongoose';
+import { DocType } from './document.type';
 
 export interface BaseBuilder<T extends Document> {
-  build(): Query<any> | DocumentQuery<T[], T, {}>;
+  build(): Query<T, DocType<T>>;
 }

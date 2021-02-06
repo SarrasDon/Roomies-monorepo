@@ -1,5 +1,6 @@
 import { Repository } from './entity-repository.interface';
 import { DocType } from './document.type';
+import { FilterQuery } from 'mongoose';
 
 export interface EntityService<T, Resource extends Partial<T>> {
   repository: Repository<T, DocType<T>>;
@@ -8,7 +9,7 @@ export interface EntityService<T, Resource extends Partial<T>> {
 
   getById(id: Object | String | Number): Promise<T>;
 
-  getOneBy(conditions: Partial<T>): Promise<T>;
+  getOneBy(conditions: FilterQuery<DocType<T>>): Promise<T>;
 
   getCount(): Promise<number>;
 
@@ -16,5 +17,5 @@ export interface EntityService<T, Resource extends Partial<T>> {
 
   delete(id: Object | String | Number): Promise<T>;
 
-  update(id: string, update: Partial<T>): Promise<T>;
+  update(id: string, update: Partial<T>): Promise<any>;
 }
