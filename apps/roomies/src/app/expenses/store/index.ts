@@ -15,7 +15,7 @@ export * from './totals.selectors';
 export const selectBalance = createSelector(
   selectTotalsState,
   getCurrentUser,
-  (state, user) => calcBalance(state.totals, user._id)
+  (state, user) => calcBalance(state.totals, user?._id)
 );
 export const selectBalanceWithSign = createSelector(
   selectBalance,
