@@ -6,4 +6,10 @@
     vertical-align: middle;
     margin-right: 20px;
   }
+  &.snackbar-success {
+    background: #1d8d0c;
+  }
+  &.snackbar-error {
+    background: #dd0014;
+  }
 }

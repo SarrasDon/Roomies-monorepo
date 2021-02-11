@@ -1,22 +1,21 @@
 <mat-toolbar color="primary">
-  <div *ngIf="isLoggedIn; else roomies" class="header-middle">
+  <div *ngIf="isLoggedIn$ | async; else roomies" class="header-middle">
     Cozy Place
   </div>
   <ng-template #roomies>
     <div class="header-middle">Roomies</div>
   </ng-template>
-  <div
-    class="header-right"
-    [style.visibility]="isLoggedIn ? 'visible' : 'hidden'"
-  >
+  <div class="header-right" [ngClass]="(isLoggedIn$ | async) && 'active'">
     <div>
-      <div class="avatar-text">Welcome {{ userName }}</div>
-      
+      <div *ngIf="user$ | async as user" class="avatar-text">
+        Welcome {{ user.name }}
+      </div>
+
       <div
-        *ngIf="avatar"
+        *ngIf="avatar$ | async as avatar"
         class="avatar-wrapper"
         [matMenuTriggerFor]="menu"
-         aria-label="user menu"
+        aria-label="user menu"
       >
         <div
           *ngIf="!avatar.default; else default"
@@ -27,15 +26,14 @@
           <img class="avatar-img" [src]="avatar.content" />
         </ng-template>
       </div>
-
     </div>
     <!-- <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="user menu">
       <mat-icon>menu</mat-icon>
     </button> -->
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)="onUploadImg()">
-       <span>Update photo</span>
-     </button>
+        <span>Update photo</span>
+      </button>
       <button mat-menu-item (click)="onLogout()">
         <span>Log out</span>
       </button>

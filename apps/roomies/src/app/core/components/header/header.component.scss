@@ -25,6 +25,10 @@
 
 .header-right {
   margin-left: auto;
+  visibility: hidden;
+  &.active {
+    visibility: visible;
+  }
 
   div {
     display: inline-block;
