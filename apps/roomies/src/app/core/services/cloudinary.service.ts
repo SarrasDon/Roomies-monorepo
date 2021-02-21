@@ -6,13 +6,13 @@ import { filter } from 'rxjs/operators';
 declare var cloudinary: any;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CloudinaryService {
   private _uploadResult = new BehaviorSubject(null);
   uploadResult = this._uploadResult
     .asObservable()
-    .pipe(filter(res => res !== null));
+    .pipe(filter((res) => res !== null));
 
   private readonly CLOUDINARY_STYLES = {
     palette: {
@@ -28,8 +28,12 @@ export class CloudinaryService {
       error: '#F44235',
       inProgress: '#3f51b5',
       complete: '#20B832',
-      sourceBg: '#E4EBF1'
-    }
+      sourceBg: '#E4EBF1',
+    },
+    fonts: {
+      "'Nunito', sans-serif":
+        'https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&display=swap',
+    },
   };
 
   private readonly AVATAR_CLOUDINARY_UPLOAD_CONFIG = {
@@ -41,12 +45,12 @@ export class CloudinaryService {
       'camera',
       'image_search',
       'facebook',
-      'instagram'
+      'instagram',
     ],
     cropping: true,
     // croppingCoordinatesMode: 'face',
     tags: ['users', 'avatar'],
-    styles: this.CLOUDINARY_STYLES
+    styles: this.CLOUDINARY_STYLES,
   };
   widget: any;
 
@@ -57,17 +61,23 @@ export class CloudinaryService {
     this.widget.open();
   }
 
-  getAvatarImg(url: string): Promise<string> {
+  getAvatarImg(url: string, transformation = {}): Promise<string> {
+    const defaultTransform = {
+      width: 40,
+      height: 40,
+      gravity: 'face',
+      radius: 'max',
+      crop: 'fill',
+      fetchFormat: 'auto',
+      type: 'fetch',
+      background: '#3f51b5',
+      border: '1px_solid_white',
+    };
     return new Promise((res, rej) => {
       const html = this.cloud
         .imageTag(url, {
-          width: 40,
-          height: 40,
-          gravity: 'face',
-          radius: 'max',
-          crop: 'fill',
-          fetchFormat: 'auto',
-          type: 'fetch'
+          ...defaultTransform,
+          ...transformation,
         })
         .toHtml() as string;
       res(html);

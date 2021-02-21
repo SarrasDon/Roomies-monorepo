@@ -1,42 +1,33 @@
 <mat-toolbar color="primary">
-  <div *ngIf="isLoggedIn$ | async; else roomies" class="header-middle">
-    Cozy Place
-  </div>
-  <ng-template #roomies>
-    <div class="header-middle">Roomies</div>
-  </ng-template>
+  <div class="header-middle">Roomies</div>
   <div class="header-right" [ngClass]="(isLoggedIn$ | async) && 'active'">
-    <div>
-      <div *ngIf="user$ | async as user" class="avatar-text">
-        Welcome {{ user.name }}
-      </div>
+    <p *ngIf="user$ | async as user" class="avatar-text">
+      {{ user.name }}
+    </p>
 
-      <div
-        *ngIf="avatar$ | async as avatar"
+    <ng-container *ngIf="avatar$ | async as avatar">
+      <span
         class="avatar-wrapper"
         [matMenuTriggerFor]="menu"
         aria-label="user menu"
+        *ngIf="!avatar.default; else default"
+        [innerHtml]="avatar.content"
       >
-        <div
-          *ngIf="!avatar.default; else default"
-          [innerHtml]="avatar.content"
-          class="avatar-img"
-        ></div>
-        <ng-template #default>
-          <img class="avatar-img" [src]="avatar.content" />
-        </ng-template>
-      </div>
-    </div>
+      </span>
+      <ng-template #default>
+        <img class="avatar-img" [src]="avatar.content" />
+      </ng-template>
+    </ng-container>
     <!-- <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="user menu">
       <mat-icon>menu</mat-icon>
     </button> -->
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="onUploadImg()">
-        <span>Update photo</span>
-      </button>
-      <button mat-menu-item (click)="onLogout()">
-        <span>Log out</span>
-      </button>
-    </mat-menu>
   </div>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="onUploadImg()">
+      <span>Update photo</span>
+    </button>
+    <button mat-menu-item (click)="onLogout()">
+      <span>Log out</span>
+    </button>
+  </mat-menu>
 </mat-toolbar>
