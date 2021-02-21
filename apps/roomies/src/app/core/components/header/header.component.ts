@@ -57,8 +57,8 @@ export class HeaderComponent implements OnInit {
   }
 
   getAvatar(url: string) {
-    return from(this.cloudinary.getAvatarImg(url)).pipe(
-      map((content) => ({ default: false, content }))
-    );
+    return from(
+      this.cloudinary.getAvatarImg(url, { height: 42, width: 42 })
+    ).pipe(map((content) => ({ default: false, content })));
   }
 }

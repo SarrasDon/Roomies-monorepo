@@ -71,7 +71,7 @@ export class CloudinaryService {
       fetchFormat: 'auto',
       type: 'fetch',
       background: '#3f51b5',
-      border: '1px_solid_white',
+      // border: '2px_solid_eaeae9',
     };
     return new Promise((res, rej) => {
       const html = this.cloud
