@@ -2,7 +2,7 @@
 @import '~@angular/material/theming';
 
 $custom-typography: mat-typography-config(
-  $font-family: 'Nunito Sans'
+  $font-family: 'Nunito Sans',
 );
 @include mat-core($custom-typography);
 
@@ -25,6 +25,7 @@ body {
 @font-face {
   font-family: lemon-jelly;
   src: url(assets/fonts/lemon-jelly.ttf) format('opentype');
+  font-display: block;
 }
 .flex-row {
   display: flex;
