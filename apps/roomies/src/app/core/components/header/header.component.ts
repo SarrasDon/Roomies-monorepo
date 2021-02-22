@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     private store: Store<AuthState>,
     private cloudinary: CloudinaryService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.avatar$ = this.user$.pipe(
@@ -58,7 +58,7 @@ export class HeaderComponent implements OnInit {
 
   getAvatar(url: string) {
     return from(
-      this.cloudinary.getAvatarImg(url, { height: 42, width: 42 })
+      this.cloudinary.getAvatarImg(url)
     ).pipe(map((content) => ({ default: false, content })));
   }
 }
