@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.4](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.2.3...v1.2.4) (2021-02-22)
+
+
+### Bug Fixes
+
+* **header:** fix avatar size ([d9acd08](https://github.com/SarrasDon/Roomies-monorepo/commit/d9acd087e64080341c6d8b482ab90b03d0c530cc))
+
 ### [1.2.3](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.2.2...v1.2.3) (2021-02-21)
 
 
