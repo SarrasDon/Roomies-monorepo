@@ -18,12 +18,23 @@ mat-card {
   justify-content: space-between;
   padding: 6px 0;
 }
-.chart-img {
+.img-inner-wrapper {
   position: absolute;
   border-radius: 50%;
   display: block;
   transform: translate(-50%, -50%);
   z-index: 1;
+}
+.img-container {
+  border-radius: 50%;
+  display: block;
+  z-index: 1;
+  background-repeat: round;
+  transition: transform 250ms ease;
+  will-change: transform;
+  &:hover {
+    transform: scale(1.2);
+  }
 }
 .totals-chart {
   display: block;

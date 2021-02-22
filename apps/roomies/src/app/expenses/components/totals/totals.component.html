@@ -2,15 +2,25 @@
   <div class="flex-row totals-wrapper">
     <ng-container *ngIf="totals$ | async as totals">
       <div class="images-wrapper">
-        <img
+        <!-- [src]="(userImagesDict$ | async)[total.name]" -->
+        <span
           *ngFor="let total of totals; let i = index"
-          [src]="(userImagesDict$ | async)[total.name]"
-          class="chart-img"
+          class="img-inner-wrapper"
           [style.width.px]="imageSize"
           [style.height.px]="imageSize"
           [style.top.px]="imagesTop[i]"
           [style.border]="imageBorders[i]"
-        />
+          [style.background-color]="colorScheme.domain[i]"
+        >
+          <span
+            class="img-container"
+            [style.width.px]="imageSize"
+            [style.height.px]="imageSize"
+            [style.background-image]="
+              'url(' + (userImagesDict$ | async)[total.name] + ')'
+            "
+          ></span>
+        </span>
       </div>
       <div class="totals-chart">
         <ngx-charts-bar-horizontal
