@@ -11,7 +11,7 @@ export const calcBalance = (totals: Total[], userId: string) => {
   const sum = calcTotal(totals);
   const userTotal = (totals.find((t) => t.user._id === userId) || { total: 0 })
     .total;
-  return sum / count - userTotal;
+  return userTotal - (sum / count);
 };
 
 export const incrementUserTotal = (

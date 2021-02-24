@@ -4,7 +4,7 @@ import { PipeTransform, Pipe } from '@angular/core';
 export class BalancePipe implements PipeTransform {
   transform(balance: number) {
     if (!balance) {
-      return 0;
+      return '';
     }
     const balanceStr = balance.toString();
     if (balanceStr.length >= 4) {

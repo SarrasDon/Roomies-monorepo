@@ -37,7 +37,11 @@
     </div>
   </ng-container>
 
-  <div class="amount-wrapper" [style.color]="balanceColor$ | async">
-    {{ (myBalance$ | async)?.amount | balance }}
+  <div
+    class="amount-wrapper"
+    [style.color]="balanceColor$ | async"
+    [ngClass]="balanceClass"
+  >
+    {{ (balance$ | async)?.amount | balance }}
   </div>
 </div>
