@@ -1,45 +1,43 @@
-<mat-card class="mat-elevation-z4">
-  <div class="flex-row totals-wrapper">
-    <ng-container *ngIf="totals$ | async as totals">
-      <div class="images-wrapper">
-        <!-- [src]="(userImagesDict$ | async)[total.name]" -->
+<div class="flex-row totals-wrapper">
+  <ng-container *ngIf="totals$ | async as totals">
+    <div class="images-wrapper">
+      <!-- [src]="(userImagesDict$ | async)[total.name]" -->
+      <span
+        *ngFor="let total of totals; let i = index"
+        class="img-inner-wrapper"
+        [style.width.px]="imageSize"
+        [style.height.px]="imageSize"
+        [style.top.px]="imagesTop[i]"
+        [style.border]="imageBorders[i]"
+        [style.background-color]="colorScheme.domain[i]"
+      >
         <span
-          *ngFor="let total of totals; let i = index"
-          class="img-inner-wrapper"
+          class="img-container"
           [style.width.px]="imageSize"
           [style.height.px]="imageSize"
-          [style.top.px]="imagesTop[i]"
-          [style.border]="imageBorders[i]"
-          [style.background-color]="colorScheme.domain[i]"
-        >
-          <span
-            class="img-container"
-            [style.width.px]="imageSize"
-            [style.height.px]="imageSize"
-            [style.background-image]="
-              'url(' + (userImagesDict$ | async)[total.name] + ')'
-            "
-          ></span>
-        </span>
-      </div>
-      <div class="totals-chart">
-        <ngx-charts-bar-horizontal
-          [scheme]="colorScheme"
-          [results]="totals"
-          [gradient]="false"
-          [xAxis]="false"
-          [yAxis]="false"
-          [legend]="false"
-          [showGridLines]="false"
-          [showDataLabel]="showDataLabel$ | async"
-          [barPadding]="barPadding"
-        >
-        </ngx-charts-bar-horizontal>
-      </div>
-    </ng-container>
-
-    <div class="amount-wrapper" [style.color]="balanceColor$ | async">
-      {{ (myBalance$ | async)?.amount | balance }}
+          [style.background-image]="
+            'url(' + (userImagesDict$ | async)[total.name] + ')'
+          "
+        ></span>
+      </span>
     </div>
+    <div class="totals-chart">
+      <ngx-charts-bar-horizontal
+        [scheme]="colorScheme"
+        [results]="totals"
+        [gradient]="false"
+        [xAxis]="false"
+        [yAxis]="false"
+        [legend]="false"
+        [showGridLines]="false"
+        [showDataLabel]="showDataLabel$ | async"
+        [barPadding]="barPadding"
+      >
+      </ngx-charts-bar-horizontal>
+    </div>
+  </ng-container>
+
+  <div class="amount-wrapper" [style.color]="balanceColor$ | async">
+    {{ (myBalance$ | async)?.amount | balance }}
   </div>
-</mat-card>
+</div>
