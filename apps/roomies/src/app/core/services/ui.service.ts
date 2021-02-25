@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map, first } from 'rxjs/operators';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UiService {
+  createExpenseDialogClosed = new Subject<boolean>();
   private _isExpensesListScrolling = new BehaviorSubject(false);
 
   isExpensesListScrolling = this._isExpensesListScrolling.asObservable();

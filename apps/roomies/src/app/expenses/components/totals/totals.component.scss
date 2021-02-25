@@ -65,14 +65,14 @@
 .goUp {
   display: inline-flex;
   opacity: 0;
-  transform: translate3d(0, -20px, 0);
+  transform: translate3d(0, -2em, 0);
   transition: 0.1s ease-in-out;
 }
 
 .waitDown {
   display: inline-flex;
   opacity: 0;
-  transform: translate3d(0, 20px, 0);
+  transform: translate3d(0, 2em, 0);
 }
 
 .initial {

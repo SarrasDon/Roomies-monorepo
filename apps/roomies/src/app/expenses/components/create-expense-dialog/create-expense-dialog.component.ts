@@ -10,9 +10,10 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { CreateExpenseConfig } from '../../../shared/interfaces';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ExpenseReason } from '@roomies/expenses.contracts';
+import { UiService } from '../../../core/services/ui.service';
+import { CreateExpenseConfig } from '../../../shared/interfaces';
 
 @Component({
   selector: 'roomies-create-expense-dialog',
@@ -24,8 +25,9 @@ export class CreateExpenseDialogComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: CreateExpenseConfig,
     private dialog: MatDialogRef<CreateExpenseDialogComponent>,
-    private fb: FormBuilder
-  ) {}
+    private fb: FormBuilder,
+    private uiService: UiService
+  ) { }
   /** Helper to get type safety/intellisense. */
   get formValue() {
     return this.form.value as {
@@ -59,6 +61,9 @@ export class CreateExpenseDialogComponent implements OnInit {
       amount: this.amount,
       date: this.date
     });
+
+    this.dialog.afterClosed()
+      .subscribe(() => this.uiService.createExpenseDialogClosed.next(true));
   }
 
   showError(control: string) {
