@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.3.1...v1.4.0) (2021-02-28)
+
+
+### Features
+
+* **meta:** theme color meta tag added ([113a4c0](https://github.com/SarrasDon/Roomies-monorepo/commit/113a4c0fec51d15e4e9b93ae08991d77f1ac5755))
+
 ### [1.3.1](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.3.0...v1.3.1) (2021-02-28)
 
 
