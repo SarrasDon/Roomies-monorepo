@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.2.4...v1.3.0) (2021-02-28)
+
+
+### Features
+
+* **totals:** added animation in totals increase ([91e5cf2](https://github.com/SarrasDon/Roomies-monorepo/commit/91e5cf207bef99006d19f36f329f446bd43a4968))
+
+
+### Bug Fixes
+
+* **total:** tweaked counter animation ([e0694d1](https://github.com/SarrasDon/Roomies-monorepo/commit/e0694d11336e131c035bcac64ad9af6d90fb951e))
+* **totals:** fixed responsiveness of chart ([379d706](https://github.com/SarrasDon/Roomies-monorepo/commit/379d706f9fd0028cf7c2694d3c71c6a15f90e095))
+
 ### [1.2.4](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.2.3...v1.2.4) (2021-02-22)
 
 
