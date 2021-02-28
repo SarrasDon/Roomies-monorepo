@@ -41,8 +41,8 @@
 }
 .totals-chart {
   flex-grow: 1;
-  margin-left: 40px;
   max-height: 6.25rem;
+  overflow: hidden;
 }
 
 .amount-wrapper {
