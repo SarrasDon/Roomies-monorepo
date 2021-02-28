@@ -40,7 +40,7 @@
   <div
     class="amount-wrapper"
     [style.color]="balanceColor$ | async"
-    [ngClass]="balanceAnimation$ | async"
+    animateTotalIncrease
   >
     {{ (balance$ | async)?.amount | balance }}
   </div>

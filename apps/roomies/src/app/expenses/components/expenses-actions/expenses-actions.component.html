@@ -1,10 +1,12 @@
 <button
+  #addExpenseButton
   *ngIf="!isLoading"
   mat-fab
   color="accent"
   (click)="onPopModal()"
   matTooltip="Add Expense"
-  class="mat-elevation-z4"
+  class="mat-elevation-z4 add-expense-button"
+  animateAddExpensesBtn="hide"
 >
   <img src="/assets/icons/add.svg" alt="add_expense" />
 </button>

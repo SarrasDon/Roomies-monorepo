@@ -7,6 +7,11 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { AuthGuard } from '../auth/auth.guard';
 import { SharedModule } from '../shared/shared.module';
 import * as Components from './components';
+import {
+  AnimateAddExpensesDirective,
+  AnimateTotalIncreaseDirective,
+  AnimateTotalsShadowDirective,
+} from './directives';
 import { ExpensesResolver } from './expenses.resolver';
 import * as pipes from './pipes';
 import {
@@ -31,6 +36,9 @@ import { ExpensesViewComponent } from './views/expenses.view';
     pipes.ExpenseAmountPipe,
     Components.CreateExpenseDialogComponent,
     Components.ExpensesActionsComponent,
+    AnimateAddExpensesDirective,
+    AnimateTotalsShadowDirective,
+    AnimateTotalIncreaseDirective,
   ],
   imports: [
     SharedModule,

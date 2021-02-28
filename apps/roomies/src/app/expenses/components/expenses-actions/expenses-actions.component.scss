@@ -5,3 +5,12 @@
   right: 1rem;
   z-index: 1;
 }
+
+.add-expense-button {
+  transition: transform 300ms ease;
+  transform: scale(1);
+
+  &.hide {
+    transform: scale(0);
+  }
+}
