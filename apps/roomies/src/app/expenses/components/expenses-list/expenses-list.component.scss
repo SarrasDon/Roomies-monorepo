@@ -1,7 +1,7 @@
 cdk-virtual-scroll-viewport {
-  margin-right: 3px;
+  // margin-right: 3px;
   &::-webkit-scrollbar {
-    width: 0.4em;
+    width: 0;
   }
 
   &::-webkit-scrollbar-thumb {

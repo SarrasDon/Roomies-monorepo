@@ -9,12 +9,19 @@ import {
   OnInit,
   Output,
   Renderer2,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Expense } from '@roomies/expenses.contracts';
 import { merge, Subject, timer } from 'rxjs';
-import { distinctUntilChanged, map, mapTo, switchMap, takeUntil, throttleTime } from 'rxjs/operators';
+import {
+  distinctUntilChanged,
+  map,
+  mapTo,
+  switchMap,
+  takeUntil,
+  throttleTime,
+} from 'rxjs/operators';
 import { UiService } from '../../../core/services';
 import { ExpensesState, loadExpenses, selectExpenses } from '../../store';
 
@@ -22,7 +29,7 @@ import { ExpensesState, loadExpenses, selectExpenses } from '../../store';
   selector: 'roomies-expenses-list',
   templateUrl: './expenses-list.component.html',
   styleUrls: ['./expenses-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExpensesListComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(CdkVirtualScrollViewport)
@@ -33,23 +40,31 @@ export class ExpensesListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @Output() paging = new EventEmitter<{ first: number; rows: number }>();
 
-  itemSize = 76;
+  itemSize = 75;
   destroy$ = new Subject();
   expenses$ = this.store.pipe(select(selectExpenses));
 
+  constructor(
+    private render: Renderer2,
+    private uiService: UiService,
+    private store: Store<ExpensesState>
+  ) {}
 
-  constructor(private render: Renderer2, private uiService: UiService, private store: Store<ExpensesState>) { }
-
-  ngOnInit() { }
+  ngOnInit() {}
 
   ngAfterViewInit(): void {
     const scrolled$ = this.virtualScroll.elementScrolled();
-    const startScrolling$ = scrolled$.pipe(mapTo(true))
-    const stoppedScrolling$ = scrolled$.pipe(switchMap(() => timer(300)), mapTo(false))
+    const startScrolling$ = scrolled$.pipe(mapTo(true));
+    const stoppedScrolling$ = scrolled$.pipe(
+      switchMap(() => timer(300)),
+      mapTo(false)
+    );
 
     merge(startScrolling$, stoppedScrolling$)
       .pipe(takeUntil(this.destroy$))
-      .subscribe(isScrolling => this.uiService.expensesListScrolled(isScrolling));
+      .subscribe((isScrolling) =>
+        this.uiService.expensesListScrolled(isScrolling)
+      );
 
     this.render.setStyle(
       this.virtualScroll.elementRef.nativeElement,
@@ -61,7 +76,7 @@ export class ExpensesListComponent implements OnInit, AfterViewInit, OnDestroy {
         throttleTime(100),
         map((e: number) => ({
           index: e > 0 ? e + 20 : 0,
-          limit: 30
+          limit: 30,
         })),
         distinctUntilChanged((x, y) => {
           return y.index - x.index <= 10;
@@ -69,7 +84,7 @@ export class ExpensesListComponent implements OnInit, AfterViewInit, OnDestroy {
         takeUntil(this.destroy$)
       )
       .subscribe((paging) => {
-        this.store.dispatch(loadExpenses(paging))
+        this.store.dispatch(loadExpenses(paging));
       });
   }
 
