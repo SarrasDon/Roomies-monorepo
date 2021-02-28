@@ -59,8 +59,7 @@ export class TotalsComponent implements OnInit {
   balanceClass = 'initial';
   constructor(
     public breakpointObserver: BreakpointObserver,
-    private store: Store<TotalState>,
-    private uiService: UiService
+    private store: Store<TotalState>
   ) {}
 
   ngOnInit() {
