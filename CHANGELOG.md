@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.1](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.4.0...v1.4.1) (2021-03-01)
+
+
+### Bug Fixes
+
+* **expenses list:** fixed page layout ([597b1dd](https://github.com/SarrasDon/Roomies-monorepo/commit/597b1dd49566218dfbe334cf548c3a27aabc4d4b))
+* **layout/styles/css-var:** added css-variables, fixed animations/layout ([d7b5283](https://github.com/SarrasDon/Roomies-monorepo/commit/d7b5283167149a7dabe1b55300e746951f5da33d))
+
 ## [1.4.0](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.3.1...v1.4.0) (2021-02-28)
 
 
