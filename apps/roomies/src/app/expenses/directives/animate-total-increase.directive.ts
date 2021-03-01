@@ -37,26 +37,8 @@ export class AnimateTotalIncreaseDirective implements AfterViewInit, OnDestroy {
     private counterElement: ElementRef
   ) {}
 
-  myBalanceChanged$ = this.store.pipe(
-    select(selectBalanceWithSign),
-    skip(1),
-    scan(
-      (acc, curr) => ({
-        balance: curr,
-        increased: acc.balance && acc.balance.amount < curr.amount,
-      }),
-      { balance: null, increased: undefined }
-    )
-  );
-  balanceStreams$ = partition(this.myBalanceChanged$, (res) =>
-    Boolean(res.increased)
-  );
-
-  myBalanceIncreased$ = this.balanceStreams$[0].pipe(
-    map(({ balance }) => balance)
-  );
-  increaseAfterDialogClosed$ = zip(
-    this.myBalanceIncreased$,
+  changeAfterDialogClosed$ = zip(
+    this.store.pipe(select(selectBalanceWithSign), skip(1)),
     this.uiService.createExpenseDialogClosed
   ).pipe(
     map((events) => events[0]),
@@ -65,12 +47,12 @@ export class AnimateTotalIncreaseDirective implements AfterViewInit, OnDestroy {
     refCount()
   );
   balanceAnimation$ = merge(
-    this.increaseAfterDialogClosed$.pipe(mapTo('goUp')),
-    this.increaseAfterDialogClosed$.pipe(
+    this.changeAfterDialogClosed$.pipe(mapTo('goUp')),
+    this.changeAfterDialogClosed$.pipe(
       delay(TOTAL_COUNTER_WAIT_DOWN_DELAY),
       mapTo('waitDown')
     ),
-    this.increaseAfterDialogClosed$.pipe(delay(200), mapTo('initial'))
+    this.changeAfterDialogClosed$.pipe(delay(200), mapTo('initial'))
   );
   animationEnd$ = this.balanceAnimation$.pipe(delay(200));
 

@@ -1,14 +1,9 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { delay, map } from 'rxjs/operators';
+import { delay, map, publish, refCount, tap } from 'rxjs/operators';
 import { getUserImageDict } from '../../../auth/store';
-import { UiService } from '../../../core/services';
 import {
-  BAR_PADDING,
-  IMAGES_TOP,
-  IMAGE_BORDER_WIDTH,
-  IMAGE_RADIUS,
   TOTAL_COUNTER_AFTER_DIALOG_CLOSED_DELAY,
   TOTAL_COUNTER_WAIT_DOWN_DELAY,
 } from '../../expenses.config';
@@ -27,16 +22,22 @@ import {
 })
 export class TotalsComponent implements OnInit {
   totals$ = this.store.pipe(select(selectTotalsWithNames));
-  balance$ = this.store.pipe(
+  balanceWithSign$ = this.store.pipe(
     select(selectBalanceWithSign),
+    publish(),
+    refCount()
+  );
+  balance$ = this.balanceWithSign$.pipe(
     delay(
       TOTAL_COUNTER_AFTER_DIALOG_CLOSED_DELAY + TOTAL_COUNTER_WAIT_DOWN_DELAY
     )
   );
 
-  balanceColor$ = this.store.pipe(
-    select(selectBalanceWithSign),
-    map((balance) => this.calculatebalanceColor(balance))
+  balanceColor$ = this.balanceWithSign$.pipe(
+    map((balance) => this.calculatebalanceClass(balance))
+  );
+  balanceWidth$ = this.balanceWithSign$.pipe(
+    map(({ amount }) => this.countDigits(amount) + 'ch')
   );
   userImagesDict$ = this.store.pipe(select(getUserImageDict));
 
@@ -44,19 +45,10 @@ export class TotalsComponent implements OnInit {
     .observe([Breakpoints.XSmall, Breakpoints.HandsetPortrait])
     .pipe(map((state) => !state.matches));
 
-  imagesTop = IMAGES_TOP;
-  imageSize = 2 * IMAGE_RADIUS;
-  barPadding = BAR_PADDING;
   readonly colorScheme = {
-    domain: ['#42a5f5', '#80d6ff'],
+    domain: ['var(--chart-color-1)', 'var(--chart-color-2)'],
   };
-  imageBorders = [
-    `${IMAGE_BORDER_WIDTH}px solid ${this.colorScheme.domain[0]}`,
-    `${IMAGE_BORDER_WIDTH}px solid ${this.colorScheme.domain[1]}`,
-  ];
 
-  balanceColor = 'orange';
-  balanceClass = 'initial';
   constructor(
     public breakpointObserver: BreakpointObserver,
     private store: Store<TotalState>
@@ -66,14 +58,20 @@ export class TotalsComponent implements OnInit {
     this.store.dispatch(getTotals());
   }
 
-  calculatebalanceColor(balance: { amount: number; sign: string }) {
+  calculatebalanceClass(balance: { amount: number; sign: string }) {
     if (!balance) {
-      return 'orange';
+      return '';
     }
-    return balance.sign === 'positive'
-      ? 'green'
-      : balance.sign === 'negative'
-      ? 'red'
-      : 'orange';
+    return balance.sign;
+  }
+
+  countDigits(amount: number) {
+    let count = 0;
+    let n = Math.round(amount);
+    while (n > 1) {
+      n = n / 10;
+      count = count + 1;
+    }
+    return count;
   }
 }

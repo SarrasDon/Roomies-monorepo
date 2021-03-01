@@ -1,4 +1,17 @@
 :host {
+  --bar-padding: 28px;
+  --chart-top-bottom: 10px;
+  --chart-left: 20px;
+  --img-border-width: 4px;
+  --img-radius: 20px;
+  --chart-height: 100px;
+
+  --chart-space: calc(2 * (var(--chart-top-bottom)) + var(--bar-padding));
+  --bar-height: calc((var(--chart-height) - var(--chart-space)) / 2);
+
+  --chart-color-1: #42a5f5;
+  --chart-color-2: #80d6ff;
+
   padding: 16px 20px;
   z-index: 1;
   border-radius: 0;
@@ -33,10 +46,34 @@
   background-repeat: round;
   transition: transform 250ms ease;
   will-change: transform;
+  width: calc(2 * var(--img-radius));
+  height: calc(2 * var(--img-radius));
+
   &:hover {
     transform: scale(1.2);
   }
 }
+.chart-img-pos {
+  &_0 {
+    top: calc(var(--chart-top-bottom) + (var(--bar-height) / 2));
+  }
+  &_1 {
+    top: calc(
+      (var(--chart-height) / 2) + (var(--bar-height) / 2) +
+        (var(--bar-padding) / 2)
+    );
+  }
+}
+
+.chart-img-border {
+  &_0 {
+    border: var(--img-border-width) solid var(--chart-color-1);
+  }
+  &_1 {
+    border: var(--img-border-width) solid var(--chart-color-2);
+  }
+}
+
 .totals-chart {
   flex-grow: 1;
   max-height: 6.25rem;
@@ -46,16 +83,24 @@
 .amount-wrapper {
   line-height: 6.25rem;
   height: 6.25rem;
-  text-align: right;
+  text-align: center;
   font-size: 1.8em;
   font-weight: bold;
-  width: 70px;
+  width: 60px;
+  color: var(--neutral-yellow);
+
+  &_positive {
+    color: var(--positive-green);
+  }
+  &_negative {
+    color: var(--negative-red);
+  }
 }
 
 ::ng-deep .ngx-charts {
   text {
-    fill: #20242e;
-    color: #20242e;
+    fill: var(--color);
+    color: var(--color);
     font-weight: 600;
     font-size: 14px !important;
   }

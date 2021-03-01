@@ -1,4 +1,4 @@
-<cdk-virtual-scroll-viewport [itemSize]="itemSize">
+<cdk-virtual-scroll-viewport [itemSize]="itemSize" class="expenses-list">
   <roomies-expense-item
     *cdkVirtualFor="let expense of expenses$ | async"
     (cdkVirtualForTrackBy)="(trackByFn)"

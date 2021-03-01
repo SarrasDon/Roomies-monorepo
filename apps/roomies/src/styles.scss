@@ -6,17 +6,28 @@ $custom-typography: mat-typography-config(
 );
 @include mat-core($custom-typography);
 
+:root {
+  --nav-height: 56px;
+  --totals-height: 133px;
+  --color: #20242e;
+  --background-color: #f1f3f5;
+
+  --positive-green: #10bb66;
+  --negative-red: #de594e;
+  --neutral-yellow: #ffd23c;
+}
+
 html,
 body {
   height: 100%;
   font-size: 16px;
-  color: #20242e;
+  color: var(--color);
 }
 body {
   font-family: 'Nunito Sans', sans-serif;
   width: 100%;
   margin: 0;
-  background-color: #f1f3f5;
+  background-color: var(--background-color);
 }
 .row {
   margin-right: 0;
@@ -55,5 +66,11 @@ body {
   max-width: 95vw !important;
   .mat-dialog-container {
     border-top: 0.25rem solid #3f51b5;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  :root {
+    --nav-height: 64px;
   }
 }

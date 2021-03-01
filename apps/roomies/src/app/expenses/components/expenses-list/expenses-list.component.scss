@@ -13,3 +13,6 @@ cdk-virtual-scroll-viewport {
     background-color: white;
   }
 }
+.expenses-list {
+  height: calc(100vh - var(--nav-height) - var(--totals-height));
+}

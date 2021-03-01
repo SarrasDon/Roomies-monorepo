@@ -8,7 +8,6 @@ import {
   OnDestroy,
   OnInit,
   Output,
-  Renderer2,
   ViewChild,
 } from '@angular/core';
 import { select, Store } from '@ngrx/store';
@@ -23,11 +22,6 @@ import {
   throttleTime,
 } from 'rxjs/operators';
 import { UiService } from '../../../core/services';
-import {
-  TOTALS_HEIGHT,
-  HEADER_HEIGHT_MO,
-  HEADER_HEIGHT,
-} from '../../expenses.config';
 import { ExpensesState, loadExpenses, selectExpenses } from '../../store';
 
 @Component({
@@ -49,7 +43,6 @@ export class ExpensesListComponent implements OnInit, AfterViewInit, OnDestroy {
   expenses$ = this.store.pipe(select(selectExpenses));
 
   constructor(
-    private render: Renderer2,
     private uiService: UiService,
     private store: Store<ExpensesState>
   ) {}
@@ -70,11 +63,6 @@ export class ExpensesListComponent implements OnInit, AfterViewInit, OnDestroy {
         this.uiService.expensesListScrolled(isScrolling)
       );
 
-    this.render.setStyle(
-      this.virtualScroll.elementRef.nativeElement,
-      'height',
-      `${this.calcListHeight()}px`
-    );
     this.virtualScroll.scrolledIndexChange
       .pipe(
         throttleTime(100),
@@ -94,13 +82,6 @@ export class ExpensesListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   trackByFn(index: number, item: Expense) {
     return item._id;
-  }
-
-  calcListHeight() {
-    const offset = this.uiService.isSmall
-      ? TOTALS_HEIGHT + HEADER_HEIGHT_MO
-      : TOTALS_HEIGHT + HEADER_HEIGHT;
-    return window.innerHeight - offset;
   }
 
   ngOnDestroy(): void {
