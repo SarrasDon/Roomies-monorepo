@@ -14,3 +14,7 @@ export const IMAGES_TOP = {
 
 export const TOTAL_COUNTER_WAIT_DOWN_DELAY = 100;
 export const TOTAL_COUNTER_AFTER_DIALOG_CLOSED_DELAY = 500;
+
+export const TOTALS_HEIGHT = 133;
+export const HEADER_HEIGHT_MO = 56;
+export const HEADER_HEIGHT = 64;

@@ -23,6 +23,11 @@ import {
   throttleTime,
 } from 'rxjs/operators';
 import { UiService } from '../../../core/services';
+import {
+  TOTALS_HEIGHT,
+  HEADER_HEIGHT_MO,
+  HEADER_HEIGHT,
+} from '../../expenses.config';
 import { ExpensesState, loadExpenses, selectExpenses } from '../../store';
 
 @Component({
@@ -35,8 +40,7 @@ export class ExpensesListComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(CdkVirtualScrollViewport)
   virtualScroll: CdkVirtualScrollViewport;
 
-  @ViewChild('wrapper')
-  wrapper: ElementRef;
+  @ViewChild('wrapper') wrapper: ElementRef;
 
   @Output() paging = new EventEmitter<{ first: number; rows: number }>();
 
@@ -93,7 +97,9 @@ export class ExpensesListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   calcListHeight() {
-    const offset = this.uiService.isSmall ? 132 + 56 : 132 + 64;
+    const offset = this.uiService.isSmall
+      ? TOTALS_HEIGHT + HEADER_HEIGHT_MO
+      : TOTALS_HEIGHT + HEADER_HEIGHT;
     return window.innerHeight - offset;
   }
 
