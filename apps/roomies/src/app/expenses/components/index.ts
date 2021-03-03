@@ -7,3 +7,4 @@ export {
 } from './expenses-actions/expenses-actions.component';
 export { ExpensesListComponent } from './expenses-list/expenses-list.component';
 export { TotalsComponent } from './totals/totals.component';
+export { ExpensesSpriteComponent } from './expenses-sprite/expenses-sprite.component'

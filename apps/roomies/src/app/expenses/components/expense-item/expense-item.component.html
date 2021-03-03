@@ -1,11 +1,9 @@
 <div class="expense-card">
   <section class="expense-card-content">
-    <img
+    <roomies-expenses-sprite
       class="expense-img"
-      src="{{ expense | expenseImgSource }}"
-      [alt]="expense.reason.reason"
-      [matTooltip]="expense.reason.reason"
-    />
+      [icon]="expense.reason.reason | lowercase"
+    ></roomies-expenses-sprite>
     <div class="expense-details-wrapper">
       <div class="expense-details-title">{{ expense.person.name }}</div>
       <div class="expense-details-subtitle">

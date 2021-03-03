@@ -31,7 +31,6 @@ import { ExpensesViewComponent } from './views/expenses.view';
     Components.TotalsComponent,
     ExpensesViewComponent,
     pipes.ExpenseDatePipe,
-    pipes.ExpenseImgSourcePipe,
     pipes.BalancePipe,
     pipes.ExpenseAmountPipe,
     Components.CreateExpenseDialogComponent,
@@ -39,6 +38,7 @@ import { ExpensesViewComponent } from './views/expenses.view';
     AnimateAddExpensesDirective,
     AnimateTotalsShadowDirective,
     AnimateTotalIncreaseDirective,
+    Components.ExpensesSpriteComponent,
   ],
   imports: [
     SharedModule,
@@ -59,4 +59,4 @@ import { ExpensesViewComponent } from './views/expenses.view';
 
   entryComponents: [Components.CreateExpenseDialogComponent],
 })
-export class ExpensesModule {}
+export class ExpensesModule { }
