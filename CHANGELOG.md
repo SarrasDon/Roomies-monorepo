@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.5.0...v1.6.0) (2021-03-03)
+
+
+### Features
+
+* **routing:** re configured routing. Removed Lazy loading for first load ([6ca2a0b](https://github.com/SarrasDon/Roomies-monorepo/commit/6ca2a0bce531b7361bf2ad06b9fcef4a5ead89ad))
+
 ## [1.5.0](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.4.1...v1.5.0) (2021-03-03)
 
 
