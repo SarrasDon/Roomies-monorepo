@@ -43,14 +43,15 @@ import { ExpensesViewComponent } from './views/expenses.view';
   imports: [
     SharedModule,
     ReactiveFormsModule,
-    RouterModule.forChild([
-      {
-        path: '',
-        component: ExpensesViewComponent,
-        resolve: { message: ExpensesResolver },
-        canActivate: [AuthGuard],
-      },
-    ]),
+    // Add router module for lazy loading of expenses module
+    // RouterModule.forChild([
+    //   {
+    //     path: '',
+    //     component: ExpensesViewComponent,
+    //     resolve: { message: ExpensesResolver },
+    //     canActivate: [AuthGuard],
+    //   },
+    // ]),
     StoreModule.forFeature(totalsFeatureKey, totalsReducer),
     StoreModule.forFeature(expensesFeatureKey, expensesReducer),
     EffectsModule.forFeature([TotalsEffects, ExpensesEffects]),

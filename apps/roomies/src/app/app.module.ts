@@ -19,13 +19,14 @@ import {
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { ExpensesModule } from './expenses/expenses.module';
 
 export const cloudinaryLib = {
   Cloudinary: CloudinaryCore,
 };
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent,],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -48,9 +49,10 @@ export const cloudinaryLib = {
     EffectsModule.forRoot(),
     !environment.production
       ? StoreDevtoolsModule.instrument({
-          maxAge: 25, // Retains last 25 states
-        })
+        maxAge: 25, // Retains last 25 states
+      })
       : [],
+    ExpensesModule
   ],
   providers: [
     {
@@ -71,4 +73,4 @@ export const cloudinaryLib = {
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
