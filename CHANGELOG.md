@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.1](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.6.0...v1.6.1) (2021-03-03)
+
+
+### Bug Fixes
+
+* **totals counter animation:** tweaked the balance animation ([1a756e6](https://github.com/SarrasDon/Roomies-monorepo/commit/1a756e6ed6ae1a8dd110e501ba0ba0c9a12e3a0a))
+
 ## [1.6.0](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.5.0...v1.6.0) (2021-03-03)
 
 
