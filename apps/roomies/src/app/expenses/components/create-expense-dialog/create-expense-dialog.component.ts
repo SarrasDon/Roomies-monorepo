@@ -61,9 +61,6 @@ export class CreateExpenseDialogComponent implements OnInit {
       amount: this.amount,
       date: this.date
     });
-
-    this.dialog.afterClosed()
-      .subscribe(() => this.uiService.createExpenseDialogClosed.next(true));
   }
 
   showError(control: string) {
@@ -86,5 +83,6 @@ export class CreateExpenseDialogComponent implements OnInit {
       now.getMilliseconds()
     );
     this.dialog.close(this.formValue);
+    this.uiService.newExpenseSubmitted.next(true)
   }
 }

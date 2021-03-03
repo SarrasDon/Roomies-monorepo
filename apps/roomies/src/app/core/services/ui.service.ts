@@ -7,7 +7,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class UiService {
-  createExpenseDialogClosed = new Subject<boolean>();
+  newExpenseSubmitted = new Subject<boolean>();
   private _isExpensesListScrolling = new BehaviorSubject(false);
 
   isExpensesListScrolling = this._isExpensesListScrolling.asObservable();
