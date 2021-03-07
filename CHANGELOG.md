@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.2](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.6.1...v1.6.2) (2021-03-07)
+
+
+### Bug Fixes
+
+* **header:** used css variables for avatar url ([8141529](https://github.com/SarrasDon/Roomies-monorepo/commit/8141529ccb7d2621440d3c5a4d627f98a55aa5ee))
+
 ### [1.6.1](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.6.0...v1.6.1) (2021-03-03)
 
 
