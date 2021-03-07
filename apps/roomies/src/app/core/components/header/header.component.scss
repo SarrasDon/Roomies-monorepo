@@ -20,12 +20,15 @@
 }
 
 .avatar-wrapper {
+  --url: url('/assets/images/default-avatar.png');
   cursor: pointer;
   display: inherit;
-}
 
-.avatar-wrapper,
-.avatar-img {
+  background: var(--url) no-repeat;
+  background-size: contain;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
   outline: none;
 }
 

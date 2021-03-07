@@ -5,29 +5,21 @@
       {{ user.name }}
     </p>
 
-    <ng-container *ngIf="avatar$ | async as avatar">
-      <span
-        class="avatar-wrapper"
-        [matMenuTriggerFor]="menu"
-        aria-label="user menu"
-        *ngIf="!avatar.default; else default"
-        [innerHtml]="avatar.content"
-      >
-      </span>
-      <ng-template #default>
-        <img class="avatar-img" [src]="avatar.content" />
-      </ng-template>
-    </ng-container>
-    <!-- <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="user menu">
-      <mat-icon>menu</mat-icon>
-    </button> -->
+    <span
+      *ngIf="avatar$ | async as avatar"
+      class="avatar-wrapper"
+      [matMenuTriggerFor]="menu"
+      aria-label="user menu"
+      [style.--url]="avatar"
+    >
+    </span>
   </div>
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item (click)="onUploadImg()">
-      <span>Update photo</span>
-    </button>
-    <button mat-menu-item (click)="onLogout()">
-      <span>Log out</span>
-    </button>
-  </mat-menu>
 </mat-toolbar>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="onUploadImg()">
+    <span>Update photo</span>
+  </button>
+  <button mat-menu-item (click)="onLogout()">
+    <span>Log out</span>
+  </button>
+</mat-menu>

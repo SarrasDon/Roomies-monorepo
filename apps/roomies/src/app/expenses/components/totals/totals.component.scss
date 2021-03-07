@@ -42,12 +42,14 @@
 .img-container {
   border-radius: 50%;
   display: block;
-  z-index: 1;
-  background-repeat: round;
-  transition: transform 250ms ease;
-  will-change: transform;
   width: calc(2 * var(--img-radius));
   height: calc(2 * var(--img-radius));
+  z-index: 1;
+  background-repeat: no-repeat;
+  background-size: contain;
+
+  transition: transform 250ms ease;
+  will-change: transform;
 
   &:hover {
     transform: scale(1.2);
