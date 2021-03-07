@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.1](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.8.0...v1.8.1) (2021-03-07)
+
+
+### Bug Fixes
+
+* **totals:** fixed totals chart ([6ed8313](https://github.com/SarrasDon/Roomies-monorepo/commit/6ed83134fe0e9a11c03523763fbe7eef4bc7b822))
+
 ## [1.8.0](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.7.0...v1.8.0) (2021-03-07)
 
 
