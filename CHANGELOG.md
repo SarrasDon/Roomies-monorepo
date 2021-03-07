@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.3](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.6.2...v1.6.3) (2021-03-07)
+
+
+### Bug Fixes
+
+* **header:** re added upload img version ([39d40d3](https://github.com/SarrasDon/Roomies-monorepo/commit/39d40d3fd79fc8e415a0de8cdaaab08ad4713fb8))
+
 ### [1.6.2](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.6.1...v1.6.2) (2021-03-07)
 
 
