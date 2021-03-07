@@ -5,17 +5,30 @@ import { EMPTY } from 'rxjs';
 import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { AuthState, getCurrentUser } from '../../auth/store';
 import { ExpensesService } from '../services/expenses.service';
-import { getTotals, totalsLoaded } from './totals.actions';
+import { getTotals, getTotalsForMonth, totalsLoaded } from './totals.actions';
 
 @Injectable()
 export class TotalsEffects {
   user$ = this.store.pipe(select(getCurrentUser));
 
-  loadMovies$ = createEffect(() =>
+  loadTotals$ = createEffect(() =>
     this.actions$.pipe(
       ofType(getTotals),
       switchMap(() =>
         this.expensesService.getTotals().pipe(
+          withLatestFrom(this.user$),
+          map(([totals, user]) => totalsLoaded({ totals, userId: user._id })),
+          catchError(() => EMPTY)
+        )
+      )
+    )
+  );
+
+  loadTotalsForMonth$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getTotalsForMonth),
+      switchMap(({ month, year }) =>
+        this.expensesService.getTotalsForMonth({ month, year }).pipe(
           withLatestFrom(this.user$),
           map(([totals, user]) => totalsLoaded({ totals, userId: user._id })),
           catchError(() => EMPTY)

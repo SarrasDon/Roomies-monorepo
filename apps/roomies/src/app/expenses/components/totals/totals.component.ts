@@ -9,6 +9,7 @@ import {
 } from '../../expenses.config';
 import {
   getTotals,
+  getTotalsForMonth,
   selectBalanceWithSign,
   selectTotalsWithNames,
   TotalState,
@@ -21,6 +22,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TotalsComponent implements OnInit {
+  date = new Date();
   totals$ = this.store.pipe(select(selectTotalsWithNames));
   balanceWithSign$ = this.store.pipe(
     select(selectBalanceWithSign),
@@ -52,17 +54,16 @@ export class TotalsComponent implements OnInit {
   constructor(
     public breakpointObserver: BreakpointObserver,
     private store: Store<TotalState>
-  ) {}
+  ) { }
 
   ngOnInit() {
-    this.store.dispatch(getTotals());
+    const month = this.date.getMonth();
+    const year = this.date.getFullYear();
+    this.store.dispatch(getTotalsForMonth({ month, year }));
   }
 
   calculatebalanceClass(balance: { amount: number; sign: string }) {
-    if (!balance) {
-      return '';
-    }
-    return balance.sign;
+    return balance ? balance.sign : ''
   }
 
   countDigits(amount: number) {

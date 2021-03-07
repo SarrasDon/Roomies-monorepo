@@ -63,7 +63,6 @@ export class ExpensesRepo extends EntityRepository<Expense> {
   getTotalsForMonth({ month, year }: { month: number, year: number }) {
     const min = new Date(year, month, 1);
     const max = new Date(new Date(year, month, 1).setMonth(new Date(year, month, 1).getMonth() + 1));
-    console.log(min, max);
 
     return this.model
       .aggregate([
