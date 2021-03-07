@@ -73,6 +73,6 @@ export class TotalsComponent implements OnInit {
       n = n / 10;
       count = count + 1;
     }
-    return count;
+    return count || 1;
   }
 }
