@@ -1,5 +1,5 @@
 <h3>{{ date | date: 'MMMM yyyy' }}</h3>
-<div class="flex-row totals-wrapper">
+<div class="flex-row totals-wrapper" [style.--chars]="balanceWidth$ | async">
   <ng-container *ngIf="totals$ | async as totals">
     <div class="images-wrapper">
       <span
@@ -36,7 +36,6 @@
   <div
     class="amount-wrapper"
     [ngClass]="'amount-wrapper_' + (balanceColor$ | async)"
-    [style.width]="balanceWidth$ | async"
     animateTotalIncrease
   >
     {{ (balance$ | async)?.amount | balance }}
