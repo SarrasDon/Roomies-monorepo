@@ -15,13 +15,9 @@ const initialState: TotalState = { totals: [] };
 const _totalsReducer = createReducer(
   initialState,
   on(totalsLoaded, (state, { totals, userId }) => {
-    const count = (totals[0] || { count: 0 }).count;
-    if (!count) {
-      return state;
-    }
     return {
       ...state,
-      totals: totals.slice().sort((a, b) => (a.user._id === userId ? -1 : 1)),
+      totals: totals.slice().sort((a, b) => (a._id === userId ? -1 : 1)),
     };
   }),
   on(createExpense, (state, { user, amount }) => {

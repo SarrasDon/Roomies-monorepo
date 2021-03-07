@@ -39,4 +39,48 @@ export class ExpensesRepo extends EntityRepository<Expense> {
       }
     ]);
   }
+
+  getTotalsForDay(date: Date) {
+    return this.model
+      .aggregate([
+        {
+          $match: {
+            "spendAt": {
+              $gte: date,
+              $lt: new Date(date.setDate(date.getDate() + 1))
+            }
+          }
+        },
+        {
+          $group: {
+            _id: '$person',
+            total: { $sum: '$amount' }
+          }
+        }
+      ]);
+  }
+
+  getTotalsForMonth({ month, year }: { month: number, year: number }) {
+    const min = new Date(year, month, 1);
+    const max = new Date(new Date(year, month, 1).setMonth(new Date(year, month, 1).getMonth() + 1));
+    console.log(min, max);
+
+    return this.model
+      .aggregate([
+        {
+          $match: {
+            "spendAt": {
+              $gte: min,
+              $lt: max
+            }
+          }
+        },
+        {
+          $group: {
+            _id: '$person',
+            total: { $sum: '$amount' }
+          }
+        }
+      ]);
+  }
 }

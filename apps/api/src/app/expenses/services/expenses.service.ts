@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Expense } from '@roomies/expenses.contracts';
 import { GenericService } from '@roomies/shared.data';
-import { UsersRepository } from '../../users/repositories';
 import { ExpenseResource } from '../models';
 import { ExpensesRepo } from '../repositories';
 
@@ -9,7 +8,6 @@ import { ExpensesRepo } from '../repositories';
 export class ExpensesService extends GenericService<Expense, ExpenseResource> {
   constructor(
     public readonly expensesRepo: ExpensesRepo,
-    private usersRepo: UsersRepository
   ) {
     super(expensesRepo);
   }
@@ -30,13 +28,10 @@ export class ExpensesService extends GenericService<Expense, ExpenseResource> {
   }
 
   async getTotals() {
-    const totals = await this.expensesRepo.getTotals();
-    const users = await this.usersRepo.findAll().exec();
+    return await this.expensesRepo.getTotals();
+  }
 
-    return totals.map(({ total, _id }) => ({
-      total,
-      user: users.find(u => u._id.toString() === _id.toString()),
-      count: users.length
-    }));
+  async getTotalsForMonth({ year, month }: { month: number, year: number }) {
+    return await this.expensesRepo.getTotalsForMonth({ year, month });
   }
 }

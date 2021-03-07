@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Entity } from '@roomies/shared.data';
-import { environment } from '../../../environments/environment'
+import { environment } from '../../../environments/environment';
+
 @Injectable({ providedIn: 'root' })
 export class DataService<T extends Entity> {
   private _featureUrl = '';
@@ -36,5 +37,9 @@ export class DataService<T extends Entity> {
 
   update(id: string, resource: any) {
     return this.http.put(`${this.featureUrl}/${id}`, JSON.stringify(resource));
+  }
+
+  serializeQueryParameters(params: { [key: string]: string | number }) {
+    return Object.keys(params).map(key => `${key}=${params[key]}`).join('&')
   }
 }

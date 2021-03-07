@@ -9,8 +9,8 @@ import { ExpensesService } from './services';
 @Controller('expenses')
 @UseGuards(AuthGuard())
 export class ExpensesController extends GenericController<
-  Expense,
-  ExpenseResource
+Expense,
+ExpenseResource
 > {
   constructor(public expensesService: ExpensesService) {
     super(expensesService);
@@ -36,6 +36,18 @@ export class ExpensesController extends GenericController<
   @Get('totals')
   public async getTotals() {
     return await this.expensesService.getTotals();
+  }
+
+  @Get('totalsForMonth')
+  public async totalsForMonth(
+    @Query()
+    query: {
+      month: number,
+      year: number
+    }
+  ) {
+    const { month, year } = query
+    return await this.expensesService.getTotalsForMonth({ month, year });
   }
 
   @Post()

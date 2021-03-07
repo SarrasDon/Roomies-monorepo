@@ -12,9 +12,11 @@ export class ExpensesService extends DataService<Expense> {
   }
 
   getExpenses(index: number, limit: number) {
+    const params = { index, limit };
+    const queryParams = this.serializeQueryParameters(params);
     return this.http.get<Expense[]>(
       // `${this.featureUrl}?userId=${id}&index=${index}&limit=${limit}`
-      `${this.featureUrl}?index=${index}&limit=${limit}`
+      `${this.featureUrl}?${queryParams}`
     );
   }
 
@@ -24,5 +26,11 @@ export class ExpensesService extends DataService<Expense> {
 
   getTotals() {
     return this.http.get<Total[]>(`${this.featureUrl}/totals`);
+  }
+
+  getTotalsForMonth({ month, year }) {
+    const params = { month, year };
+    const queryParams = this.serializeQueryParameters(params);
+    return this.http.get<Total[]>(`${this.featureUrl}/totalsForMonth?${queryParams}`);
   }
 }
