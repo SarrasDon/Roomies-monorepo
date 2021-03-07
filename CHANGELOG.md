@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.7.0](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.6.3...v1.7.0) (2021-03-07)
+
+
+### Features
+
+* **totals:** added total-for-month functionality and endpoint ([4feeb28](https://github.com/SarrasDon/Roomies-monorepo/commit/4feeb286cc9d502db686e476b013f9f44106537d))
+
 ### [1.6.3](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.6.2...v1.6.3) (2021-03-07)
 
 
