@@ -24,7 +24,7 @@ h3 {
 }
 
 .totals-wrapper {
-  --chars: 1ch;
+  --chars: 1;
   justify-content: space-between;
   position: relative;
 }
@@ -84,7 +84,7 @@ h3 {
 
 .totals-chart {
   max-height: 6.25rem;
-  width: calc(100% - 40px - var(--chars));
+  width: calc(100% - 40px - (var(--chars) * 1ch));
   overflow: hidden;
 }
 
@@ -94,7 +94,7 @@ h3 {
   text-align: center;
   font-size: 1.8em;
   font-weight: bold;
-  width: var(--chars);
+  width: calc(var(--chars) * 1ch);
   color: var(--neutral-yellow);
 
   &_positive {

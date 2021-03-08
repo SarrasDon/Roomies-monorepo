@@ -39,7 +39,7 @@ export class TotalsComponent implements OnInit {
     map((balance) => this.calculatebalanceClass(balance))
   );
   balanceWidth$ = this.balanceWithSign$.pipe(
-    map(({ amount }) => this.countDigits(amount) + 'ch')
+    map(({ amount }) => this.countDigits(amount))
   );
   userImagesDict$ = this.store.pipe(select(getUserImageDict));
 
