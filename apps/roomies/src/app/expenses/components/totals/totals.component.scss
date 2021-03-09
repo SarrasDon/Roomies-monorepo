@@ -12,10 +12,10 @@
   --chart-color-1: #42a5f5;
   --chart-color-2: #80d6ff;
 
-  padding: 16px 20px;
   z-index: 1;
   border-radius: 0;
   background: #fff;
+  height: var(--totals-height);
 }
 
 h3 {
@@ -25,6 +25,8 @@ h3 {
 
 .totals-wrapper {
   --chars: 1;
+  margin: 16px 20px;
+
   justify-content: space-between;
   position: relative;
 }

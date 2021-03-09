@@ -38,3 +38,16 @@ export const getUserImageDict = createSelector(getUsers, (users) => {
     {}
   );
 });
+
+export const getUsersSorted = createSelector(
+  getUsers,
+  getCurrentUser,
+  (users, user) => {
+    if (!user) {
+      return users;
+    }
+    return users.sort((a, b) =>
+      a._id === user._id ? -1 : b._id === user._id ? 1 : 0
+    );
+  }
+);
