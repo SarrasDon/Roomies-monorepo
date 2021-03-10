@@ -4,7 +4,7 @@
     (ngSubmit)="onSubmit()"
     class="flex-column auth-form"
   >
-    <mat-card-title>Roomies</mat-card-title>
+    <h1 class="card-title">Roomies</h1>
     <section class="email-input-container">
       <mat-form-field appearance="outline">
         <input matInput placeholder="Email" formControlName="email" />
@@ -37,11 +37,11 @@
       *ngIf="errorMsg$ | async as error"
       >{{ error }}</mat-error
     >
-    <mat-card-actions>
+    <section class="auth-actions">
       <button mat-raised-button color="primary" type="submit">
         <!-- (click)="onSignIn()" -->
         Sign In
       </button>
-    </mat-card-actions>
+    </section>
   </form>
 </div>

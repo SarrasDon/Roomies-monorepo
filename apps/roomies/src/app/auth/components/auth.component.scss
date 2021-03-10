@@ -12,10 +12,6 @@
   align-items: center;
   height: 100%;
 
-  mat-card-title {
-    text-align: center;
-  }
-
   section {
     padding: 15px;
     width: 80%;
@@ -28,7 +24,10 @@
 }
 
 .auth-actions {
-  margin-top: auto;
+  display: flex;
+  button {
+    margin: auto;
+  }
 }
 
 @media only screen and (min-width: 600px) {
@@ -58,4 +57,10 @@
       }
     }
   }
+}
+
+.card-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
 }
