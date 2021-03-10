@@ -7,9 +7,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class ExpenseAmountPipe implements PipeTransform {
   transform(amount: number) {
     if (amount % 1 !== 0) {
-      return Math.round(amount);
+      return amount.toFixed(2);
     }
 
-    return amount;
+    return amount + '.00';
   }
 }
