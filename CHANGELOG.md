@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.10.0](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.9.0...v1.10.0) (2021-03-10)
+
+
+### Features
+
+* **expenses:** added decimals ([5abce23](https://github.com/SarrasDon/Roomies-monorepo/commit/5abce23adeedb1af02666878a45ed7a26d0dbe37))
+
 ## [1.9.0](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.8.3...v1.9.0) (2021-03-09)
 
 
