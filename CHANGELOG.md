@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.11.0](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.10.1...v1.11.0) (2021-03-10)
+
+
+### Features
+
+* **total:** adjusted colors/images in totals chart ([9398b0d](https://github.com/SarrasDon/Roomies-monorepo/commit/9398b0d230b466518a6dc84ca8384235a4f0dd5f))
+
 ### [1.10.1](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.10.0...v1.10.1) (2021-03-10)
 
 ## [1.10.0](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.9.0...v1.10.0) (2021-03-10)
