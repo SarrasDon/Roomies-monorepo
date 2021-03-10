@@ -1,16 +1,28 @@
+@function hexToRGB($hex) {
+  @return red($hex), green($hex), blue($hex);
+}
+$chart-color-1: #42a5f5;
+$chart-color-2: #80d6ff;
+
 :host {
   --bar-padding: 28px;
   --chart-top-bottom: 10px;
   --chart-left: 20px;
-  --img-border-width: 4px;
+  --img-border-width: 5px;
   --img-radius: 20px;
   --chart-height: 100px;
 
   --chart-space: calc(2 * (var(--chart-top-bottom)) + var(--bar-padding));
   --bar-height: calc((var(--chart-height) - var(--chart-space)) / 2);
 
-  --chart-color-1: #42a5f5;
-  --chart-color-2: #80d6ff;
+  --chart-color-1: #{$chart-color-1};
+  --chart-color-2: #{$chart-color-2};
+
+  --chart-color-rgb-1: #{hexToRGB($chart-color-1)};
+  --chart-color-rgb-2: #{hexToRGB($chart-color-2)};
+
+  --chart-img-border-color-1: rgba(var(--chart-color-rgb-1), 0.25);
+  --chart-img-border-color-2: rgba(var(--chart-color-rgb-2), 0.25);
 
   z-index: 1;
   border-radius: 0;
@@ -41,16 +53,17 @@ h3 {
   padding: 6px 0;
 }
 .img-inner-wrapper {
-  --chart-img-border-color: lightblue;
+  --chart-img-border-color: #fff;
+
+  display: block;
   position: absolute;
   border-radius: 50%;
-  display: block;
   transform: translate(-50%, -50%);
   z-index: 1;
-
   border: var(--img-border-width) solid;
   border-color: var(--chart-img-border-color);
 }
+
 .img-container {
   border-radius: 50%;
   display: block;

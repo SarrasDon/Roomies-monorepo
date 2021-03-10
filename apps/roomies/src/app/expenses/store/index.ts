@@ -31,8 +31,8 @@ export const selectTotalsWithNames = createSelector(
   (totals, users) =>
     users.map((u) => ({
       name: u.name,
-      value: totals.find((t) => t._id === u._id).total,
-      _id: totals.find((t) => t._id === u._id)._id
+      value: totals.find((t) => t._id === u._id)?.total,
+      _id: totals.find((t) => t._id === u._id)?._id
     }))
 );
 

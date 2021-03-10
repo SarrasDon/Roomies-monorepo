@@ -6,10 +6,9 @@
           *ngFor="let user of users; let i = index"
           class="img-inner-wrapper"
           [ngClass]="'chart-img-pos_' + i"
-          [style.--chart-img-border-color]="
-            'var(--chart-color-' + (i + 1) + ')'
+          [style.background-color]="
+            'var(--chart-img-border-color-' + (i + 1) + ')'
           "
-          [style.background-color]="'var(--chart-color-' + (i + 1) + ')'"
         >
           <span
             class="img-container"
@@ -31,6 +30,7 @@
           [showGridLines]="false"
           [showDataLabel]="showDataLabel$ | async"
           [barPadding]="28"
+          [gradient]="true"
         >
           <!-- Same as var(--bar-padding) -->
         </ngx-charts-bar-horizontal>
