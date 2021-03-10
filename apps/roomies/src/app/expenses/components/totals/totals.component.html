@@ -1,9 +1,9 @@
 <ng-container *ngIf="balance$ | async as balance">
   <div class="flex-row totals-wrapper" [style.--chars]="balance?.width">
-    <ng-container *ngIf="totals$ | async as totals">
+    <ng-container *ngIf="users$ | async as users">
       <div class="images-wrapper">
         <span
-          *ngFor="let total of totals; let i = index"
+          *ngFor="let user of users; let i = index"
           class="img-inner-wrapper"
           [ngClass]="'chart-img-pos_' + i"
           [style.--chart-img-border-color]="
@@ -13,12 +13,13 @@
         >
           <span
             class="img-container"
-            [style.background-image]="
-              'url(' + (userImagesDict$ | async)[total.name] + ')'
-            "
+            [style.background-image]="'url(' + user.avatarUrl + ')'"
           ></span>
         </span>
       </div>
+    </ng-container>
+
+    <ng-container *ngIf="totals$ | async as totals">
       <div class="totals-chart">
         <ngx-charts-bar-horizontal
           [scheme]="{ domain: ['var(--chart-color-1', 'var(--chart-color-2'] }"

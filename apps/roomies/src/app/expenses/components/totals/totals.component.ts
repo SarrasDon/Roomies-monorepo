@@ -1,8 +1,8 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { delay, map, tap } from 'rxjs/operators';
-import { getUserImageDict } from '../../../auth/store';
+import { delay, map } from 'rxjs/operators';
+import { getUsersSorted } from '../../../auth/store';
 import {
   TOTAL_COUNTER_AFTER_DIALOG_CLOSED_DELAY,
   TOTAL_COUNTER_WAIT_DOWN_DELAY
@@ -10,6 +10,7 @@ import {
 import {
   getTotals,
   selectBalanceWithSign,
+
   selectTotalsWithNames,
   TotalState
 } from '../../store';
@@ -22,6 +23,7 @@ import {
 })
 export class TotalsComponent implements OnInit {
   totals$ = this.store.pipe(select(selectTotalsWithNames));
+  users$ = this.store.pipe(select(getUsersSorted));
 
   balance$ = this.store.pipe(
     select(selectBalanceWithSign),
@@ -34,8 +36,6 @@ export class TotalsComponent implements OnInit {
       width: this.countDigits(amount)
     }))
   );
-
-  userImagesDict$ = this.store.pipe(select(getUserImageDict));
 
   showDataLabel$ = this.breakpointObserver
     .observe([Breakpoints.XSmall, Breakpoints.HandsetPortrait])

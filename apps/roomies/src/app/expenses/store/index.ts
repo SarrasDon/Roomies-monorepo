@@ -1,6 +1,6 @@
 import { createSelector } from '@ngrx/store';
 import { getCurrentUser, getUsersSorted } from '../../auth/store';
-import { selectTotals, selectTotalsState } from './totals.selectors';
+import { selectTotalIds, selectTotals } from './totals.selectors';
 import { calcBalance } from './utils';
 
 export * from './expenses.actions';
@@ -13,9 +13,9 @@ export * from './totals.reducer';
 export * from './totals.selectors';
 
 export const selectBalance = createSelector(
-  selectTotalsState,
+  selectTotals,
   getCurrentUser,
-  (state, user) => calcBalance(state.totals, user?._id)
+  (totals, user) => calcBalance(totals, user?._id)
 );
 export const selectBalanceWithSign = createSelector(
   selectBalance,
@@ -32,5 +32,12 @@ export const selectTotalsWithNames = createSelector(
     users.map((u) => ({
       name: u.name,
       value: totals.find((t) => t._id === u._id).total,
+      _id: totals.find((t) => t._id === u._id)._id
     }))
 );
+
+export const selectTotalIdsSorted = createSelector(
+  getUsersSorted,
+  (users) =>
+    users.map((u) => u._id)
+)

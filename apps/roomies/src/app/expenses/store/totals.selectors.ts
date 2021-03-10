@@ -1,11 +1,11 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { TotalState, totalsFeatureKey } from './totals.reducer';
+import { TotalState, totalsFeatureKey, totalsAdapter } from './totals.reducer';
 
 export const selectTotalsState = createFeatureSelector<TotalState>(
   totalsFeatureKey
 );
-export const selectTotals = createSelector(
-  selectTotalsState,
-  (state) => state.totals
-);
 
+export const {
+  selectAll: selectTotals,
+  selectIds: selectTotalIds
+} = totalsAdapter.getSelectors(selectTotalsState);

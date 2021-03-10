@@ -32,13 +32,6 @@ export const {
   selectAll: getUsers,
 } = usersAdapter.getSelectors(getUserEntitiesState);
 
-export const getUserImageDict = createSelector(getUsers, (users) => {
-  return users.reduce(
-    (acc, user) => ({ ...acc, [user.name]: user.avatarUrl }),
-    {}
-  );
-});
-
 export const getUsersSorted = createSelector(
   getUsers,
   getCurrentUser,

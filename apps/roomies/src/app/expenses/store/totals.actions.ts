@@ -9,5 +9,5 @@ export const getTotalsForMonth = createAction(
 
 export const totalsLoaded = createAction(
   '[Totals] Totals loaded',
-  props<{ totals: Total[]; userId: string }>()
+  props<{ totals: Total[]; }>()
 );
