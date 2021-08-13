@@ -8,8 +8,6 @@ import { UsersService } from '../../core/services';
   providedIn: 'root',
 })
 export class AuthService extends UsersService {
-  AWS_AUTH_API_URL =
-    process.env.AWS_AUTH_API_URL || environment.AWS_AUTH_API_URL || '';
   constructor(public http: HttpClient) {
     super(http);
   }
@@ -18,7 +16,7 @@ export class AuthService extends UsersService {
     return this.http.post<{
       user: User;
       access_token: string;
-    }>(`${this.AWS_AUTH_API_URL}login/`, {
+    }>(`${environment.AWS_AUTH_API_URL}login/`, {
       email,
       password,
     });
@@ -28,7 +26,7 @@ export class AuthService extends UsersService {
     return this.http.post<{
       user: User;
       access_token: string;
-    }>(`${this.AWS_AUTH_API_URL}refresh/`, {
+    }>(`${environment.AWS_AUTH_API_URL}refresh/`, {
       user,
     });
   }
