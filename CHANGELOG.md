@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.12.0](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.11.0...v1.12.0) (2021-08-13)
+
+
+### Features
+
+* **auth:** switch to new aws powered auth service ([b820e65](https://github.com/SarrasDon/Roomies-monorepo/commit/b820e65a282e43d2a31e0bde5e9879cf4da84118))
+
 ## [1.11.0](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.10.1...v1.11.0) (2021-03-10)
 
 
