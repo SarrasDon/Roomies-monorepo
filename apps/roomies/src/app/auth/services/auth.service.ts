@@ -16,7 +16,7 @@ export class AuthService extends UsersService {
     return this.http.post<{
       user: User;
       access_token: string;
-    }>(`${environment.API_URL}auth/login/`, {
+    }>(`${environment.AWS_AUTH_API_URL}login/`, {
       email,
       password,
     });
@@ -26,8 +26,8 @@ export class AuthService extends UsersService {
     return this.http.post<{
       user: User;
       access_token: string;
-    }>(`${environment.API_URL}auth/refresh/`, {
-      ...user,
+    }>(`${environment.AWS_AUTH_API_URL}refresh/`, {
+      user,
     });
   }
 }

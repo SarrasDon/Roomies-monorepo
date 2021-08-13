@@ -2,12 +2,11 @@ import {
   HttpEvent,
   HttpHandler,
   HttpInterceptor,
-  HttpRequest
+  HttpRequest,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, onErrorResumeNext } from 'rxjs';
-import { filter } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class BaseInterceptorService implements HttpInterceptor {
@@ -25,9 +24,8 @@ export class BaseInterceptorService implements HttpInterceptor {
     return request.clone({
       setHeaders: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': 'true'
       },
-      withCredentials: true
+      withCredentials: true,
     });
   }
 }
