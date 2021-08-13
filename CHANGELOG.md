@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.12.2](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.12.1...v1.12.2) (2021-08-13)
+
+
+### Bug Fixes
+
+* **auth:** another fix for aws base url ([ed3eaed](https://github.com/SarrasDon/Roomies-monorepo/commit/ed3eaed281f9acb7e8a83670cfe4bef218d4cb2a))
+
 ### [1.12.1](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.12.0...v1.12.1) (2021-08-13)
 
 
