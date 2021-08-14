@@ -23,7 +23,6 @@ export class ExpensesRepo extends EntityRepository<Expense> {
       .forUser(id)
       .sortByDescDate()
       .paging(index, limit)
-      .includeUserAndReason()
       .pluck()
       .build()
       .exec();
@@ -34,52 +33,52 @@ export class ExpensesRepo extends EntityRepository<Expense> {
       {
         $group: {
           _id: '$person',
-          total: { $sum: '$amount' }
-        }
-      }
+          total: { $sum: '$amount' },
+        },
+      },
     ]);
   }
 
   getTotalsForDay(date: Date) {
-    return this.model
-      .aggregate([
-        {
-          $match: {
-            "spendAt": {
-              $gte: date,
-              $lt: new Date(date.setDate(date.getDate() + 1))
-            }
-          }
+    return this.model.aggregate([
+      {
+        $match: {
+          spendAt: {
+            $gte: date,
+            $lt: new Date(date.setDate(date.getDate() + 1)),
+          },
         },
-        {
-          $group: {
-            _id: '$person',
-            total: { $sum: '$amount' }
-          }
-        }
-      ]);
+      },
+      {
+        $group: {
+          _id: '$person',
+          total: { $sum: '$amount' },
+        },
+      },
+    ]);
   }
 
-  getTotalsForMonth({ month, year }: { month: number, year: number }) {
+  getTotalsForMonth({ month, year }: { month: number; year: number }) {
     const min = new Date(year, month, 1);
-    const max = new Date(new Date(year, month, 1).setMonth(new Date(year, month, 1).getMonth() + 1));
+    const max = new Date(
+      new Date(year, month, 1).setMonth(new Date(year, month, 1).getMonth() + 1)
+    );
 
-    return this.model
-      .aggregate([
-        {
-          $match: {
-            "spendAt": {
-              $gte: min,
-              $lt: max
-            }
-          }
+    return this.model.aggregate([
+      {
+        $match: {
+          spendAt: {
+            $gte: min,
+            $lt: max,
+          },
         },
-        {
-          $group: {
-            _id: '$person',
-            total: { $sum: '$amount' }
-          }
-        }
-      ]);
+      },
+      {
+        $group: {
+          _id: '$person',
+          total: { $sum: '$amount' },
+        },
+      },
+    ]);
   }
 }

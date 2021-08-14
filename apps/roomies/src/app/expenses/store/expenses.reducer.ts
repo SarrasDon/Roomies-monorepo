@@ -1,4 +1,4 @@
-import { createEntityAdapter, EntityState } from '@ngrx/entity';
+import { createEntityAdapter, Dictionary, EntityState } from '@ngrx/entity';
 import { Action, createReducer, on } from '@ngrx/store';
 import { Expense, ExpenseReason } from '@roomies/expenses.contracts';
 import {
@@ -14,7 +14,7 @@ import {
 export const expensesFeatureKey = 'expenses';
 export interface ExpensesState extends EntityState<Expense> {
   count: number;
-  reasons: ExpenseReason[];
+  reasons: Dictionary<ExpenseReason>;
   isLoading: boolean;
 }
 
@@ -30,7 +30,7 @@ export const expensesAdapter = createEntityAdapter<Expense>({
 
 const initialState = expensesAdapter.getInitialState({
   count: null,
-  reasons: [],
+  reasons: {},
   isLoading: false,
 });
 
@@ -41,7 +41,10 @@ const _expenseReducer = createReducer<ExpensesState>(
     expensesAdapter.upsertMany(expenses, { ...state, isLoading: false })
   ),
   on(setExpensesCount, (state, { count }) => ({ ...state, count })),
-  on(setExpensesReasons, (state, { reasons }) => ({ ...state, reasons })),
+  on(setExpensesReasons, (state, { reasons }) => ({
+    ...state,
+    reasons: reasons.reduce((acc, cur) => ({ ...acc, [cur._id]: cur }), {}),
+  })),
   on(createExpense, (state, { amount, date, reason, clientId, user }) => {
     return expensesAdapter.addOne(
       {

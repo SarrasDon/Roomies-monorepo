@@ -14,7 +14,12 @@ export class ExpensesService extends DataService<Expense> {
   getExpenses(index: number, limit: number) {
     const params = { index, limit };
     const queryParams = this.serializeQueryParameters(params);
-    return this.http.get<Expense[]>(
+    return this.http.get<
+      (Omit<Expense, 'reason' | 'person'> & {
+        person: string;
+        reason: string;
+      })[]
+    >(
       // `${this.featureUrl}?userId=${id}&index=${index}&limit=${limit}`
       `${this.featureUrl}?${queryParams}`
     );
@@ -31,6 +36,8 @@ export class ExpensesService extends DataService<Expense> {
   getTotalsForMonth({ month, year }) {
     const params = { month, year };
     const queryParams = this.serializeQueryParameters(params);
-    return this.http.get<Total[]>(`${this.featureUrl}/totalsForMonth?${queryParams}`);
+    return this.http.get<Total[]>(
+      `${this.featureUrl}/totalsForMonth?${queryParams}`
+    );
   }
 }
