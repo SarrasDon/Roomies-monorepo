@@ -1,18 +1,16 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { delay, map } from 'rxjs/operators';
+import { delay, map, tap } from 'rxjs/operators';
 import { getUsersSorted } from '../../../auth/store';
 import {
   TOTAL_COUNTER_AFTER_DIALOG_CLOSED_DELAY,
-  TOTAL_COUNTER_WAIT_DOWN_DELAY
+  TOTAL_COUNTER_WAIT_DOWN_DELAY,
 } from '../../expenses.config';
 import {
-  getTotals,
   selectBalanceWithSign,
-
   selectTotalsWithNames,
-  TotalState
+  TotalState,
 } from '../../store';
 
 @Component({
@@ -22,7 +20,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TotalsComponent implements OnInit {
-  totals$ = this.store.pipe(select(selectTotalsWithNames));
+  totals$ = this.store.pipe(select(selectTotalsWithNames), tap(console.log));
   users$ = this.store.pipe(select(getUsersSorted));
 
   balance$ = this.store.pipe(
@@ -33,7 +31,7 @@ export class TotalsComponent implements OnInit {
     map(({ amount, sign }) => ({
       amount: amount,
       color: sign,
-      width: this.countDigits(amount)
+      width: this.countDigits(amount),
     }))
   );
 
@@ -44,11 +42,9 @@ export class TotalsComponent implements OnInit {
   constructor(
     public breakpointObserver: BreakpointObserver,
     private store: Store<TotalState>
-  ) { }
+  ) {}
 
-  ngOnInit() {
-    this.store.dispatch(getTotals());
-  }
+  ngOnInit() {}
 
   countDigits(amount: number) {
     let count = 0;

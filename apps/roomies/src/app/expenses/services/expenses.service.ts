@@ -3,12 +3,19 @@ import { Injectable } from '@angular/core';
 import { DataService } from '../../core/services';
 import { Total } from '../../shared/models';
 import { Expense, ExpenseReason } from '@roomies/expenses.contracts';
+import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class ExpensesService extends DataService<Expense> {
+  awsUrl = `${environment.AWS_EXPENSES_API_URL}`;
+
   constructor(public http: HttpClient) {
     super(http);
     this.featureUrl = 'expenses';
+  }
+
+  count() {
+    return this.http.get<number>(`${this.awsUrl}/count`);
   }
 
   getExpenses(index: number, limit: number) {
@@ -20,17 +27,17 @@ export class ExpensesService extends DataService<Expense> {
         reason: string;
       })[]
     >(
-      // `${this.featureUrl}?userId=${id}&index=${index}&limit=${limit}`
-      `${this.featureUrl}?${queryParams}`
+      // `${this.awsUrl}?userId=${id}&index=${index}&limit=${limit}`
+      `${this.awsUrl}/expensesPaged?${queryParams}`
     );
   }
 
   getExpenseReasons() {
-    return this.http.get<ExpenseReason[]>(`${this.featureUrl}/reasons`);
+    return this.http.get<ExpenseReason[]>(`${this.awsUrl}/expenseReasons`);
   }
 
   getTotals() {
-    return this.http.get<Total[]>(`${this.featureUrl}/totals`);
+    return this.http.get<Total[]>(`${this.awsUrl}/totals`);
   }
 
   getTotalsForMonth({ month, year }) {
@@ -38,6 +45,18 @@ export class ExpensesService extends DataService<Expense> {
     const queryParams = this.serializeQueryParameters(params);
     return this.http.get<Total[]>(
       `${this.featureUrl}/totalsForMonth?${queryParams}`
+    );
+  }
+
+  create(resource: {
+    reason: string;
+    amount: number;
+    spendAt?: Date;
+    person: string;
+  }) {
+    return this.http.post<Expense>(
+      `${this.awsUrl}/createExpense`,
+      JSON.stringify(resource)
     );
   }
 }
