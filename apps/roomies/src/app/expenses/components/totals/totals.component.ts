@@ -20,7 +20,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TotalsComponent implements OnInit {
-  totals$ = this.store.pipe(select(selectTotalsWithNames), tap(console.log));
+  totals$ = this.store.pipe(select(selectTotalsWithNames));
   users$ = this.store.pipe(select(getUsersSorted));
 
   balance$ = this.store.pipe(
