@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.12.11](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.12.10...v1.12.11) (2021-08-15)
+
+
+### Bug Fixes
+
+* **services:** cleanup, switched to aws lambda ([023de7c](https://github.com/SarrasDon/Roomies-monorepo/commit/023de7c56647b0714f5c37a9b9f933a624e7359c))
+
 ### [1.12.10](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.12.9...v1.12.10) (2021-08-15)
 
 
