@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.12.4](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.12.3...v1.12.4) (2021-08-15)
+
+
+### Bug Fixes
+
+* **expenses:** switched expense service to aws, fix totals error ([9e8b199](https://github.com/SarrasDon/Roomies-monorepo/commit/9e8b1997077c450a6f363cc18951c99e6ed86511))
+
 ### [1.12.3](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.12.2...v1.12.3) (2021-08-14)
 
 ### [1.12.2](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.12.1...v1.12.2) (2021-08-13)
