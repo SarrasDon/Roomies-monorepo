@@ -1,6 +1,6 @@
 {
   "name": "roomies",
-  "version": "1.12.6",
+  "version": "1.12.7",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
