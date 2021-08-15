@@ -23,7 +23,7 @@ jobs:
           node-version: 12.x
       # Run npm install and build on our code
       - run: yarn install
-      - run: yarn run build --if-present
+      - run: yarn run build
       # Deploy to Netlify using our production secrets
       - name: Deploy to netlify
         uses: netlify/actions/cli@master
