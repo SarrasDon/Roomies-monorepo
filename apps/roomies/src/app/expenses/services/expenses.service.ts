@@ -1,18 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { DataService } from '../../core/services';
-import { Total } from '../../shared/models';
 import { Expense, ExpenseReason } from '@roomies/expenses.contracts';
 import { environment } from '../../../environments/environment';
+import { Total } from '../../shared/models';
 
 @Injectable({ providedIn: 'root' })
-export class ExpensesService extends DataService<Expense> {
+export class ExpensesService {
   awsUrl = `${environment.AWS_EXPENSES_API_URL}`;
 
-  constructor(public http: HttpClient) {
-    super(http);
-    this.featureUrl = 'expenses';
-  }
+  constructor(public http: HttpClient) {}
 
   count() {
     return this.http.get<number>(`${this.awsUrl}/count`);
@@ -26,10 +22,7 @@ export class ExpensesService extends DataService<Expense> {
         person: string;
         reason: string;
       })[]
-    >(
-      // `${this.awsUrl}?userId=${id}&index=${index}&limit=${limit}`
-      `${this.awsUrl}/expensesPaged?${queryParams}`
-    );
+    >(`${this.awsUrl}/expensesPaged?${queryParams}`);
   }
 
   getExpenseReasons() {
@@ -40,13 +33,13 @@ export class ExpensesService extends DataService<Expense> {
     return this.http.get<Total[]>(`${this.awsUrl}/totals`);
   }
 
-  getTotalsForMonth({ month, year }) {
-    const params = { month, year };
-    const queryParams = this.serializeQueryParameters(params);
-    return this.http.get<Total[]>(
-      `${this.featureUrl}/totalsForMonth?${queryParams}`
-    );
-  }
+  // getTotalsForMonth({ month, year }) {
+  //   const params = { month, year };
+  //   const queryParams = this.serializeQueryParameters(params);
+  //   return this.http.get<Total[]>(
+  //     `${this.featureUrl}/totalsForMonth?${queryParams}`
+  //   );
+  // }
 
   create(resource: {
     reason: string;
@@ -58,5 +51,11 @@ export class ExpensesService extends DataService<Expense> {
       `${this.awsUrl}/createExpense`,
       JSON.stringify(resource)
     );
+  }
+
+  serializeQueryParameters(params: { [key: string]: string | number }) {
+    return Object.keys(params)
+      .map((key) => `${key}=${params[key]}`)
+      .join('&');
   }
 }
