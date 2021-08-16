@@ -1,9 +1,9 @@
 <roomies-expenses-sprite
   class="expense-img"
-  [icon]="expense.reason.reason | lowercase"
+  [icon]="reason?.reason | lowercase"
 ></roomies-expenses-sprite>
 <div class="expense-details-wrapper">
-  <div class="expense-details-title">{{ expense.person.name }}</div>
+  <div class="expense-details-title">{{ user?.name }}</div>
   <div class="expense-details-subtitle">
     {{ expense.spendAt | expenseDate }}
   </div>

@@ -35,19 +35,9 @@ export class ExpensesEffects {
       ofType(loadExpenses),
       mergeMap(
         ({ limit, index }) =>
-          this.expensesService.getExpenses(index, limit).pipe(
-            map((expenses) => {
-              const reasons = this.reasons;
-              const users = this.users;
-
-              return expenses.map((e) => ({
-                ...e,
-                reason: reasons[e.reason],
-                person: users[e.person],
-              }));
-            }),
-            map((expenses) => loadExpensesSuccess({ expenses }))
-          ) //TODO: handle error
+          this.expensesService
+            .getExpenses(index, limit)
+            .pipe(map((expenses) => loadExpensesSuccess({ expenses }))) //TODO: handle error
       )
     )
   );

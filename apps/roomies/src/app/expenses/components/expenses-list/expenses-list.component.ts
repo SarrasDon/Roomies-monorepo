@@ -21,8 +21,14 @@ import {
   takeUntil,
   throttleTime,
 } from 'rxjs/operators';
+import { getUserEntities } from '../../../auth/store';
 import { UiService } from '../../../core/services';
-import { ExpensesState, loadExpenses, selectExpenses } from '../../store';
+import {
+  ExpensesState,
+  loadExpenses,
+  selectExpenseReasonsEntities,
+  selectExpenses,
+} from '../../store';
 
 @Component({
   selector: 'roomies-expenses-list',
@@ -41,6 +47,9 @@ export class ExpensesListComponent implements OnInit, AfterViewInit, OnDestroy {
   itemSize = 75;
   destroy$ = new Subject();
   expenses$ = this.store.pipe(select(selectExpenses));
+
+  expenseReasons$ = this.store.pipe(select(selectExpenseReasonsEntities));
+  users$ = this.store.pipe(select(getUserEntities));
 
   constructor(
     private uiService: UiService,

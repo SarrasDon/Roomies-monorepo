@@ -3,5 +3,7 @@
     *cdkVirtualFor="let expense of expenses$ | async"
     (cdkVirtualForTrackBy)="(trackByFn)"
     [expense]="expense"
+    [reason]="(expenseReasons$ | async)[expense.reason]"
+    [user]="(users$ | async)[expense.person]"
   ></roomies-expense-item>
 </cdk-virtual-scroll-viewport>

@@ -17,12 +17,9 @@ export class ExpensesService {
   getExpenses(index: number, limit: number) {
     const params = { index, limit };
     const queryParams = this.serializeQueryParameters(params);
-    return this.http.get<
-      (Omit<Expense, 'reason' | 'person'> & {
-        person: string;
-        reason: string;
-      })[]
-    >(`${this.awsUrl}/expensesPaged?${queryParams}`);
+    return this.http.get<Expense[]>(
+      `${this.awsUrl}/expensesPaged?${queryParams}`
+    );
   }
 
   getExpenseReasons() {
