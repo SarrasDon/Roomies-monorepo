@@ -31,7 +31,6 @@ export class TotalsComponent implements OnInit {
     map(({ amount, sign }) => ({
       amount: amount,
       color: sign,
-      width: this.countDigits(amount),
     }))
   );
 
@@ -45,14 +44,4 @@ export class TotalsComponent implements OnInit {
   ) {}
 
   ngOnInit() {}
-
-  countDigits(amount: number) {
-    let count = 0;
-    let n = Math.round(amount);
-    while (n > 1) {
-      n = n / 10;
-      count = count + 1;
-    }
-    return count || 1;
-  }
 }

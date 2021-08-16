@@ -1,5 +1,5 @@
 <ng-container *ngIf="balance$ | async as balance">
-  <div class="flex-row totals-wrapper" [style.--chars]="balance?.width">
+  <div class="flex-row totals-wrapper">
     <ng-container *ngIf="users$ | async as users">
       <div class="images-wrapper">
         <span

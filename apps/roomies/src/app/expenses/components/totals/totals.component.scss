@@ -36,7 +36,7 @@ h3 {
 }
 
 .totals-wrapper {
-  --chars: 1;
+  --chars: 5;
   margin: 16px 20px;
 
   justify-content: space-between;
@@ -125,21 +125,18 @@ h3 {
 }
 
 .goUp {
-  display: inline-flex;
   opacity: 0;
-  transform: translate3d(0, -2em, 0);
+  transform: translateY(-2em);
   transition: 0.1s ease-in-out;
 }
 
 .waitDown {
-  display: inline-flex;
   opacity: 0;
-  transform: translate3d(0, 2em, 0);
+  transform: translateY(2em);
 }
 
 .initial {
-  display: inline-flex;
   opacity: 1;
-  transform: translate3d(0, 0px, 0);
+  transform: translateY(0px);
   transition: 0.1s ease-in-out;
 }
