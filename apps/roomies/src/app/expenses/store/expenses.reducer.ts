@@ -60,7 +60,10 @@ const _expenseReducer = createReducer<ExpensesState>(
   }),
   on(createExpenseSuccess, (state, { expense, clientId }) => {
     return expensesAdapter.updateOne(
-      { id: clientId, changes: { ...expense } },
+      {
+        id: clientId,
+        changes: { ...expense },
+      },
       state
     ); //TODO: test the id update
   }),

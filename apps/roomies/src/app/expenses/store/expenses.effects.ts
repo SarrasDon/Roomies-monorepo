@@ -55,9 +55,10 @@ export class ExpensesEffects {
           })
           .pipe(
             map((expense) => {
-              expense.reason = reason;
-              expense.person = this.user;
-              return createExpenseSuccess({ expense, clientId });
+              return createExpenseSuccess({
+                expense,
+                clientId,
+              });
             }),
             catchError(() =>
               of(createExpenseFail({ clientId, user: this.user, amount }))

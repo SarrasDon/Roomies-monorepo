@@ -35,7 +35,10 @@ export const createExpense = createAction(
 
 export const createExpenseSuccess = createAction(
   '[Create Expense Form] Create new Expense Success',
-  props<{ expense: Expense; clientId: string }>()
+  props<{
+    expense: Expense;
+    clientId: string;
+  }>()
 );
 
 export const createExpenseFail = createAction(
