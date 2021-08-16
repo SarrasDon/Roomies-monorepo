@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.12.14](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.12.13...v1.12.14) (2021-08-16)
+
+
+### Bug Fixes
+
+* **fonts:** cleanup fonts ([dfa1736](https://github.com/SarrasDon/Roomies-monorepo/commit/dfa173651ad1f25ac5f664f02a86d6a37425df8f))
+
 ### [1.12.13](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.12.12...v1.12.13) (2021-08-16)
 
 
