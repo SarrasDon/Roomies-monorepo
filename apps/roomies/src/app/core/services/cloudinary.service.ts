@@ -30,10 +30,10 @@ export class CloudinaryService {
       complete: '#20B832',
       sourceBg: '#E4EBF1',
     },
-    fonts: {
-      "'Nunito', sans-serif":
-        'https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&display=swap',
-    },
+    // fonts: {
+    //   "'Nunito', sans-serif":
+    //     'https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&display=swap',
+    // },
   };
 
   private readonly AVATAR_CLOUDINARY_UPLOAD_CONFIG = {

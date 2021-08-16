@@ -1,5 +1,5 @@
-<mat-toolbar color="primary">
-  <div class="header-middle">Roomies</div>
+<nav class="header">
+  <span class="header-middle"></span>
   <div class="header-right" [ngClass]="(isLoggedIn$ | async) && 'active'">
     <p *ngIf="user$ | async as user" class="avatar-text">
       {{ user.name }}
@@ -14,7 +14,7 @@
     >
     </span>
   </div>
-</mat-toolbar>
+</nav>
 <mat-menu #menu="matMenu">
   <button mat-menu-item (click)="onUploadImg()">
     <span>Update photo</span>

@@ -1,14 +1,27 @@
+nav.header {
+  display: flex;
+  align-items: center;
+  height: var(--nav-height);
+  width: 100%;
+
+  background: #3f51b5;
+  color: #fff;
+}
+
 .header-middle {
-  font-size: 3rem !important;
-  font-family: lemon-jelly;
+  background: url('/assets/images/roomies-logo.png') no-repeat;
+  background-size: contain;
+  width: 123px;
+  height: 30px;
+
+  margin-left: 15px;
 }
 
 .header-right {
-  margin-left: auto;
+  margin: 0 15px 0 auto;
   visibility: hidden;
   height: 40px;
   display: flex;
-  flex-direction: row;
   justify-content: flex-end;
   align-items: center;
 }
@@ -44,6 +57,7 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+    margin-left: 0;
   }
 
   .avatar-text {

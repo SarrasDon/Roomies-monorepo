@@ -33,11 +33,7 @@ body {
   margin-right: 0;
   margin-left: 0;
 }
-@font-face {
-  font-family: lemon-jelly;
-  src: url(/assets/fonts/lemon-jelly.ttf) format('opentype');
-  font-display: block;
-}
+
 .flex-row {
   display: flex;
   flex-direction: row;
