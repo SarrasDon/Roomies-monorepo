@@ -23,6 +23,7 @@ import {
   totalsReducer,
 } from './store';
 import { ExpensesViewComponent } from './views/expenses.view';
+import { MonthlyExpensesComponent } from './components/monthly-expenses/monthly-expenses.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { ExpensesViewComponent } from './views/expenses.view';
     AnimateTotalsShadowDirective,
     AnimateTotalIncreaseDirective,
     Components.ExpensesSpriteComponent,
+    MonthlyExpensesComponent,
   ],
   imports: [
     SharedModule,

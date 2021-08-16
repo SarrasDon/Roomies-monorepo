@@ -1,6 +1,5 @@
 :host {
   display: flex;
-  flex-direction: row;
   align-items: center;
   box-sizing: border-box;
   width: 100%;
@@ -22,27 +21,37 @@
   flex-direction: column;
   justify-content: space-around;
   margin-left: 15px;
-  font-size: 16px;
+  font-size: 15px;
+}
+.expense-details-title {
+  font-weight: 600;
+  font-size: 15px;
+}
 
-  .expense-details-title {
-    font-weight: 600;
-  }
+.expense-details-subtitle {
+  margin-bottom: 0;
+  color: rgba(10, 7, 7, 0.5);
+  font-weight: 600;
+  font-size: 15px;
+}
 
-  .expense-details-subtitle {
-    margin-bottom: 0;
-    color: rgba(10, 7, 7, 0.5);
-    font-weight: 600;
-  }
+.expense-amount-wrapper {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
 }
 
 .expense-amount {
-  align-self: center;
+  display: inline-block;
   margin-left: auto;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
 }
 
 .expense-currency {
+  display: inline-block;
   font-size: 15px;
   font-weight: 600;
+  padding-left: 2px;
+  transform: translateY(1px);
 }

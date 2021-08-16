@@ -1,0 +1,30 @@
+:host {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background: #fff;
+  height: 240px;
+  text-align: center;
+}
+
+.chart-wrapper {
+  margin: 15px 15px 10px 30px;
+}
+
+.chart-label-vertical {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  writing-mode: sideways-lr;
+  font-weight: 600;
+  font-size: 14px !important;
+}
+
+.chart-label-horizontal {
+  width: 100%;
+  font-weight: 800;
+  font-size: 16px !important;
+}

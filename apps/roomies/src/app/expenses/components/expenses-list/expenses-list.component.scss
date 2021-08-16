@@ -14,5 +14,5 @@ cdk-virtual-scroll-viewport {
   }
 }
 .expenses-list {
-  height: calc(100vh - var(--nav-height) - var(--totals-height));
+  height: calc(75px * 10);
 }

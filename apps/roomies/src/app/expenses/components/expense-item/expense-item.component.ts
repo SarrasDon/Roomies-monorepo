@@ -4,8 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { Expense, ExpenseReason } from '@roomies/expenses.contracts';
-import { User } from '@roomies/user.contracts';
+import { Expense } from '@roomies/expenses.contracts';
 
 @Component({
   selector: 'roomies-expense-item',
@@ -15,8 +14,8 @@ import { User } from '@roomies/user.contracts';
 })
 export class ExpenseItemComponent implements OnInit {
   @Input() expense: Expense;
-  @Input() reason: ExpenseReason;
-  @Input() user: User;
+  @Input() reason: string;
+  @Input() user: string;
 
   constructor() {}
 

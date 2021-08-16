@@ -15,10 +15,12 @@ import { Expense } from '@roomies/expenses.contracts';
 import { merge, Subject, timer } from 'rxjs';
 import {
   distinctUntilChanged,
+  filter,
   map,
   mapTo,
   switchMap,
   takeUntil,
+  tap,
   throttleTime,
 } from 'rxjs/operators';
 import { getUserEntities } from '../../../auth/store';
@@ -47,7 +49,6 @@ export class ExpensesListComponent implements OnInit, AfterViewInit, OnDestroy {
   itemSize = 75;
   destroy$ = new Subject();
   expenses$ = this.store.pipe(select(selectExpenses));
-
   expenseReasons$ = this.store.pipe(select(selectExpenseReasonsEntities));
   users$ = this.store.pipe(select(getUserEntities));
 
@@ -87,6 +88,23 @@ export class ExpensesListComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe((paging) => {
         this.store.dispatch(loadExpenses(paging));
       });
+
+    this.virtualScroll.scrolledIndexChange
+      .pipe(
+        switchMap((index) =>
+          this.expenses$.pipe(
+            filter((expenses) => expenses.length > 0),
+            map((expenses) => expenses[index])
+          )
+        ),
+        map((expense) => new Date(expense.spendAt)),
+        map((date) => `${date.getUTCFullYear()}-${date.getMonth()}`),
+        distinctUntilChanged(),
+        map((dateString) => dateString.split('-')),
+        map((dateString) => ({ year: dateString[0], month: dateString[1] })),
+        tap(console.log)
+      )
+      .subscribe();
   }
 
   trackByFn(index: number, item: Expense) {
