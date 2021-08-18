@@ -81,6 +81,21 @@ export class ExpensesEffects {
     { dispatch: false }
   );
 
+  createExpenseSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(createExpenseSuccess),
+        map(({ expense }) => new Date(expense.spendAt)),
+        tap((date) => {
+          this.expensesService.invalidateCache({
+            year: date.getUTCFullYear(),
+            month: date.getUTCMonth(),
+          });
+        })
+      ),
+    { dispatch: false }
+  );
+
   constructor(
     private store: Store<AuthState>,
     private actions$: Actions,

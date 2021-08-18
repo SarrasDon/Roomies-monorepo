@@ -48,6 +48,13 @@ export class ExpensesService {
     return this.cache$.get(key);
   }
 
+  invalidateCache({ month, year }) {
+    const key = `${year}_${month}`;
+    if (this.cache$.has(key)) {
+      this.cache$.delete(key);
+    }
+  }
+
   create(resource: {
     reason: string;
     amount: number;
