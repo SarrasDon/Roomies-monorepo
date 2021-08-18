@@ -43,7 +43,10 @@ const _monthlyExpensesReducer = createReducer(
     return { ...state, currentMonth: { month, year } };
   }),
   on(monthlyExpenseLoaded, (state, { monthlyExpenses }) => {
-    return monthlyExpensesAdapter.upsertMany(monthlyExpenses, state);
+    return monthlyExpensesAdapter.addMany(
+      monthlyExpenses,
+      monthlyExpensesAdapter.removeAll(state)
+    );
   }),
   on(createExpense, (state, { amount, reason }) => {
     const oldTotal = state.entities[reason._id] || { total: 0 };
