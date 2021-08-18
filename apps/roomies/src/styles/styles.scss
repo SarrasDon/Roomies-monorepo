@@ -8,18 +8,12 @@ $custom-typography: mat-typography-config(
 
 :root {
   --nav-height: 56px;
-  --totals-height: 135px;
-  --color: #20242e;
-  --background-color: #f1f3f5;
+}
 
-  --positive-color: #10bb66;
-  --negative-color: #de594e;
-  --neutral-color: #ffd23c;
-
-  --fun-color: #de594e;
-  --bils-color: #84dbff;
-  --groceries-color: #10bb66;
-  --furniture-color: #ffd23c;
+@media only screen and (min-width: 600px) {
+  :root {
+    --nav-height: 64px;
+  }
 }
 
 html,
@@ -67,11 +61,5 @@ body {
   max-width: 95vw !important;
   .mat-dialog-container {
     border-top: 0.25rem solid #3f51b5;
-  }
-}
-
-@media only screen and (min-width: 600px) {
-  :root {
-    --nav-height: 64px;
   }
 }

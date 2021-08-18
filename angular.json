@@ -29,7 +29,8 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "apps/roomies/src/styles.scss"
+              "apps/roomies/src/styles/styles.scss",
+              "apps/roomies/src/styles/theme-css-variables.scss"
             ],
             "scripts": [
               "apps/roomies/src/assets/js/cloudinary-widget.js"
