@@ -21,6 +21,10 @@
   font-weight: 700;
   font-size: 18px !important;
 }
+.currency {
+  font-size: 16px !important;
+  font-weight: 700;
+}
 
 .scroll-to-top-btn {
   --btn-size: 36;

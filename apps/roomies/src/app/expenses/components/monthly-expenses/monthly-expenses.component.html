@@ -1,6 +1,8 @@
 <div class="chart-wrapper" *ngIf="monthlyTotal$ | async as monthlyTotal">
   <div class="chart-label-horizontal">
-    {{ currentMonth$ | async | date: 'MMMM yyyy' }}, {{ monthlyTotal }}€
+    {{ currentMonth$ | async | date: 'MMMM yyyy' }},
+    {{ monthlyTotal | expenseAmount }}
+    <span class="currency">€</span>
   </div>
   <ng-container *ngIf="monthlyExpenses$ | async as monthlyExpenses">
     <ngx-charts-bar-vertical
