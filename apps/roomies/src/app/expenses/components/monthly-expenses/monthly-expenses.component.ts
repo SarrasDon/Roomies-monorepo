@@ -35,7 +35,7 @@ export class MonthlyExpensesComponent implements OnInit {
 
   constructor(
     public store: Store<MonthlyExpenseState>,
-    private uiService: UiService
+    public uiService: UiService
   ) {}
 
   ngOnInit(): void {}
