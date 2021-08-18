@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.13.1](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.13.0...v1.13.1) (2021-08-18)
+
+
+### Bug Fixes
+
+* **expenses:** invalidate cache after expense creation ([620b2c5](https://github.com/SarrasDon/Roomies-monorepo/commit/620b2c56468937173aaa8e3562d4270f36fd0851))
+* **monthly expenses:** fix build error ([5d0d008](https://github.com/SarrasDon/Roomies-monorepo/commit/5d0d008123748e2422395c6a72d99ef1effdff8d))
+
 ## [1.13.0](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.12.14...v1.13.0) (2021-08-18)
 
 
