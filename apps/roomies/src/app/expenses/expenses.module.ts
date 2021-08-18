@@ -14,13 +14,9 @@ import {
 import * as pipes from './pipes';
 import {
   ExpensesEffects,
-  expensesFeatureKey,
-  expensesReducer,
-  monthlyExpenseFeatureKey,
-  monthlyExpensesReducer,
+  featureModuleKey,
+  featureReducersMap,
   TotalsEffects,
-  totalsFeatureKey,
-  totalsReducer,
 } from './store';
 import { MonthlyExpensesEffects } from './store/monthlyExpenses.effects';
 import { ExpensesViewComponent } from './views/expenses.view';
@@ -45,9 +41,7 @@ import { ExpensesViewComponent } from './views/expenses.view';
   imports: [
     SharedModule,
     ReactiveFormsModule,
-    StoreModule.forFeature(totalsFeatureKey, totalsReducer),
-    StoreModule.forFeature(expensesFeatureKey, expensesReducer),
-    StoreModule.forFeature(monthlyExpenseFeatureKey, monthlyExpensesReducer),
+    StoreModule.forFeature(featureModuleKey, featureReducersMap, {}),
     EffectsModule.forFeature([
       TotalsEffects,
       ExpensesEffects,

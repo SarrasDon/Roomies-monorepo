@@ -1,8 +1,18 @@
 import { createEntityAdapter, EntityState } from '@ngrx/entity';
-import { createReducer, createAction, props, on } from '@ngrx/store';
+import {
+  createReducer,
+  createAction,
+  props,
+  on,
+  ActionReducer,
+} from '@ngrx/store';
 import { createExpense, createExpenseFail } from './expenses.actions';
+import {
+  selectExpenseReasons,
+  selectExpenseReasonsEntities,
+} from './expenses.selectors';
 
-export const monthlyExpenseFeatureKey = 'monthlyExpense';
+export const monthlyExpenseFeatureKey = 'monthlyExpenses';
 
 export interface MonthlyExpense {
   _id: string;

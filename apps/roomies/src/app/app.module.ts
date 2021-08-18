@@ -26,7 +26,7 @@ export const cloudinaryLib = {
 };
 
 @NgModule({
-  declarations: [AppComponent,],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -49,10 +49,10 @@ export const cloudinaryLib = {
     EffectsModule.forRoot(),
     !environment.production
       ? StoreDevtoolsModule.instrument({
-        maxAge: 25, // Retains last 25 states
-      })
+          maxAge: 25, // Retains last 25 states
+        })
       : [],
-    ExpensesModule
+    ExpensesModule,
   ],
   providers: [
     {
@@ -73,4 +73,4 @@ export const cloudinaryLib = {
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

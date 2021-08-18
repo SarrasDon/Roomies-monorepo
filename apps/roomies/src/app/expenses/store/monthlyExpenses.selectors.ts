@@ -1,12 +1,10 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
-import {
-  monthlyExpenseFeatureKey,
-  monthlyExpensesAdapter,
-  MonthlyExpenseState,
-} from './monthlyExpenses.reducer';
+import { createSelector } from '@ngrx/store';
+import { selectExpensesFeatureState } from './feature.selector';
+import { monthlyExpensesAdapter } from './monthlyExpenses.reducer';
 
-export const selectMonthlyExpensesState = createFeatureSelector<MonthlyExpenseState>(
-  monthlyExpenseFeatureKey
+export const selectMonthlyExpensesState = createSelector(
+  selectExpensesFeatureState,
+  (state) => state.monthlyExpenses
 );
 
 export const {
