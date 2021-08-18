@@ -3,28 +3,49 @@
   width: 100%;
   justify-content: center;
   align-items: center;
-  position: relative;
   background: #fff;
-  height: 240px;
   text-align: center;
+
+  position: sticky;
+  top: 0;
+  z-index: 3;
 }
 
 .chart-wrapper {
-  margin: 15px 15px 10px 30px;
-}
-
-.chart-label-vertical {
-  position: absolute;
-  top: 50%;
-  left: 10px;
-  transform: translateY(-50%);
-  writing-mode: sideways-lr;
-  font-weight: 600;
-  font-size: 14px !important;
+  height: 130px;
+  margin: 1rem 1rem 2.5rem 1rem;
 }
 
 .chart-label-horizontal {
   width: 100%;
-  font-weight: 800;
-  font-size: 16px !important;
+  font-weight: 700;
+  font-size: 18px !important;
+}
+
+.scroll-to-top-btn {
+  --btn-size: 36;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%, calc(var(--btn-size) * 0.5 * 1px));
+  z-index: 3;
+  border-radius: 50%;
+  outline: none;
+  background: #fff;
+  border: 2px solid #f1f2f3;
+
+  height: calc(var(--btn-size) * 1px);
+  width: calc(var(--btn-size) * 1px);
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.arrow {
+  display: inline-block;
+  padding: 5px;
+  border-style: solid;
+  border-color: #f1f2f3;
+  border-width: 2px 2px 0 0;
+  transform-origin: center;
+  transform: translateY(3px) rotate(-45deg);
 }

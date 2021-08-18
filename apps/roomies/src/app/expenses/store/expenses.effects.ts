@@ -61,23 +61,14 @@ export class ExpensesEffects {
               });
             }),
             catchError(() =>
-              of(createExpenseFail({ clientId, user: this.user, amount }))
+              of(
+                createExpenseFail({ clientId, user: this.user, amount, reason })
+              )
             )
           )
       )
     )
   );
-
-  // createExpenseSuccess$ = createEffect(
-  //   () =>
-  //     this.actions$.pipe(
-  //       ofType(createExpenseSuccess),
-  //       tap(() => {
-  //         this.snackBarService.success('Expense Added!');
-  //       })
-  //     ),
-  //   { dispatch: false }
-  // );
 
   createExpenseFailed$ = createEffect(
     () =>

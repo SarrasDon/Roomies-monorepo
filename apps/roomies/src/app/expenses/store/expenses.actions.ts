@@ -43,5 +43,10 @@ export const createExpenseSuccess = createAction(
 
 export const createExpenseFail = createAction(
   '[Create Expense Form] Create new Expense Failed',
-  props<{ clientId: string; user: User; amount: number }>()
+  props<{
+    clientId: string;
+    user: User;
+    amount: number;
+    reason: ExpenseReason;
+  }>()
 );

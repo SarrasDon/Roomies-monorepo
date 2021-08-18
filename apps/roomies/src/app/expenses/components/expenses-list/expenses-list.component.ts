@@ -14,13 +14,13 @@ import { select, Store } from '@ngrx/store';
 import { Expense } from '@roomies/expenses.contracts';
 import { merge, Subject, timer } from 'rxjs';
 import {
+  debounceTime,
   distinctUntilChanged,
   filter,
   map,
   mapTo,
   switchMap,
   takeUntil,
-  tap,
   throttleTime,
 } from 'rxjs/operators';
 import { getUserEntities } from '../../../auth/store';
@@ -28,9 +28,11 @@ import { UiService } from '../../../core/services';
 import {
   ExpensesState,
   loadExpenses,
+  loadMonthlyExpenses,
   selectExpenseReasonsEntities,
   selectExpenses,
 } from '../../store';
+import theme from '../../../theme.config.json';
 
 @Component({
   selector: 'roomies-expenses-list',
@@ -42,11 +44,9 @@ export class ExpensesListComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(CdkVirtualScrollViewport)
   virtualScroll: CdkVirtualScrollViewport;
 
-  @ViewChild('wrapper') wrapper: ElementRef;
-
   @Output() paging = new EventEmitter<{ first: number; rows: number }>();
 
-  itemSize = 75;
+  itemSize = theme['expense-item-height'];
   destroy$ = new Subject();
   expenses$ = this.store.pipe(select(selectExpenses));
   expenseReasons$ = this.store.pipe(select(selectExpenseReasonsEntities));
@@ -91,6 +91,7 @@ export class ExpensesListComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.virtualScroll.scrolledIndexChange
       .pipe(
+        debounceTime(100),
         switchMap((index) =>
           this.expenses$.pipe(
             filter((expenses) => expenses.length > 0),
@@ -101,10 +102,19 @@ export class ExpensesListComponent implements OnInit, AfterViewInit, OnDestroy {
         map((date) => `${date.getUTCFullYear()}-${date.getMonth()}`),
         distinctUntilChanged(),
         map((dateString) => dateString.split('-')),
-        map((dateString) => ({ year: dateString[0], month: dateString[1] })),
-        tap(console.log)
+        map((dateString) => ({ year: +dateString[0], month: +dateString[1] })),
+        takeUntil(this.destroy$)
       )
-      .subscribe();
+      .subscribe(({ month, year }) =>
+        this.store.dispatch(loadMonthlyExpenses({ month, year }))
+      );
+
+    this.uiService.scrollToTop = () =>
+      void this.virtualScroll.scrollToIndex(0, 'smooth');
+
+    this.uiService.hasScrolled$ = this.virtualScroll.scrolledIndexChange.pipe(
+      map((index) => index > 0)
+    );
   }
 
   trackByFn(index: number, item: Expense) {

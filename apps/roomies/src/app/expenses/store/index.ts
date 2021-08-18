@@ -1,5 +1,10 @@
 import { createSelector } from '@ngrx/store';
 import { getCurrentUser, getUsersSorted } from '../../auth/store';
+import {
+  selectExpenseReasons,
+  selectExpenseReasonsEntities,
+} from './expenses.selectors';
+import { selectMonthlyExpenses } from './monthlyExpenses.selectors';
 import { selectTotalIds, selectTotals } from './totals.selectors';
 import { calcBalance } from './utils';
 
@@ -11,6 +16,8 @@ export * from './totals.actions';
 export * from './totals.effects';
 export * from './totals.reducer';
 export * from './totals.selectors';
+export * from './monthlyExpenses.reducer';
+export * from './monthlyExpenses.selectors';
 
 export const selectBalance = createSelector(
   selectTotals,
@@ -32,12 +39,16 @@ export const selectTotalsWithNames = createSelector(
     users.map((u) => ({
       name: u.name,
       value: totals.find((t) => t._id === u._id)?.total,
-      _id: totals.find((t) => t._id === u._id)?._id
+      _id: totals.find((t) => t._id === u._id)?._id,
     }))
 );
 
-export const selectTotalIdsSorted = createSelector(
-  getUsersSorted,
-  (users) =>
-    users.map((u) => u._id)
-)
+export const selectMonthlyExpensesWithReason = createSelector(
+  selectMonthlyExpenses,
+  selectExpenseReasonsEntities,
+  (me, reasons) =>
+    (me || []).map(({ total, _id }) => ({
+      value: total,
+      name: reasons[_id]?.reason,
+    }))
+);

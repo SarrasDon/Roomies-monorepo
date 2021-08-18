@@ -1,5 +1,5 @@
 {
-  "totals-height": "135px",
+  "totals-height": "135",
   "color": "#20242e",
   "background-color": "#f1f3f5",
   "positive-color": "#10bb66",
@@ -8,5 +8,6 @@
   "fun-color": "#de594e",
   "bills-color": "#84dbff",
   "groceries-color": "#10bb66",
-  "furniture-color": "#ffd23c"
+  "furniture-color": "#ffd23c",
+  "expense-item-height": "75"
 }

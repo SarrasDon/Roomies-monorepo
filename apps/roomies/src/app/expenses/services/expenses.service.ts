@@ -1,12 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Expense, ExpenseReason } from '@roomies/expenses.contracts';
+import { Observable } from 'rxjs';
+import { shareReplay } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { Total } from '../../shared/models';
+import { MonthlyExpense } from '../store';
 
 @Injectable({ providedIn: 'root' })
 export class ExpensesService {
-  awsUrl = `${environment.AWS_EXPENSES_API_URL}`;
+  private awsUrl = `${environment.AWS_EXPENSES_API_URL}`;
+  private cache$ = new Map<string, Observable<Array<MonthlyExpense>>>();
 
   constructor(public http: HttpClient) {}
 
@@ -30,13 +34,19 @@ export class ExpensesService {
     return this.http.get<Total[]>(`${this.awsUrl}/totals`);
   }
 
-  // getTotalsForMonth({ month, year }) {
-  //   const params = { month, year };
-  //   const queryParams = this.serializeQueryParameters(params);
-  //   return this.http.get<Total[]>(
-  //     `${this.featureUrl}/totalsForMonth?${queryParams}`
-  //   );
-  // }
+  getMonthlyExpenses({ month, year }) {
+    const key = `${year}_${month}`;
+    if (!this.cache$.has(key)) {
+      const queryParams = this.serializeQueryParameters({ month, year });
+      this.cache$.set(
+        key,
+        this.http
+          .get<[]>(`${this.awsUrl}/expensesMonthly?${queryParams}`)
+          .pipe(shareReplay(1))
+      );
+    }
+    return this.cache$.get(key);
+  }
 
   create(resource: {
     reason: string;

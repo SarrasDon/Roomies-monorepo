@@ -1,13 +1,22 @@
-<div class="chart-wrapper">
-  <div class="chart-label-horizontal">August - 300</div>
-
-  <ngx-charts-bar-vertical
-    [scheme]="colorScheme"
-    [results]="single"
-    [gradient]="true"
-    [xAxis]="true"
-    [barPadding]="40"
-  >
-  </ngx-charts-bar-vertical>
-  <!-- <div class="chart-label-vertical">August</div> -->
+<div class="chart-wrapper" *ngIf="monthlyTotal$ | async as monthlyTotal">
+  <div class="chart-label-horizontal">
+    {{ currentMonth$ | async | date: 'MMMM yyyy' }}, {{ monthlyTotal }}€
+  </div>
+  <ng-container *ngIf="monthlyExpenses$ | async as monthlyExpenses">
+    <ngx-charts-bar-vertical
+      [scheme]="monthlyExpenses.scheme"
+      [results]="monthlyExpenses.results"
+      [gradient]="true"
+      [xAxis]="true"
+      [barPadding]="40"
+    >
+    </ngx-charts-bar-vertical>
+  </ng-container>
 </div>
+<button
+  (click)="scrollToTop()"
+  class="scroll-to-top-btn"
+  [style.opacity]="(uiService.hasScrolled$ | async) ? 1 : 0"
+>
+  <span class="arrow"></span>
+</button>
