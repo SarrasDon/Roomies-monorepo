@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.13.0](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.12.14...v1.13.0) (2021-08-18)
+
+
+### Features
+
+* **expenses:** added monthly expense component ([f1e1519](https://github.com/SarrasDon/Roomies-monorepo/commit/f1e1519f904ed28be692e1db48fc9b1e30da89da))
+* **expenses:** monthly expenses chart ([df153f6](https://github.com/SarrasDon/Roomies-monorepo/commit/df153f658c77526559817763161a8cf5833a9d93))
+
 ### [1.12.14](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.12.13...v1.12.14) (2021-08-16)
 
 
