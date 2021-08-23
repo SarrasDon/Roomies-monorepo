@@ -1,6 +1,8 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  HostBinding,
+  HostListener,
   Input,
   OnInit,
 } from '@angular/core';
@@ -16,6 +18,15 @@ export class ExpenseItemComponent implements OnInit {
   @Input() expense: Expense;
   @Input() reason: string;
   @Input() user: string;
+
+  @HostListener('swipe', ['$event']) swipe(event: { deltaX: number }) {
+    const direction =
+      Math.abs(event.deltaX) > 20 ? (event.deltaX > 0 ? 'right' : 'left') : '';
+
+    this.left = direction === 'left';
+  }
+
+  @HostBinding('class.left') left = false;
 
   constructor() {}
 

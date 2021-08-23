@@ -1,6 +1,6 @@
 import { LayoutModule } from '@angular/cdk/layout';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { Injectable, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -21,6 +21,21 @@ import {
 } from './core/services';
 import { ExpensesModule } from './expenses/expenses.module';
 import { SharedModule } from './shared/shared.module';
+
+import * as Hammer from 'hammerjs';
+import {
+  HammerGestureConfig,
+  HAMMER_GESTURE_CONFIG,
+  HammerModule,
+} from '@angular/platform-browser';
+console.log(Hammer.DIRECTION_ALL);
+
+@Injectable()
+export class MyHammerConfig extends HammerGestureConfig {
+  overrides = <any>{
+    swipe: { direction: Hammer.DIRECTION_ALL },
+  };
+}
 
 export const cloudinaryLib = {
   Cloudinary: CloudinaryCore,
@@ -60,6 +75,7 @@ export const cloudinaryLib = {
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000',
     }),
+    HammerModule,
   ],
   providers: [
     {
@@ -76,6 +92,10 @@ export const cloudinaryLib = {
       provide: HTTP_INTERCEPTORS,
       useClass: UnauthorizedInterceptorService,
       multi: true,
+    },
+    {
+      provide: HAMMER_GESTURE_CONFIG,
+      useClass: MyHammerConfig,
     },
   ],
   bootstrap: [AppComponent],
