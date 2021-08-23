@@ -1,16 +1,6 @@
 import { createEntityAdapter, EntityState } from '@ngrx/entity';
-import {
-  createReducer,
-  createAction,
-  props,
-  on,
-  ActionReducer,
-} from '@ngrx/store';
+import { createAction, createReducer, on, props } from '@ngrx/store';
 import { createExpense, createExpenseFail } from './expenses.actions';
-import {
-  selectExpenseReasons,
-  selectExpenseReasonsEntities,
-} from './expenses.selectors';
 
 export const monthlyExpenseFeatureKey = 'monthlyExpenses';
 
@@ -58,26 +48,42 @@ const _monthlyExpensesReducer = createReducer(
       monthlyExpensesAdapter.removeAll(state)
     );
   }),
-  on(createExpense, (state, { amount, reason }) => {
-    const oldTotal = state.entities[reason._id] || { total: 0 };
-    return monthlyExpensesAdapter.upsertOne(
-      {
-        _id: reason._id,
-        total: oldTotal.total + amount,
-      },
-      state
-    );
-  }),
-  on(createExpenseFail, (state, { reason, amount }) => {
-    const oldTotal = state.entities[reason._id] || { total: 0 };
-    const newTotal = oldTotal.total - amount;
-    if (newTotal <= 0) {
-      return monthlyExpensesAdapter.removeOne(reason._id, state);
+  on(createExpense, (state, { amount, reason, date }) => {
+    const newMonth = date.getUTCMonth();
+    const newYear = date.getUTCFullYear();
+    const { month, year } = state.currentMonth;
+
+    if (newMonth === month && newYear === year) {
+      const oldTotal = state.entities[reason._id] || { total: 0 };
+      return monthlyExpensesAdapter.upsertOne(
+        {
+          _id: reason._id,
+          total: oldTotal.total + amount,
+        },
+        state
+      );
     }
-    return monthlyExpensesAdapter.updateOne(
-      { id: reason._id, changes: { total: newTotal } },
-      state
-    );
+
+    return state;
+  }),
+  on(createExpenseFail, (state, { reason, amount, date }) => {
+    const newMonth = date.getUTCMonth();
+    const newYear = date.getUTCFullYear();
+    const { month, year } = state.currentMonth;
+
+    if (newMonth === month && newYear === year) {
+      const oldTotal = state.entities[reason._id] || { total: 0 };
+      const newTotal = oldTotal.total - amount;
+      if (newTotal <= 0) {
+        return monthlyExpensesAdapter.removeOne(reason._id, state);
+      }
+      return monthlyExpensesAdapter.updateOne(
+        { id: reason._id, changes: { total: newTotal } },
+        state
+      );
+    }
+
+    return state;
   })
 );
 

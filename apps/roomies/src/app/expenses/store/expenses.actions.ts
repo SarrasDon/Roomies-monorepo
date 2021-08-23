@@ -48,5 +48,6 @@ export const createExpenseFail = createAction(
     user: User;
     amount: number;
     reason: ExpenseReason;
+    date: Date;
   }>()
 );

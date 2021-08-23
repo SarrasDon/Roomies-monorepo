@@ -62,7 +62,13 @@ export class ExpensesEffects {
             }),
             catchError(() =>
               of(
-                createExpenseFail({ clientId, user: this.user, amount, reason })
+                createExpenseFail({
+                  clientId,
+                  user: this.user,
+                  amount,
+                  reason,
+                  date,
+                })
               )
             )
           )
