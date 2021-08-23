@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.14.2](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.14.1...v1.14.2) (2021-08-23)
+
+
+### Bug Fixes
+
+* **expenses:** fixed monthly-expense optimistic update ([08b3bae](https://github.com/SarrasDon/Roomies-monorepo/commit/08b3baeafd501c51e7946eb6d6b6553b029b0713))
+
 ### [1.14.1](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.14.0...v1.14.1) (2021-08-18)
 
 
