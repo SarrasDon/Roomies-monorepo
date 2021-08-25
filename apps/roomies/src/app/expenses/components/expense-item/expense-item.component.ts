@@ -26,9 +26,18 @@ export class ExpenseItemComponent implements OnInit {
     this.left = direction === 'left';
   }
 
-  @HostBinding('class.left') left = false;
+  @HostBinding('class.left')
+  left = false;
 
   constructor() {}
 
   ngOnInit() {}
+
+  onExpenseEdit() {
+    console.log('edit');
+  }
+
+  onExpenseDelete() {
+    console.log('delete');
+  }
 }

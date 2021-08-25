@@ -1,7 +1,12 @@
 import { LayoutModule } from '@angular/cdk/layout';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Injectable, NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {
+  BrowserModule,
+  HammerGestureConfig,
+  HammerModule,
+  HAMMER_GESTURE_CONFIG,
+} from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { CloudinaryModule } from '@cloudinary/angular-5.x';
@@ -9,6 +14,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { Cloudinary as CloudinaryCore } from 'cloudinary-core';
+import * as Hammer from 'hammerjs';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,14 +27,6 @@ import {
 } from './core/services';
 import { ExpensesModule } from './expenses/expenses.module';
 import { SharedModule } from './shared/shared.module';
-
-import * as Hammer from 'hammerjs';
-import {
-  HammerGestureConfig,
-  HAMMER_GESTURE_CONFIG,
-  HammerModule,
-} from '@angular/platform-browser';
-console.log(Hammer.DIRECTION_ALL);
 
 @Injectable()
 export class MyHammerConfig extends HammerGestureConfig {

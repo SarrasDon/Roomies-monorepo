@@ -1,8 +1,11 @@
 :host {
+  --expense-actions-width: 120;
+
   display: flex;
   align-items: center;
   box-sizing: border-box;
   width: 100%;
+  position: relative;
 
   background: white;
   padding: 15px 20px;
@@ -12,7 +15,11 @@
   transition: all 0.2s ease;
 
   &.left {
-    transform: translateX(-60px);
+    transform: translateX(calc(var(--expense-actions-width) * -1px));
+
+    .expense-item-btns {
+      opacity: 1;
+    }
   }
 }
 
@@ -63,4 +70,44 @@
   font-weight: 600;
   padding-left: 2px;
   transform: translateY(1px);
+}
+
+.expense-item-btns {
+  position: absolute;
+  left: 100%;
+  width: calc(var(--expense-actions-width) * 1px);
+  height: var(--expense-item-height);
+
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+  background: green;
+  opacity: 0.3;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.expense-btn {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  outline: none;
+  border-width: 0;
+
+  span {
+    display: block;
+    height: 20px;
+    width: 20px;
+    background-repeat: no-repeat;
+  }
+}
+
+.edit-btn {
+  background-image: url('/assets/icons/edit.svg');
+}
+
+.delete-btn {
+  background-image: url('/assets/icons/delete.svg');
 }

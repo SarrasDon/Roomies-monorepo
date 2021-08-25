@@ -8,7 +8,9 @@ import {
   OnDestroy,
   OnInit,
   Output,
+  QueryList,
   ViewChild,
+  ViewChildren,
 } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Expense } from '@roomies/expenses.contracts';
@@ -33,6 +35,7 @@ import {
   selectExpenses,
 } from '../../store';
 import theme from '../../../theme.config.json';
+import { ExpenseItemComponent } from '../expense-item/expense-item.component';
 
 @Component({
   selector: 'roomies-expenses-list',
@@ -43,7 +46,7 @@ import theme from '../../../theme.config.json';
 export class ExpensesListComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(CdkVirtualScrollViewport)
   virtualScroll: CdkVirtualScrollViewport;
-
+  @ViewChildren(ExpenseItemComponent) items: QueryList<ExpenseItemComponent>;
   @Output() paging = new EventEmitter<{ first: number; rows: number }>();
 
   itemSize = theme['expense-item-height'];
@@ -105,9 +108,9 @@ export class ExpensesListComponent implements OnInit, AfterViewInit, OnDestroy {
         map((dateString) => ({ year: +dateString[0], month: +dateString[1] })),
         takeUntil(this.destroy$)
       )
-      .subscribe(({ month, year }) =>
-        this.store.dispatch(loadMonthlyExpenses({ month, year }))
-      );
+      .subscribe(({ month, year }) => {
+        this.store.dispatch(loadMonthlyExpenses({ month, year }));
+      });
 
     this.uiService.scrollToTop = () =>
       void this.virtualScroll.scrollToIndex(0, 'smooth');
@@ -115,6 +118,13 @@ export class ExpensesListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.uiService.hasScrolled$ = this.virtualScroll.scrolledIndexChange.pipe(
       map((index) => index > 0)
     );
+    this.items.changes.pipe(takeUntil(this.destroy$)).subscribe({
+      next: ({ _results: expenseItems }: { _results: { left: boolean }[] }) => {
+        for (const item of expenseItems.filter((e) => e.left)) {
+          item.left = false;
+        }
+      },
+    });
   }
 
   trackByFn(index: number, item: Expense) {
