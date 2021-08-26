@@ -6,7 +6,9 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Expense } from '@roomies/expenses.contracts';
+import { deleteExpense, ExpensesState } from '../../store';
 
 @Component({
   selector: 'roomies-expense-item',
@@ -29,15 +31,11 @@ export class ExpenseItemComponent implements OnInit {
   @HostBinding('class.left')
   left = false;
 
-  constructor() {}
+  constructor(private store: Store<ExpensesState>) {}
 
   ngOnInit() {}
 
-  onExpenseEdit() {
-    console.log('edit');
-  }
-
   onExpenseDelete() {
-    console.log('delete');
+    this.store.dispatch(deleteExpense({ expense: this.expense }));
   }
 }

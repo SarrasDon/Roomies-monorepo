@@ -5,6 +5,7 @@ import {
   createExpense,
   createExpenseFail,
   createExpenseSuccess,
+  deleteExpenseSuccess,
   loadExpenses,
   loadExpensesSuccess,
   setExpensesCount,
@@ -69,6 +70,9 @@ const _expenseReducer = createReducer<ExpensesState>(
   }),
   on(createExpenseFail, (state, { clientId }) => {
     return expensesAdapter.removeOne(clientId, state);
+  }),
+  on(deleteExpenseSuccess, (state, { expense }) => {
+    return expensesAdapter.removeOne(expense._id, state);
   })
 );
 

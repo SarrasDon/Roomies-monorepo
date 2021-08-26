@@ -1,6 +1,10 @@
 import { createReducer, on } from '@ngrx/store';
 import { Total } from '../../shared/models';
-import { createExpense, createExpenseFail } from './expenses.actions';
+import {
+  createExpense,
+  createExpenseFail,
+  deleteExpenseSuccess,
+} from './expenses.actions';
 import { totalsLoaded } from './totals.actions';
 import { EntityState, createEntityAdapter } from '@ngrx/entity';
 
@@ -43,6 +47,23 @@ const _totalsReducer = createReducer(
     return totalsAdapter.updateOne(
       {
         id: user,
+        changes: {
+          total: Math.max(userTotalAmount - amount, 0),
+        },
+      },
+      state
+    );
+  }),
+  on(deleteExpenseSuccess, (state, { expense }) => {
+    const { person, amount } = expense;
+    if (!state.entities[person as any]) {
+      return state;
+    }
+    const userTotalAmount = state.entities[person as any].total ?? 0;
+
+    return totalsAdapter.updateOne(
+      {
+        id: person as any,
         changes: {
           total: Math.max(userTotalAmount - amount, 0),
         },

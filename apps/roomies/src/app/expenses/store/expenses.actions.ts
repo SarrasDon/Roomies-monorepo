@@ -51,3 +51,21 @@ export const createExpenseFail = createAction(
     date: Date;
   }>()
 );
+
+export const deleteExpense = createAction(
+  '[Expense Item] Delete Expense',
+  props<{
+    expense: Expense;
+  }>()
+);
+
+export const deleteExpenseSuccess = createAction(
+  '[Expense Effects] Delete Expense Success',
+  props<{
+    expense: Expense;
+  }>()
+);
+
+export const deleteExpenseFail = createAction(
+  '[Expense Effects] Delete Expense Fail'
+);

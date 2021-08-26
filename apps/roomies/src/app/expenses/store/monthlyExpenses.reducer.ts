@@ -1,6 +1,10 @@
 import { createEntityAdapter, EntityState } from '@ngrx/entity';
 import { createAction, createReducer, on, props } from '@ngrx/store';
-import { createExpense, createExpenseFail } from './expenses.actions';
+import {
+  createExpense,
+  createExpenseFail,
+  deleteExpenseSuccess,
+} from './expenses.actions';
 
 export const monthlyExpenseFeatureKey = 'monthlyExpenses';
 
@@ -79,6 +83,28 @@ const _monthlyExpensesReducer = createReducer(
       }
       return monthlyExpensesAdapter.updateOne(
         { id: reason, changes: { total: newTotal } },
+        state
+      );
+    }
+
+    return state;
+  }),
+  on(deleteExpenseSuccess, (state, { expense }) => {
+    const { spendAt: date, reason, amount } = expense;
+
+    const newMonth = new Date(date).getUTCMonth();
+    const newYear = new Date(date).getUTCFullYear();
+    const { month, year } = state.currentMonth;
+    console.log(newMonth === month && newYear === year);
+
+    if (newMonth === month && newYear === year) {
+      const oldTotal = state.entities[reason._id] || { total: 0 };
+      const newTotal = oldTotal.total - amount;
+      if (newTotal <= 0) {
+        return monthlyExpensesAdapter.removeOne(reason as any, state);
+      }
+      return monthlyExpensesAdapter.updateOne(
+        { id: reason as any, changes: { total: newTotal } },
         state
       );
     }

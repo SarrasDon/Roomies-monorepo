@@ -2,7 +2,14 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
-import { catchError, concatMap, map, mergeMap, tap } from 'rxjs/operators';
+import {
+  catchError,
+  concatMap,
+  map,
+  mergeMap,
+  tap,
+  switchMap,
+} from 'rxjs/operators';
 import { AuthState, getCurrentUser, getUserEntities } from '../../auth/store';
 import { SnackbarService } from '../../core/services/snackbar.service';
 import { storeSnapshot } from '../../shared/utils';
@@ -11,6 +18,9 @@ import {
   createExpense,
   createExpenseFail,
   createExpenseSuccess,
+  deleteExpense,
+  deleteExpenseFail,
+  deleteExpenseSuccess,
   loadExpenses,
   loadExpensesSuccess,
 } from './expenses.actions';
@@ -97,6 +107,29 @@ export class ExpensesEffects {
             year: date.getUTCFullYear(),
             month: date.getUTCMonth(),
           });
+        })
+      ),
+    { dispatch: false }
+  );
+
+  deleteExpense$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(deleteExpense),
+      switchMap(({ expense }) => {
+        return this.expensesService.delete(expense._id).pipe(
+          map(() => deleteExpenseSuccess({ expense })),
+          catchError(() => of(deleteExpenseFail()))
+        );
+      })
+    )
+  );
+
+  deleteExpenseFailed$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(deleteExpenseFail),
+        tap(() => {
+          this.snackBarService.fail(`Expense wasn't deleted!`);
         })
       ),
     { dispatch: false }
