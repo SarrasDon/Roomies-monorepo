@@ -1,25 +1,26 @@
+import { LayoutModule } from '@angular/cdk/layout';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ServiceWorkerModule } from '@angular/service-worker';
 import { CloudinaryModule } from '@cloudinary/angular-5.x';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { Cloudinary as CloudinaryCore } from 'cloudinary-core';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
-import { CoreModule } from './core/core.module';
-import { SharedModule } from './shared/shared.module';
-import { LayoutModule } from '@angular/cdk/layout';
 import { AuthInterceptorService } from './auth/services';
+import { CoreModule } from './core/core.module';
 import {
   BaseInterceptorService,
   UnauthorizedInterceptorService,
 } from './core/services';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ExpensesModule } from './expenses/expenses.module';
+import { SharedModule } from './shared/shared.module';
 
 export const cloudinaryLib = {
   Cloudinary: CloudinaryCore,
@@ -53,6 +54,12 @@ export const cloudinaryLib = {
         })
       : [],
     ExpensesModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: true,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000',
+    }),
   ],
   providers: [
     {

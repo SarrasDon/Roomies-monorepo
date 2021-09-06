@@ -5,4 +5,6 @@ export const environment = {
     'https://ppezhwfrsj.execute-api.eu-central-1.amazonaws.com/prod',
   AWS_EXPENSES_API_URL:
     'https://kepkqnktkg.execute-api.eu-central-1.amazonaws.com/prod',
+  VAPID_PUBLIC_KEY:
+    'BIgvrpLKlSqu-ea9naTxwvHyQtgasEkWAPCHB9dFe9Er466DdabCKGc62SNAGxWU_SH6eUP-jLltr2biRNZ-8EM',
 };

@@ -4,7 +4,9 @@ export enum ExpenseCategory {
   Groceries,
   Bills,
   Furniture,
-  Fun
+  Fun,
+  Delivery,
+  Car,
 }
 
 export interface ExpenseReason extends Entity {

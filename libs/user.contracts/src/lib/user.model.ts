@@ -5,4 +5,5 @@ export interface User extends Entity {
   email: string;
   password: string;
   avatarUrl: string;
+  hasEnabledPushNotifications: boolean;
 }

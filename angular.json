@@ -25,7 +25,8 @@
             "assets": [
               "apps/roomies/src/favicon.ico",
               "apps/roomies/src/assets",
-              "apps/roomies/src/_redirects"
+              "apps/roomies/src/_redirects",
+              "apps/roomies/src/manifest.webmanifest"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
@@ -34,7 +35,9 @@
             ],
             "scripts": [
               "apps/roomies/src/assets/js/cloudinary-widget.js"
-            ]
+            ],
+            "serviceWorker": true,
+            "ngswConfigPath": "apps/roomies/ngsw-config.json"
           },
           "configurations": {
             "production": {
