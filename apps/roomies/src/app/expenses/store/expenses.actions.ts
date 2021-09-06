@@ -25,10 +25,10 @@ export const setExpensesReasons = createAction(
 export const createExpense = createAction(
   '[Create Expense Form] Create new Expense',
   props<{
-    reason: ExpenseReason;
+    reason: string;
     amount: number;
     date: Date;
-    user: User;
+    user: string;
     clientId: string;
   }>()
 );
@@ -45,9 +45,9 @@ export const createExpenseFail = createAction(
   '[Create Expense Form] Create new Expense Failed',
   props<{
     clientId: string;
-    user: User;
+    user: string;
     amount: number;
-    reason: ExpenseReason;
+    reason: string;
     date: Date;
   }>()
 );

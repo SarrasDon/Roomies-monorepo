@@ -48,7 +48,7 @@ export class ExpensesEffects {
       concatMap(({ reason, amount, date, clientId }) =>
         this.expensesService
           .create({
-            reason: reason._id,
+            reason,
             amount,
             spendAt: date,
             person: this.user._id,
@@ -64,7 +64,7 @@ export class ExpensesEffects {
               of(
                 createExpenseFail({
                   clientId,
-                  user: this.user,
+                  user: this.user._id,
                   amount,
                   reason,
                   date,

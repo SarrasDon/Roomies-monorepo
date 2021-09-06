@@ -54,10 +54,10 @@ const _monthlyExpensesReducer = createReducer(
     const { month, year } = state.currentMonth;
 
     if (newMonth === month && newYear === year) {
-      const oldTotal = state.entities[reason._id] || { total: 0 };
+      const oldTotal = state.entities[reason] || { total: 0 };
       return monthlyExpensesAdapter.upsertOne(
         {
-          _id: reason._id,
+          _id: reason,
           total: oldTotal.total + amount,
         },
         state
@@ -72,13 +72,13 @@ const _monthlyExpensesReducer = createReducer(
     const { month, year } = state.currentMonth;
 
     if (newMonth === month && newYear === year) {
-      const oldTotal = state.entities[reason._id] || { total: 0 };
+      const oldTotal = state.entities[reason] || { total: 0 };
       const newTotal = oldTotal.total - amount;
       if (newTotal <= 0) {
-        return monthlyExpensesAdapter.removeOne(reason._id, state);
+        return monthlyExpensesAdapter.removeOne(reason, state);
       }
       return monthlyExpensesAdapter.updateOne(
-        { id: reason._id, changes: { total: newTotal } },
+        { id: reason, changes: { total: newTotal } },
         state
       );
     }

@@ -6,15 +6,13 @@ import { EntityState, createEntityAdapter } from '@ngrx/entity';
 
 export const totalsFeatureKey = 'totals';
 
-export interface TotalState extends EntityState<Total> { }
+export interface TotalState extends EntityState<Total> {}
 
-export const totalsAdapter = createEntityAdapter(
-  {
-    selectId: (total: Total) => total._id
-  }
-)
+export const totalsAdapter = createEntityAdapter({
+  selectId: (total: Total) => total._id,
+});
 
-const initialState: TotalState = totalsAdapter.getInitialState()
+const initialState: TotalState = totalsAdapter.getInitialState();
 
 const _totalsReducer = createReducer(
   initialState,
@@ -22,31 +20,35 @@ const _totalsReducer = createReducer(
     return totalsAdapter.upsertMany(totals, state);
   }),
   on(createExpense, (state, { user, amount }) => {
-    if (!state.entities[user._id]) {
+    if (!state.entities[user]) {
       return state;
     }
-    const userTotalAmount = state.entities[user._id].total ?? 0;
+    const userTotalAmount = state.entities[user].total ?? 0;
     return totalsAdapter.updateOne(
       {
-        id: user._id,
+        id: user,
         changes: {
-          total: userTotalAmount + amount
-        }
-      }, state);
+          total: userTotalAmount + amount,
+        },
+      },
+      state
+    );
   }),
   on(createExpenseFail, (state, { user, amount }) => {
-    if (!state.entities[user._id]) {
+    if (!state.entities[user]) {
       return state;
     }
-    const userTotalAmount = state.entities[user._id].total ?? 0;
+    const userTotalAmount = state.entities[user].total ?? 0;
 
     return totalsAdapter.updateOne(
       {
-        id: user._id,
+        id: user,
         changes: {
-          total: Math.max(userTotalAmount - amount, 0)
-        }
-      }, state);
+          total: Math.max(userTotalAmount - amount, 0),
+        },
+      },
+      state
+    );
   })
 );
 

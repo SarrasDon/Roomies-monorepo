@@ -42,8 +42,15 @@ export class ExpensesActionsComponent {
           const user = storeSnapshot(this.store, getCurrentUser);
           // update the store optimistically
           const clientId = (Math.random() * 10000).toString();
+
           this.store.dispatch(
-            createExpense({ reason, amount, date, clientId, user })
+            createExpense({
+              reason: reason._id,
+              amount,
+              date,
+              clientId,
+              user: user._id,
+            })
           );
         }
       );
