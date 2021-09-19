@@ -1,15 +1,24 @@
-.roomies-snackbar-container {
+:host {
+  --roomies-snackbar-color: var(--color);
   line-height: 20px;
   padding: 14px 16px !important;
+  display: flex;
+  align-items: center;
+
+  background: var(--roomies-snackbar-color, transparent);
+  border-width: 0;
+  border-radius: var(--roomies-border-radius);
 
   img {
-    vertical-align: middle;
+    display: inline-block;
     margin-right: 20px;
   }
+
   &.snackbar-success {
-    background: #1d8d0c;
+    --roomies-snackbar-color: #1d8d0c;
   }
+
   &.snackbar-error {
-    background: #dd0014;
+    --roomies-snackbar-color: #dd0014;
   }
 }

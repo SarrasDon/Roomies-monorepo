@@ -1,21 +1,19 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { SnackbarComponent } from '../components/snackbar/snackbar.component';
 import { SnackbarMessage } from '../../shared/enums';
 import { SnackbarConfig } from '../../shared/interfaces';
-import { HttpClient } from '@angular/common/http';
-import { take } from 'rxjs/operators';
+import { SnackbarComponent } from '../components/snackbar/snackbar.component';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SnackbarService {
   durationInSeconds = 3;
   config: MatSnackBarConfig = {
-    panelClass: 'roomates-snackbar',
-    duration: this.durationInSeconds * 1000
+    panelClass: 'roomies-snackbar-container',
+    duration: this.durationInSeconds * 1000,
   };
-  constructor(private _snackBar: MatSnackBar, private http: HttpClient) {}
+  constructor(private _snackBar: MatSnackBar) {}
 
   success(message: string) {
     this.openSnackBar(message, SnackbarMessage.Success);
@@ -26,10 +24,13 @@ export class SnackbarService {
   }
 
   private openSnackBar(message: string, type: SnackbarMessage) {
-    const data: SnackbarConfig = { message, type };
+    const data: SnackbarConfig = {
+      message,
+      type,
+    };
     return this._snackBar.openFromComponent(SnackbarComponent, {
       ...this.config,
-      data
+      data,
     });
   }
 }
