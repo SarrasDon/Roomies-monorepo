@@ -12,7 +12,8 @@ export class UiService {
   isExpensesListScrolling = this._isExpensesListScrolling.asObservable();
 
   scrollToTop$ = new Subject();
-  hasScrolled$: Observable<boolean>;
+  private _hasScrolled$ = new BehaviorSubject(false);
+  hasScrolled$ = this._hasScrolled$.asObservable();
 
   constructor(private breakpointObserver: BreakpointObserver) {}
 
@@ -36,5 +37,11 @@ export class UiService {
     this._isExpensesListScrolling.next(isScrolling);
   }
 
-  scrollToTop: () => void;
+  hasScrolled(scroll: boolean) {
+    this._hasScrolled$.next(scroll);
+  }
+
+  scrollToTop() {
+    this.scrollToTop$.next();
+  }
 }

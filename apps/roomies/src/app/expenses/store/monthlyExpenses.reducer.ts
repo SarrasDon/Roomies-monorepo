@@ -95,10 +95,9 @@ const _monthlyExpensesReducer = createReducer(
     const newMonth = new Date(date).getUTCMonth();
     const newYear = new Date(date).getUTCFullYear();
     const { month, year } = state.currentMonth;
-    console.log(newMonth === month && newYear === year);
 
     if (newMonth === month && newYear === year) {
-      const oldTotal = state.entities[reason._id] || { total: 0 };
+      const oldTotal = state.entities[reason] || { total: 0 };
       const newTotal = oldTotal.total - amount;
       if (newTotal <= 0) {
         return monthlyExpensesAdapter.removeOne(reason as any, state);

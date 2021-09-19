@@ -25,8 +25,6 @@ export class ExpensesViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(Notification.permission);
-
     if (this.swPush.isEnabled) {
       if (Notification.permission === 'default') {
         this.subscribeToNotifications(!this.user.hasEnabledPushNotifications);

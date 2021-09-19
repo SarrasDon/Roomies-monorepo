@@ -3,11 +3,9 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
-  EventEmitter,
+  Inject,
   OnDestroy,
   OnInit,
-  Output,
   QueryList,
   ViewChild,
   ViewChildren,
@@ -27,6 +25,7 @@ import {
 } from 'rxjs/operators';
 import { getUserEntities } from '../../../auth/store';
 import { UiService } from '../../../core/services';
+import { EXPENSE_ITEM_HEIGHT_TOKEN } from '../../services';
 import {
   ExpensesState,
   loadExpenses,
@@ -34,7 +33,6 @@ import {
   selectExpenseReasonsEntities,
   selectExpenses,
 } from '../../store';
-import theme from '../../../theme.config.json';
 import { ExpenseItemComponent } from '../expense-item/expense-item.component';
 
 @Component({
@@ -47,9 +45,7 @@ export class ExpensesListComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(CdkVirtualScrollViewport)
   virtualScroll: CdkVirtualScrollViewport;
   @ViewChildren(ExpenseItemComponent) items: QueryList<ExpenseItemComponent>;
-  @Output() paging = new EventEmitter<{ first: number; rows: number }>();
 
-  itemSize = theme['expense-item-height'];
   destroy$ = new Subject();
   expenses$ = this.store.pipe(select(selectExpenses));
   expenseReasons$ = this.store.pipe(select(selectExpenseReasonsEntities));
@@ -57,7 +53,8 @@ export class ExpensesListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private uiService: UiService,
-    private store: Store<ExpensesState>
+    private store: Store<ExpensesState>,
+    @Inject(EXPENSE_ITEM_HEIGHT_TOKEN) public itemSize: number
   ) {}
 
   ngOnInit() {}
@@ -112,12 +109,21 @@ export class ExpensesListComponent implements OnInit, AfterViewInit, OnDestroy {
         this.store.dispatch(loadMonthlyExpenses({ month, year }));
       });
 
-    this.uiService.scrollToTop = () =>
-      void this.virtualScroll.scrollToIndex(0, 'smooth');
+    this.uiService.scrollToTop$.pipe(takeUntil(this.destroy$)).subscribe(() => {
+      this.virtualScroll.scrollToIndex(0, 'smooth');
+    });
 
-    this.uiService.hasScrolled$ = this.virtualScroll.scrolledIndexChange.pipe(
-      map((index) => index > 0)
-    );
+    this.virtualScroll.scrolledIndexChange
+      .pipe(
+        debounceTime(100),
+        map((index) => index > 0),
+        distinctUntilChanged(),
+        takeUntil(this.destroy$)
+      )
+      .subscribe({
+        next: (hasScrolled) => this.uiService.hasScrolled(hasScrolled),
+      });
+
     this.items.changes.pipe(takeUntil(this.destroy$)).subscribe({
       next: ({ _results: expenseItems }: { _results: { left: boolean }[] }) => {
         for (const item of expenseItems.filter((e) => e.left)) {

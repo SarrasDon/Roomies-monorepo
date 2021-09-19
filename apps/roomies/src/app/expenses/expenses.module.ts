@@ -4,6 +4,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { SharedModule } from '../shared/shared.module';
+import theme from '../theme.config.json';
 import * as Components from './components';
 import { MonthlyExpensesComponent } from './components/monthly-expenses/monthly-expenses.component';
 import {
@@ -12,6 +13,7 @@ import {
   AnimateTotalsShadowDirective,
 } from './directives';
 import * as pipes from './pipes';
+import { EXPENSE_ITEM_HEIGHT_TOKEN } from './services';
 import {
   ExpensesEffects,
   featureModuleKey,
@@ -37,6 +39,12 @@ import { ExpensesViewComponent } from './views/expenses.view';
     AnimateTotalIncreaseDirective,
     Components.ExpensesSpriteComponent,
     MonthlyExpensesComponent,
+  ],
+  providers: [
+    {
+      provide: EXPENSE_ITEM_HEIGHT_TOKEN,
+      useValue: theme['expense-item-height'],
+    },
   ],
   imports: [
     SharedModule,

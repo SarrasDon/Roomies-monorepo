@@ -1,9 +1,8 @@
 import { LayoutModule } from '@angular/cdk/layout';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { Injectable, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import {
   BrowserModule,
-  HammerGestureConfig,
   HammerModule,
   HAMMER_GESTURE_CONFIG,
 } from '@angular/platform-browser';
@@ -14,7 +13,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { Cloudinary as CloudinaryCore } from 'cloudinary-core';
-import * as Hammer from 'hammerjs';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,17 +21,11 @@ import { AuthInterceptorService } from './auth/services';
 import { CoreModule } from './core/core.module';
 import {
   BaseInterceptorService,
+  HammerConfig,
   UnauthorizedInterceptorService,
 } from './core/services';
 import { ExpensesModule } from './expenses/expenses.module';
 import { SharedModule } from './shared/shared.module';
-
-@Injectable()
-export class MyHammerConfig extends HammerGestureConfig {
-  overrides = <any>{
-    swipe: { direction: Hammer.DIRECTION_ALL },
-  };
-}
 
 export const cloudinaryLib = {
   Cloudinary: CloudinaryCore,
@@ -68,7 +60,7 @@ export const cloudinaryLib = {
       : [],
     ExpensesModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: true,
+      enabled: false,
       // Register the ServiceWorker as soon as the app is stable
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000',
@@ -93,7 +85,7 @@ export const cloudinaryLib = {
     },
     {
       provide: HAMMER_GESTURE_CONFIG,
-      useClass: MyHammerConfig,
+      useClass: HammerConfig,
     },
   ],
   bootstrap: [AppComponent],
