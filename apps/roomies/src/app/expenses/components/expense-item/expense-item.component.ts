@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Expense } from '@roomies/expenses.contracts';
-import { deleteExpense, ExpensesState } from '../../store';
+import { deleteExpense, ExpensesState, preDeleteExpense } from '../../store';
 
 @Component({
   selector: 'roomies-expense-item',
@@ -36,6 +36,6 @@ export class ExpenseItemComponent implements OnInit {
   ngOnInit() {}
 
   onExpenseDelete() {
-    this.store.dispatch(deleteExpense({ expense: this.expense }));
+    this.store.dispatch(preDeleteExpense({ expense: this.expense }));
   }
 }

@@ -23,6 +23,8 @@ import {
   deleteExpenseSuccess,
   loadExpenses,
   loadExpensesSuccess,
+  preDeleteExpense,
+  preDeleteExpenseFail,
 } from './expenses.actions';
 import { selectExpenseReasonsEntities } from './expenses.selectors';
 
@@ -112,6 +114,18 @@ export class ExpensesEffects {
     { dispatch: false }
   );
 
+  preDeleteExpense$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(preDeleteExpense),
+      map(({ expense }) => {
+        const isCurrentUserExpense = expense.person === this.user._id;
+        return isCurrentUserExpense
+          ? deleteExpense({ expense })
+          : preDeleteExpenseFail({ expense });
+      })
+    )
+  );
+
   deleteExpense$ = createEffect(() =>
     this.actions$.pipe(
       ofType(deleteExpense),
@@ -133,6 +147,20 @@ export class ExpensesEffects {
         })
       ),
     { dispatch: false }
+  );
+
+  preDeleteExpenseFailed$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(preDeleteExpenseFail),
+        tap(({ expense }) => {
+          const user = this.users[expense.person];
+          this.snackBarService.fail(`${user.name} payed for this!`);
+        })
+      ),
+    {
+      dispatch: false,
+    }
   );
 
   constructor(
