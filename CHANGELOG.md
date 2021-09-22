@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.15.0](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.14.2...v1.15.0) (2021-09-22)
+
+
+### Features
+
+* **app:** enabled sw for updates ([d112378](https://github.com/SarrasDon/Roomies-monorepo/commit/d1123782620ba2c1e7707be28bf4590a75b6bc65))
+* **expense:** prevent del of other user's expense ([877a411](https://github.com/SarrasDon/Roomies-monorepo/commit/877a4113425b47dfc83bb0174ba721627ecbf6fd))
+* **expenses:** added actions for deleting expense ([9cfa880](https://github.com/SarrasDon/Roomies-monorepo/commit/9cfa880c6b45bba71d32de136b8ad5796a1022c3))
+* **expenses:** added btns for edit/delete ([4725205](https://github.com/SarrasDon/Roomies-monorepo/commit/472520599983886ee8d02363553d41a33f1f10d8))
+* **expenses:** added expense delete confirmation dialog ([6cb5620](https://github.com/SarrasDon/Roomies-monorepo/commit/6cb56203427df97f770ed93553e2fc76c3f2c7c2))
+* **expenses:** added swipe to edit feature ([4f87d69](https://github.com/SarrasDon/Roomies-monorepo/commit/4f87d69eaac82eba25a501e600d5875ca35be942))
+* **expenses:** restyle expense items ([e38d527](https://github.com/SarrasDon/Roomies-monorepo/commit/e38d52775b45c7b2b21b9f02bf769a114af69df1))
+
+
+### Bug Fixes
+
+* **expenses:** fixes expenses model ([6f453cd](https://github.com/SarrasDon/Roomies-monorepo/commit/6f453cde4060183f83e28ac6dfc5cf49684221c1))
+* **expenses:** minor fixes, cleanup ([10052ea](https://github.com/SarrasDon/Roomies-monorepo/commit/10052ead4fc3e8ec2e4f6975f13c1cf47ad369b7))
+* **material module:** cleanup material module ([f9af1f5](https://github.com/SarrasDon/Roomies-monorepo/commit/f9af1f530f891b1a006acb64926d301afefc12d0))
+
 ### [1.14.2](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.14.1...v1.14.2) (2021-08-23)
 
 
