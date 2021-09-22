@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.15.1](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.15.0...v1.15.1) (2021-09-22)
+
+
+### Bug Fixes
+
+* **expenses:** fixed delete url ([9f5c56d](https://github.com/SarrasDon/Roomies-monorepo/commit/9f5c56d569e91f0479224c5743dc940f1bd02cc6))
+
 ## [1.15.0](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.14.2...v1.15.0) (2021-09-22)
 
 
