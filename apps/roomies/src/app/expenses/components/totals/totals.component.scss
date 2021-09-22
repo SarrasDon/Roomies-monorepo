@@ -5,6 +5,8 @@ $chart-color-1: #42a5f5;
 $chart-color-2: #80d6ff;
 
 :host {
+  --shadow-color: 0deg 0% 50%;
+
   --bar-padding: 28px;
   --chart-top-bottom: 10px;
   --chart-left: 20px;
@@ -28,6 +30,9 @@ $chart-color-2: #80d6ff;
   border-radius: 0;
   background: #fff;
   height: var(--totals-height);
+
+  box-shadow: 1px 2px 2px hsl(var(--shadow-color) / 0.333),
+    2px 4px 4px hsl(var(--shadow-color) / 0.333);
 }
 
 h3 {

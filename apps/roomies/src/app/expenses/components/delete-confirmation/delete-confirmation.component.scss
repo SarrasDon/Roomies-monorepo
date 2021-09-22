@@ -1,0 +1,53 @@
+:host {
+  * > {
+    font-family: 'Nunito Sans', sans-serif;
+  }
+}
+
+h2 {
+  text-align: center;
+}
+
+p {
+  text-align: center;
+  margin: 5px 0;
+}
+
+.expense-description {
+  margin: 20px 0;
+  padding: 12px 0;
+  background: #ffdead;
+  color: #e9692c;
+  border-left: 4px solid #e9692c;
+  border-radius: 1px;
+  p {
+    margin: 5px 0;
+  }
+}
+
+.buttons {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+button {
+  display: inline-block;
+  margin: 0 10px;
+  border: 0;
+  outline: none;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+
+  &.delete {
+    background-color: var(--negative-color);
+    color: #fff;
+  }
+
+  &.cancel {
+    color: var(--color);
+  }
+}

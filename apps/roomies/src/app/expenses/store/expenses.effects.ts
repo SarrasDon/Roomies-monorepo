@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
@@ -13,6 +14,7 @@ import {
 import { AuthState, getCurrentUser, getUserEntities } from '../../auth/store';
 import { SnackbarService } from '../../core/services/snackbar.service';
 import { storeSnapshot } from '../../shared/utils';
+import { DeleteConfirmationComponent } from '../components/delete-confirmation/delete-confirmation.component';
 import { ExpensesService } from '../services/expenses.service';
 import {
   createExpense,
@@ -25,6 +27,7 @@ import {
   loadExpensesSuccess,
   preDeleteExpense,
   preDeleteExpenseFail,
+  preDeleteExpenseSuccess,
 } from './expenses.actions';
 import { selectExpenseReasonsEntities } from './expenses.selectors';
 
@@ -120,7 +123,7 @@ export class ExpensesEffects {
       map(({ expense }) => {
         const isCurrentUserExpense = expense.person === this.user._id;
         return isCurrentUserExpense
-          ? deleteExpense({ expense })
+          ? preDeleteExpenseSuccess({ expense })
           : preDeleteExpenseFail({ expense });
       })
     )
@@ -149,6 +152,24 @@ export class ExpensesEffects {
     { dispatch: false }
   );
 
+  preDeleteExpenseSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(preDeleteExpenseSuccess),
+        tap(({ expense }) => {
+          this.dialog.open(DeleteConfirmationComponent, {
+            data: expense,
+            minHeight: 300,
+            maxHeight: '90vh',
+            minWidth: 300,
+            maxWidth: '90vw',
+            panelClass: 'delete-expense-dialog',
+          });
+        })
+      ),
+    { dispatch: false }
+  );
+
   preDeleteExpenseFailed$ = createEffect(
     () =>
       this.actions$.pipe(
@@ -167,6 +188,7 @@ export class ExpensesEffects {
     private store: Store<AuthState>,
     private actions$: Actions,
     private expensesService: ExpensesService,
-    private snackBarService: SnackbarService
+    private snackBarService: SnackbarService,
+    private dialog: MatDialog
   ) {}
 }

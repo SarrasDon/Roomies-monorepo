@@ -6,7 +6,6 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { SharedModule } from '../shared/shared.module';
 import theme from '../theme.config.json';
 import * as Components from './components';
-import { MonthlyExpensesComponent } from './components/monthly-expenses/monthly-expenses.component';
 import {
   AnimateAddExpensesDirective,
   AnimateTotalIncreaseDirective,
@@ -28,6 +27,7 @@ import { ExpensesViewComponent } from './views/expenses.view';
     Components.ExpensesListComponent,
     Components.ExpenseItemComponent,
     Components.TotalsComponent,
+    Components.DeleteConfirmationComponent,
     ExpensesViewComponent,
     pipes.ExpenseDatePipe,
     pipes.BalancePipe,
@@ -38,7 +38,7 @@ import { ExpensesViewComponent } from './views/expenses.view';
     AnimateTotalsShadowDirective,
     AnimateTotalIncreaseDirective,
     Components.ExpensesSpriteComponent,
-    MonthlyExpensesComponent,
+    Components.MonthlyExpensesComponent,
   ],
   providers: [
     {
@@ -58,6 +58,9 @@ import { ExpensesViewComponent } from './views/expenses.view';
     NgxChartsModule,
   ],
 
-  entryComponents: [Components.CreateExpenseDialogComponent],
+  entryComponents: [
+    Components.CreateExpenseDialogComponent,
+    Components.DeleteConfirmationComponent,
+  ],
 })
 export class ExpensesModule {}

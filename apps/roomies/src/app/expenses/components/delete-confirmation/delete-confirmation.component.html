@@ -1,0 +1,21 @@
+<h2>Delete expense?</h2>
+<p>Do you really want to delete this expense? You can't undo this action.</p>
+
+<section class="expense-description">
+  <p>
+    <b> {{ expense.amount | expenseAmount }}€ </b>
+    for
+    <b>{{ (expenseReasons$ | async)[expense.reason].reason }}</b
+    >,
+    <b>
+      {{ expense.spendAt | expenseDate }}
+    </b>
+  </p>
+</section>
+
+<div class="buttons">
+  <button class="cancel" mat-flat-button (click)="onCancel()">Cancel</button>
+  <button class="delete" mat-raised-button (click)="onDelete()">
+    Delete expense
+  </button>
+</div>

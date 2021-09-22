@@ -69,3 +69,9 @@ body {
     border-top: 0.25rem solid #3f51b5;
   }
 }
+
+.delete-expense-dialog {
+  .mat-dialog-container {
+    border-top: 0.25rem solid var(--negative-color);
+  }
+}

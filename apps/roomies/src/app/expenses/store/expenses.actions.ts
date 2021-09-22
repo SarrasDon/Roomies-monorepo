@@ -59,6 +59,13 @@ export const preDeleteExpense = createAction(
   }>()
 );
 
+export const preDeleteExpenseSuccess = createAction(
+  '[Expense Effects] Prepare Delete Expense Success',
+  props<{
+    expense: Expense;
+  }>()
+);
+
 export const preDeleteExpenseFail = createAction(
   '[Expense Effects] Prepare Delete Expense Fail',
   props<{
