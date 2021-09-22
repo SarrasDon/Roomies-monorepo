@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.15.2](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.15.1...v1.15.2) (2021-09-22)
+
+
+### Bug Fixes
+
+* **expenses:** changed hammer configuration to fix vertical scrolling ([3b4f453](https://github.com/SarrasDon/Roomies-monorepo/commit/3b4f453c0b50d3c8c7d88dc84b85529ab4fc23fd))
+
 ### [1.15.1](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.15.0...v1.15.1) (2021-09-22)
 
 
