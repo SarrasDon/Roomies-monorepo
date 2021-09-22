@@ -25,15 +25,15 @@ export class ExpensesViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.swPush.isEnabled) {
-      if (Notification.permission === 'default') {
-        this.subscribeToNotifications(!this.user.hasEnabledPushNotifications);
-      }
+    // if (this.swPush.isEnabled) {
+    //   if (Notification.permission === 'default') {
+    //     this.subscribeToNotifications(!this.user.hasEnabledPushNotifications);
+    //   }
 
-      if (Notification.permission === 'denied') {
-        console.warn('Notifications blocked!');
-      }
-    }
+    //   if (Notification.permission === 'denied') {
+    //     console.warn('Notifications blocked!');
+    //   }
+    // }
 
     if (this.swUpdate.isEnabled) {
       this.swUpdate.available.subscribe(() => {
