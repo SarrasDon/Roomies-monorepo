@@ -31,6 +31,9 @@ export class ExpenseItemComponent implements OnInit {
   @HostBinding('class.left')
   left = false;
 
+  @HostBinding('attr.data-mc-options') dataMcOptions =
+    '{"touchAction": "pan-y"}';
+
   constructor(private store: Store<ExpensesState>) {}
 
   ngOnInit() {}
