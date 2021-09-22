@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.15.3](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.15.2...v1.15.3) (2021-09-22)
+
+
+### Bug Fixes
+
+* **expenses:** another fix for scrolling ([a255f20](https://github.com/SarrasDon/Roomies-monorepo/commit/a255f20d5d2b9d055faad240788a8674b203b2f8))
+
 ### [1.15.2](https://github.com/SarrasDon/Roomies-monorepo/compare/v1.15.1...v1.15.2) (2021-09-22)
 
 
