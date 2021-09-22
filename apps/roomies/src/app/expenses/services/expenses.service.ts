@@ -68,7 +68,7 @@ export class ExpensesService {
   }
 
   delete(_id: string) {
-    return this.http.delete<string>(`${this.awsUrl}/deleteExpense/${_id}`);
+    return this.http.delete<string>(`${this.awsUrl}/deleteExpenseById/${_id}`);
   }
 
   serializeQueryParameters(params: { [key: string]: string | number }) {
