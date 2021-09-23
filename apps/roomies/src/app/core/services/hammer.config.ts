@@ -10,7 +10,6 @@ export class HammerConfig extends HammerGestureConfig {
 
   buildHammer(element: HTMLElement) {
     let options = {};
-    console.log(element);
 
     if (element.attributes['data-mc-options']) {
       try {
